@@ -2,7 +2,8 @@
 
 Copia aquí las fotos **originales** con estos nombres y ejecuta `npm run fotos`.
 Se optimizan automáticamente en `public/img/` (WebP, 800 y 1600 px, sin datos GPS).
-Las originales de esta carpeta no se suben al repositorio (pesan mucho).
+Las originales se guardan también en el repositorio. Registro de lo recibido: [`INVENTARIO.md`](INVENTARIO.md).
+`pendientes/` = fotos sin identificar · `documentos/` = cartas, cartas de vinos, etc. (no se publican).
 
 Mientras falte una foto, la web muestra un fondo elegante con el monograma de NEXO
 (en modo `npm run dev` además se ve el nombre del archivo que falta).
@@ -22,6 +23,7 @@ Mientras falte una foto, la web muestra un fondo elegante con el monograma de NE
 | `atun`          | Carta                                                 | Cuadrada      |
 | `sepia`         | Carta                                                 | Cuadrada      |
 | `brochetas`     | Carta (brochetas de ciervo) · Inicio (destacados)     | Cuadrada      |
+| `chuleton`      | Carta · Inicio (destacados)                           | Cuadrada      |
 | `brochetas-vaca`| Carta                                                 | Cuadrada      |
 | `tataki`        | Carta · Inicio (destacados)                           | Cuadrada      |
 | `magret`        | Carta                                                 | Cuadrada      |

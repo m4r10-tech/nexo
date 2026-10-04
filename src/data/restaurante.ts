@@ -151,6 +151,7 @@ export const CARTA: Seccion[] = [
     titulo: 'De la tierra',
     platos: [
       { nombre: 'Brochetas de ciervo', descripcion: 'Caza de la tierra, a la brasa.', precio: 4, unidad: 'ud.', foto: 'brochetas', etiqueta: 'Brasa', destacado: true },
+      { nombre: 'Chuletón de vaca madurada', descripcion: 'Se trincha en la mesa, sobre tabla de madera. Para compartir.', precio: null, foto: 'chuleton', etiqueta: 'Para compartir', destacado: true },
       { nombre: 'Brochetas de vaca madurada', descripcion: 'Carne de vaca con maduración, a la brasa.', precio: null, foto: 'brochetas-vaca', etiqueta: 'Brasa' },
       { nombre: 'Tataki de vaca ibérica', descripcion: 'Marcado por fuera y jugoso por dentro.', precio: 16.9, foto: 'tataki', destacado: true },
       { nombre: 'Magret de pato', descripcion: 'Pechuga de pato en su punto.', precio: 14.9, foto: 'magret' },

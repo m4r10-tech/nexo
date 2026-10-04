@@ -5,7 +5,4 @@ dist/
 *.log
 test-results/
 capturas/
-# Originales pesados de las fotos (se suben solo las optimizadas de public/img)
-fotos/*
-!fotos/LEEME.md
 docs/venta/img/
