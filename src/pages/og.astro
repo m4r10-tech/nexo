@@ -4,10 +4,12 @@ import Base from '../layouts/Base.astro';
 import Foto from '../components/Foto.astro';
 import Anillos from '../components/Anillos.astro';
 import { SITIO, CONTACTO } from '../data/restaurante';
+import { buscarFoto } from '../lib/medios';
+const foto = buscarFoto('hero') ? 'hero' : 'sala';
 ---
 <Base titulo="Imagen social" noindex sinCabecera>
   <div class="og" id="og">
-    <Foto nombre="hero" alt="" class="og__foto" prioridad />
+    <Foto nombre={foto} alt="" class:list={["og__foto", { "og__foto--panel": foto === "sala" }]} prioridad />
     <div class="og__velo"></div>
     <div class="og__txt">
       <div class="og__anillos"><Anillos /></div>
@@ -23,6 +25,7 @@ import { SITIO, CONTACTO } from '../data/restaurante';
   .og { position: fixed; left: 0; top: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
   .og :global(.og__foto) { position: absolute; inset: 0; border-radius: 0; }
   .og :global(.foto__ph) { display: none; }
+  .og :global(.og__foto--panel) { left: auto; width: 470px; inset-block: 0; right: 0; }
   .og__velo { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,17,15,.92) 30%, rgba(20,17,15,.35)); }
   .og__txt { position: absolute; left: 90px; top: 50%; translate: 0 -50%; }
   .og__anillos { width: 90px; margin-bottom: 24px; }

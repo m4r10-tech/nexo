@@ -32,3 +32,4 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `chipirones.jpg` | 4-oct-2026 | Chipirón frito con tierra negra (tinta) y alioli | Carta › Chipirones de Huelva | — |
 | `tataki.jpg` | 4-oct-2026 | Tataki de vaca en láminas con salsa | Carta › Tataki de vaca ibérica · Inicio | — |
 | `brochetas-pollo-2.jpg` | 4-oct-2026 | Brochetas de pollo con salsa y de verduras (otra vista) | — (reserva) | Repetidas en esta tanda: brochetas en pizarra y carpaccio (ya guardadas) |
+| `sala.png` | 4-oct-2026 | Sala sin gente: bancada, mesas montadas y letras N-E-X-O en la pared (395×657 px) | Portada (panel en escritorio, fondo en móvil) · Galería › La sala · Espacio · Imagen para WhatsApp | La mejor foto hasta ahora. Pedir en más resolución y alguna horizontal |

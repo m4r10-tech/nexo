@@ -12,6 +12,8 @@ const destacados = CARTA.flatMap(s => s.platos).filter(p => p.destacado);
 const marquesina = CARTA.flatMap(s => s.platos).map(p => p.nombre);
 const video = buscarVideo('hero');
 const poster = buscarFoto('hero');
+/** Sin foto horizontal de portada: se usa la foto vertical de la sala en un panel (pantalla completa en móvil). */
+const panel = !video && !poster ? buscarFoto('sala') : null;
 const { calle, cp, ciudad } = CONTACTO.direccion;
 
 const iconos: Record<string, string> = {
@@ -29,7 +31,7 @@ const textosServicio: Record<string, string> = {
 ---
 <Base intro>
   <!-- ═════════ HERO ═════════ -->
-  <section class="hero" data-hero>
+  <section class:list={["hero", { "hero--panel": panel }]} data-hero>
     <div class="hero__media" data-parallax="-0.25">
       {video ? (
         <div class="foto hero__foto">
@@ -44,6 +46,11 @@ const textosServicio: Record<string, string> = {
         <svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width=".25">
           <circle cx="38" cy="30" r="24" pathLength="1" /><circle cx="62" cy="30" r="24" pathLength="1" />
         </svg>
+      </div>
+    )}
+    {panel && (
+      <div class="hero__panel" data-parallax="-0.08">
+        <Foto nombre="sala" alt="Sala del restaurante NEXO by Martina con las letras NEXO en la pared" class="hero__panel-foto" prioridad sizes="(max-width: 760px) 100vw, 36vw" />
       </div>
     )}
     <div class="hero__velo" aria-hidden="true"></div>
@@ -235,13 +242,19 @@ const textosServicio: Record<string, string> = {
   @keyframes flotar-deco { 50% { transform: rotate(-6deg) scale(1.03); } }
   .hero__media :global(.hero__foto img), .hero__media video { transform: scale(1.14); animation: zoom 16s var(--ease) forwards; }
   @keyframes zoom { to { transform: scale(1); } }
-  .hero__velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.1) 38%, rgba(20,17,15,.94) 100%); }
+  .hero--panel .hero__titulo .split { font-size: clamp(96px, 15vw, 220px); }
+  .hero--panel .hero__lead { max-width: min(540px, 48vw); }
+  .hero__panel { position: absolute; right: var(--gutter); top: 110px; bottom: 70px; width: min(34vw, 500px); z-index: 1; }
+  .hero__panel :global(.hero__panel-foto) { height: 100%; border-radius: 4px; box-shadow: 0 40px 100px rgba(0,0,0,.55); outline: 1px solid rgba(243,236,226,.14); outline-offset: 10px; }
+  .hero__panel :global(.hero__panel-foto img) { transform: scale(1.12); animation: zoom 16s var(--ease) forwards; }
+  .hero__panel + .hero__velo { background: linear-gradient(90deg, rgba(20,17,15,.5) 0%, transparent 60%), linear-gradient(180deg, transparent 60%, rgba(20,17,15,.85) 100%); }
+  .hero__velo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.1) 38%, rgba(20,17,15,.94) 100%); }
   .hero__luz {
     position: absolute; width: 56vmax; height: 56vmax; left: 70%; top: 30%; border-radius: 50%; translate: -50% -50%;
     background: radial-gradient(circle, rgba(200,149,92,.22), transparent 60%); pointer-events: none; mix-blend-mode: screen;
     transition: left 1.2s var(--ease), top 1.2s var(--ease);
   }
-  .hero__contenido { position: relative; padding-bottom: clamp(70px, 11vh, 130px); }
+  .hero__contenido { position: relative; z-index: 2; padding-bottom: clamp(70px, 11vh, 130px); }
   .hero__titulo { font-family: var(--serif); font-weight: 500; line-height: .8; letter-spacing: -.02em; }
   .hero__titulo .split { display: block; font-size: clamp(96px, 21vw, 300px); overflow: hidden; padding-bottom: .05em; }
   .hero__titulo :global(.ch) { display: inline-block; transform: translateY(110%) rotate(8deg); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * 80ms + .25s); }
@@ -346,6 +359,13 @@ const textosServicio: Record<string, string> = {
     .concepto, .horario-home { grid-template-columns: 1fr; }
     .servicios { grid-template-columns: 1fr 1fr; }
     .insta__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero__panel { inset: 0; width: auto; translate: none !important; }
+    .hero__panel :global(.hero__panel-foto) { border-radius: 0; box-shadow: none; outline: none; }
+    .hero__panel + .hero__velo { background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.62) 30%, rgba(20,17,15,.86) 60%, rgba(20,17,15,.97) 100%); }
+    .hero--panel .hero__titulo .split { font-size: clamp(96px, 26vw, 200px); }
+    .hero--panel .hero__lead { max-width: none; color: var(--ink); }
   }
   @media (max-width: 640px) {
     .hero__scroll { display: none; }
