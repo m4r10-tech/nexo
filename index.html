@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXO by Martina · Restaurante en Toledo</title>
+  <meta name="description" content="NEXO by Martina: cocina mediterránea y española de temporada en Toledo. Calle Reino Unido, 2. Reservas: 925 29 84 38." />
+  <meta name="theme-color" content="#14110f" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "NEXO by Martina",
+    "servesCuisine": ["Mediterránea", "Española"],
+    "telephone": "+34 925 29 84 38",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle Reino Unido, 2",
+      "postalCode": "45005",
+      "addressLocality": "Toledo",
+      "addressCountry": "ES"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "13:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "20:00", "closes": "23:59" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "13:00", "closes": "17:00" }
+    ],
+    "sameAs": ["https://www.instagram.com/nexobymartina/"]
+  }
+  </script>
+</head>
+<body>
+  <!-- Pantalla de carga -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__logo">
+      <img src="assets/logo.svg" alt="" />
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <!-- Cursor personalizado -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Grano de película -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a href="#inicio" class="nav__brand" aria-label="NEXO by Martina, inicio">
+      <img src="assets/logo.svg" alt="NEXO by Martina" />
+    </a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#concepto">Concepto</a>
+      <a href="#carta">Carta</a>
+      <a href="#espacio">Espacio</a>
+      <a href="#horario">Horario</a>
+      <a href="#visitanos">Visítanos</a>
+    </nav>
+    <div class="nav__right">
+      <span class="status" data-status><i></i><b>Comprobando…</b></span>
+      <a href="tel:+34925298438" class="btn btn--small magnetic" data-cursor="Llamar">Reservar</a>
+      <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="#concepto">Concepto</a>
+    <a href="#carta">Carta</a>
+    <a href="#espacio">Espacio</a>
+    <a href="#horario">Horario</a>
+    <a href="#visitanos">Visítanos</a>
+    <a href="tel:+34925298438" class="mobile-menu__cta">925 29 84 38</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero__media" data-parallax="0.35">
+        <div class="media media--hero">
+          <img src="assets/img/hero.jpg" alt="Sala del restaurante NEXO by Martina en Toledo" />
+        </div>
+      </div>
+      <div class="hero__veil"></div>
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="eyebrow reveal">Toledo · Cocina mediterránea de temporada</p>
+        <h1 class="hero__title" aria-label="NEXO">
+          <span class="split">NEXO</span>
+        </h1>
+        <p class="hero__by reveal" style="--d:.5s"><em>by Martina</em></p>
+        <p class="hero__lead reveal" style="--d:.7s">
+          El punto de unión entre la tradición manchega y la cocina española de hoy.
+          Producto, temporada y una mesa para compartir.
+        </p>
+        <div class="hero__ctas reveal" style="--d:.9s">
+          <a href="tel:+34925298438" class="btn magnetic" data-cursor="Llamar">Reservar mesa</a>
+          <a href="#carta" class="btn btn--ghost magnetic" data-cursor="Ver">Descubrir la carta</a>
+        </div>
+      </div>
+
+      <a href="#concepto" class="scroll-cue" aria-label="Bajar">
+        <span>Scroll</span><i></i>
+      </a>
+    </section>
+
+    <!-- MARQUESINA -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Migas</span><b>✦</b><span>Croquetas</span><b>✦</b><span>Sepia a la andaluza</span><b>✦</b><span>Ceviche</span><b>✦</b><span>Tomate partido</span><b>✦</b><span>Brochetas</span><b>✦</b><span>Aceite &amp; sal</span><b>✦</b>
+        <span>Migas</span><b>✦</b><span>Croquetas</span><b>✦</b><span>Sepia a la andaluza</span><b>✦</b><span>Ceviche</span><b>✦</b><span>Tomate partido</span><b>✦</b><span>Brochetas</span><b>✦</b><span>Aceite &amp; sal</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- CONCEPTO -->
+    <section class="concept section" id="concepto">
+      <div class="concept__grid">
+        <div class="concept__text">
+          <p class="eyebrow reveal">01 — Concepto</p>
+          <h2 class="title reveal">Un <em>nexo</em> entre lo de siempre y lo que viene.</h2>
+          <p class="reveal">
+            En NEXO cocinamos con la memoria de La Mancha y la mirada puesta en el Mediterráneo.
+            Recetas reconocibles, producto de temporada y técnica actual, servidas en un espacio
+            íntimo y cuidado en Toledo.
+          </p>
+          <p class="reveal">
+            Empezamos siempre igual: un buen aceite, pan y sal. Lo demás es una conversación
+            alrededor de la mesa.
+          </p>
+          <div class="stats reveal">
+            <div><strong>Temporada</strong><span>producto que cambia<br>con el calendario</span></div>
+            <div><strong>Mar—Dom</strong><span>comidas y cenas</span></div>
+            <div><strong>Terraza</strong><span>para comer al aire libre</span></div>
+          </div>
+        </div>
+        <div class="concept__media">
+          <div class="media media--tall tilt" data-parallax="-0.08">
+            <img src="assets/img/plato-1.jpg" alt="Plato de temporada de NEXO by Martina" />
+          </div>
+          <div class="media media--small tilt" data-parallax="0.12">
+            <img src="assets/img/detalle.jpg" alt="Detalle de la mesa con aceite y pan" />
+          </div>
+          <span class="concept__badge" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+              <text textLength="486" lengthAdjust="spacing"><textPath href="#circ" textLength="486" lengthAdjust="spacing">NEXO BY MARTINA · TOLEDO · COCINA DE TEMPORADA · </textPath></text></svg>
+            <i>✦</i>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARTA -->
+    <section class="menu section" id="carta">
+      <div class="section__head">
+        <p class="eyebrow reveal">02 — La carta</p>
+        <h2 class="title reveal">Platos para <em>compartir</em>.</h2>
+        <p class="section__sub reveal">Pasa el cursor por cada plato. La carta cambia con la temporada: pregúntanos por las sugerencias del día.</p>
+      </div>
+
+      <div class="menu__wrap">
+        <ul class="menu__list">
+          <li class="dish reveal" data-img="assets/img/migas.jpg" data-cursor="Migas">
+            <span class="dish__n">01</span>
+            <div><h3>Migas manchegas</h3><p>El clásico de la tierra, con su guarnición tradicional.</p></div>
+            <span class="dish__tag">Tradición</span>
+          </li>
+          <li class="dish reveal" data-img="assets/img/croquetas.jpg" data-cursor="Croquetas">
+            <span class="dish__n">02</span>
+            <div><h3>Croquetas caseras</h3><p>Cremosas por dentro, crujientes por fuera.</p></div>
+            <span class="dish__tag">Para compartir</span>
+          </li>
+          <li class="dish reveal" data-img="assets/img/sepia.jpg" data-cursor="Sepia">
+            <span class="dish__n">03</span>
+            <div><h3>Sepia a la andaluza</h3><p>Fritura ligera y limón.</p></div>
+            <span class="dish__tag">Mar</span>
+          </li>
+          <li class="dish reveal" data-img="assets/img/ceviche.jpg" data-cursor="Ceviche">
+            <span class="dish__n">04</span>
+            <div><h3>Ceviche</h3><p>Fresco, cítrico y con un punto picante.</p></div>
+            <span class="dish__tag">Fresco</span>
+          </li>
+          <li class="dish reveal" data-img="assets/img/tomate.jpg" data-cursor="Tomate">
+            <span class="dish__n">05</span>
+            <div><h3>Tomate partido</h3><p>Tomate de temporada, buen aceite y sal en escamas.</p></div>
+            <span class="dish__tag">Huerta</span>
+          </li>
+          <li class="dish reveal" data-img="assets/img/brochetas.jpg" data-cursor="Brochetas">
+            <span class="dish__n">06</span>
+            <div><h3>Brochetas</h3><p>A la brasa, para picar entre todos.</p></div>
+            <span class="dish__tag">Brasa</span>
+          </li>
+        </ul>
+        <div class="menu__preview" aria-hidden="true">
+          <div class="media media--preview"><img alt="" /></div>
+        </div>
+      </div>
+      <p class="menu__note reveal">También para llevar y a domicilio. Consulta alérgenos con nuestro equipo.</p>
+    </section>
+
+    <!-- GALERÍA HORIZONTAL -->
+    <section class="gallery" id="espacio">
+      <div class="gallery__sticky">
+        <div class="gallery__intro">
+          <p class="eyebrow">03 — El espacio</p>
+          <h2 class="title">Íntimo,<br><em>cálido</em>,<br>con terraza.</h2>
+          <p class="section__sub">Desliza para recorrer el restaurante.</p>
+        </div>
+        <div class="gallery__track">
+          <figure class="gallery__item tilt" data-cursor="Ver">
+            <div class="media"><img src="assets/img/sala.jpg" alt="Sala principal" /></div>
+            <figcaption>La sala</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--wide tilt" data-cursor="Ver">
+            <div class="media"><img src="assets/img/terraza.jpg" alt="Terraza" /></div>
+            <figcaption>La terraza</figcaption>
+          </figure>
+          <figure class="gallery__item tilt" data-cursor="Ver">
+            <div class="media"><img src="assets/img/barra.jpg" alt="Barra" /></div>
+            <figcaption>La barra</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--wide tilt" data-cursor="Ver">
+            <div class="media"><img src="assets/img/plato-2.jpg" alt="Emplatado" /></div>
+            <figcaption>En la cocina</figcaption>
+          </figure>
+          <figure class="gallery__item tilt" data-cursor="Ver">
+            <div class="media"><img src="assets/img/equipo.jpg" alt="Equipo de NEXO by Martina" /></div>
+            <figcaption>El equipo</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- HORARIO -->
+    <section class="hours section" id="horario">
+      <div class="hours__grid">
+        <div>
+          <p class="eyebrow reveal">04 — Horario</p>
+          <h2 class="title reveal">Te esperamos <em>a la mesa</em>.</h2>
+          <div class="hours__now reveal" data-status-card>
+            <span class="status status--big" data-status><i></i><b>Comprobando…</b></span>
+            <p data-status-detail></p>
+          </div>
+          <a href="tel:+34925298438" class="btn magnetic reveal" data-cursor="Llamar">Reservar · 925 29 84 38</a>
+        </div>
+        <table class="hours__table reveal" aria-label="Horario semanal">
+          <tbody>
+            <tr data-day="1"><th>Lunes</th><td class="closed">Cerrado</td></tr>
+            <tr data-day="2"><th>Martes</th><td>13:00 – 17:00 · 20:00 – 00:00</td></tr>
+            <tr data-day="3"><th>Miércoles</th><td>13:00 – 17:00 · 20:00 – 00:00</td></tr>
+            <tr data-day="4"><th>Jueves</th><td>13:00 – 17:00 · 20:00 – 00:00</td></tr>
+            <tr data-day="5"><th>Viernes</th><td>13:00 – 17:00 · 20:00 – 00:00</td></tr>
+            <tr data-day="6"><th>Sábado</th><td>13:00 – 17:00 · 20:00 – 00:00</td></tr>
+            <tr data-day="0"><th>Domingo</th><td>13:00 – 17:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VISÍTANOS -->
+    <section class="visit section" id="visitanos">
+      <div class="visit__grid">
+        <div class="visit__info">
+          <p class="eyebrow reveal">05 — Visítanos</p>
+          <h2 class="title reveal">Calle Reino Unido, 2</h2>
+          <p class="reveal">45005 Toledo, Castilla-La Mancha</p>
+          <ul class="visit__list reveal">
+            <li><span>Teléfono</span><a href="tel:+34925298438">+34 925 29 84 38</a></li>
+            <li><span>Instagram</span><a href="https://www.instagram.com/nexobymartina/" target="_blank" rel="noopener">@nexobymartina</a></li>
+            <li><span>Servicios</span><p>En sala · Terraza · Para llevar · A domicilio</p></li>
+          </ul>
+          <a class="btn btn--ghost magnetic reveal" target="_blank" rel="noopener"
+             href="https://www.google.com/maps/dir/?api=1&destination=NEXO+By+Martina,+Calle+Reino+Unido+2,+45005+Toledo" data-cursor="Ir">Cómo llegar</a>
+        </div>
+        <div class="visit__map reveal">
+          <iframe title="Mapa: NEXO by Martina, Calle Reino Unido 2, Toledo" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=NEXO+By+Martina,+Calle+Reino+Unido+2,+45005+Toledo&z=16&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__big" aria-hidden="true">NEXO</div>
+    <div class="footer__row">
+      <img src="assets/logo.svg" alt="NEXO by Martina" class="footer__logo" />
+      <p>Calle Reino Unido, 2 · 45005 Toledo · <a href="tel:+34925298438">925 29 84 38</a></p>
+      <a href="https://www.instagram.com/nexobymartina/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+    <p class="footer__copy">© <span data-year></span> NEXO by Martina · Toledo</p>
+  </footer>
+
+  <a href="tel:+34925298438" class="fab" aria-label="Llamar para reservar">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
