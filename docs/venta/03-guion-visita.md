@@ -71,7 +71,7 @@ Mándale el enlace por WhatsApp o enséñale un QR. **Que la toque ella.** Ve gu
 3. **Reservas** (el momento clave). *«Prueba a reservar para el lunes»* → no le deja. *«Ahora el martes»* → solo le salen horas válidas, de comidas y de cenas. *«Y si son más de 8 personas, le pide que llame. Nada de reservas imposibles.»*
 4. **Botón de llamar.** *«Desde el móvil, un toque y os llaman.»*
 5. **Enlace en WhatsApp.** *«Y cuando alguien comparte la web por WhatsApp, sale así»* → enseña la vista previa con la imagen.
-6. (Si hay portátil) **la versión de escritorio**: el cursor, la galería horizontal, las fotos que aparecen al pasar por los platos. Aquí es donde dicen «¡qué chula!».
+6. (Si hay portátil) **la versión de escritorio**: la galería horizontal, las fotos que aparecen al pasar por los platos. Aquí es donde dicen «¡qué chula!».
 
 **Frase de cierre de la demo:**
 > «Esto es vuestro. No es una plantilla de Wix: está hecha para NEXO. Y Google le da un 100 sobre 100 en SEO y accesibilidad, que es lo que hace que salgáis antes en las búsquedas.»

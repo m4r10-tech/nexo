@@ -60,8 +60,8 @@ const textosServicio: Record<string, string> = {
         Producto, temporada y una mesa para compartir.
       </p>
       <div class="btn-row hero__ctas">
-        <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar mesa</a>
-        <a href="/carta" class="btn btn--ghost magnetic" data-cursor="Ver">Ver la carta</a>
+        <a href="/reservas" class="btn magnetic">Reservar mesa</a>
+        <a href="/carta" class="btn btn--ghost magnetic">Ver la carta</a>
       </div>
       <div class="hero__estado"><Estado detalle /></div>
     </div>
@@ -88,7 +88,7 @@ const textosServicio: Record<string, string> = {
         </p>
         <p class="lead reveal">Empezamos siempre igual: un buen aceite, pan y sal. Lo demás es una conversación alrededor de la mesa.</p>
         <dl class="concepto__datos reveal">
-          <div><dt>Temporada</dt><dd>Producto que cambia con el calendario</dd></div>
+          <div><dt>14,90 €</dt><dd>Menú del día casero</dd></div>
           <div><dt>Mar — Dom</dt><dd>Comidas y cenas</dd></div>
           <div><dt>Terraza</dt><dd>Para comer al aire libre</dd></div>
         </dl>
@@ -114,14 +114,14 @@ const textosServicio: Record<string, string> = {
           <p class="eyebrow reveal">02 — La carta</p>
           <h2 class="title reveal">Platos para <em>compartir</em>.</h2>
         </div>
-        <a href="/carta" class="link-arrow reveal" data-cursor="Carta">Ver carta completa <span aria-hidden="true">→</span></a>
+        <a href="/carta" class="link-arrow reveal">Ver carta completa <span aria-hidden="true">→</span></a>
       </div>
 
       <ul class="platos" data-platos>
         {destacados.map((p, i) => {
           const f = p.foto ? buscarFoto(p.foto) : null;
           return (
-            <li class="plato reveal" style={`--d:${i * 0.06}s`} data-foto={f?.src ?? ''} data-cursor={p.nombre.split(' ')[0]}>
+            <li class="plato reveal" style={`--d:${i * 0.06}s`} data-foto={f?.src ?? ''}>
               <a href={`/carta#${CARTA.find(s => s.platos.includes(p))?.id}`}>
                 <span class="plato__n">{String(i + 1).padStart(2, '0')}</span>
                 <span class="plato__txt"><span class="plato__nombre">{p.nombre}</span><span class="plato__desc">{p.descripcion}</span></span>
@@ -144,10 +144,10 @@ const textosServicio: Record<string, string> = {
         <div class="galeria__intro">
           <p class="eyebrow">03 — El espacio</p>
           <h2 class="title" id="galeria-titulo">Íntimo,<br /><em>cálido</em>,<br />con terraza.</h2>
-          <a href="/espacio" class="link-arrow" data-cursor="Ver">Recorrer el espacio <span aria-hidden="true">→</span></a>
+          <a href="/espacio" class="link-arrow">Recorrer el espacio <span aria-hidden="true">→</span></a>
         </div>
         {GALERIA.map(g => (
-          <figure class:list={['galeria__item', { 'galeria__item--ancha': g.ancha }]} data-cursor="Ver">
+          <figure class:list={['galeria__item', { 'galeria__item--ancha': g.ancha }]}>
             <a href="/espacio" aria-label={g.titulo}>
               <Foto nombre={g.foto} alt={g.alt} data-tilt sizes="(max-width: 640px) 80vw, 40vw" />
             </a>
@@ -190,8 +190,8 @@ const textosServicio: Record<string, string> = {
           <a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a>
         </p>
         <div class="btn-row reveal">
-          <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar</a>
-          <a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="btn btn--ghost magnetic" data-cursor="Ir">Cómo llegar ↗</a>
+          <a href="/reservas" class="btn magnetic">Reservar</a>
+          <a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="btn btn--ghost magnetic">Cómo llegar ↗</a>
         </div>
       </div>
       <div class="reveal"><TablaHorario /></div>
@@ -204,13 +204,13 @@ const textosServicio: Record<string, string> = {
       <div class="section-head insta__cabecera">
         <div>
           <p class="eyebrow reveal">Síguenos</p>
-          <h2 class="title title--sm reveal"><a href={CONTACTO.instagram} target="_blank" rel="noopener" data-cursor="Seguir">{CONTACTO.instagramUsuario}</a></h2>
+          <h2 class="title title--sm reveal"><a href={CONTACTO.instagram} target="_blank" rel="noopener">{CONTACTO.instagramUsuario}</a></h2>
         </div>
         <p class="lead reveal">Platos del día, novedades de temporada y la vida de la casa.</p>
       </div>
       <div class="insta__grid">
         {['plato-1', 'tomate', 'terraza', 'croquetas'].map((f, i) => (
-          <a href={CONTACTO.instagram} target="_blank" rel="noopener" class="insta__item reveal" style={`--d:${i * 0.07}s`} data-cursor="Instagram" aria-label="Ver en Instagram">
+          <a href={CONTACTO.instagram} target="_blank" rel="noopener" class="insta__item reveal" style={`--d:${i * 0.07}s`} aria-label="Ver en Instagram">
             <Foto nombre={f} alt="" sizes="(max-width: 640px) 50vw, 25vw" />
           </a>
         ))}

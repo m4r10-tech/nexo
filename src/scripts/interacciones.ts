@@ -1,6 +1,6 @@
 /**
  * Interacciones comunes a todas las páginas:
- * pantalla de carga, cabecera, menú móvil, aparición al hacer scroll, cursor,
+ * pantalla de carga, cabecera, menú móvil, aparición al hacer scroll,
  * botones magnéticos, inclinación 3D, parallax y estado «abierto ahora».
  */
 import { estadoActual } from '../lib/horario';
@@ -69,28 +69,11 @@ toggle?.addEventListener('click', () => abrirMenu(!document.body.classList.conta
 menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => abrirMenu(false)));
 addEventListener('keydown', e => { if (e.key === 'Escape') abrirMenu(false); });
 
-/* ---------- Cursor, botones magnéticos e inclinación ---------- */
+/* ---------- Posición del ratón, botones magnéticos e inclinación ---------- */
 export const raton = { x: innerWidth / 2, y: innerHeight / 2 };
-const cursor = document.querySelector<HTMLElement>('.cursor');
-const punto = document.querySelector<HTMLElement>('.cursor-dot');
-const etiqueta = document.querySelector<HTMLElement>('.cursor__label');
-const anillo = { ...raton };
 
-if (punteroFino && cursor && punto && etiqueta) {
-  addEventListener('mousemove', e => {
-    raton.x = e.clientX; raton.y = e.clientY;
-    punto.style.transform = `translate(${raton.x}px, ${raton.y}px)`;
-    root.classList.add('has-cursor');
-  }, { passive: true });
-  document.addEventListener('mouseleave', () => root.classList.remove('has-cursor'));
-  addEventListener('mousedown', () => cursor.classList.add('is-down'));
-  addEventListener('mouseup', () => cursor.classList.remove('is-down'));
-
-  document.addEventListener('mouseover', e => {
-    const el = (e.target as Element).closest<HTMLElement>('[data-cursor]');
-    if (el) { etiqueta.textContent = el.dataset.cursor ?? ''; cursor.classList.add('is-active'); }
-    else cursor.classList.remove('is-active');
-  });
+if (punteroFino) {
+  addEventListener('mousemove', e => { raton.x = e.clientX; raton.y = e.clientY; }, { passive: true });
 
   $$('.magnetic').forEach(btn => {
     btn.addEventListener('mousemove', e => {
@@ -111,14 +94,6 @@ if (punteroFino && cursor && punto && etiqueta) {
       el.addEventListener('mouseleave', () => (el.style.transform = ''));
     });
   }
-
-  const animarCursor = () => {
-    anillo.x = lerp(anillo.x, raton.x, 0.18);
-    anillo.y = lerp(anillo.y, raton.y, 0.18);
-    cursor.style.transform = `translate(${anillo.x}px, ${anillo.y}px)`;
-    requestAnimationFrame(animarCursor);
-  };
-  requestAnimationFrame(animarCursor);
 }
 
 /* ---------- Parallax ---------- */

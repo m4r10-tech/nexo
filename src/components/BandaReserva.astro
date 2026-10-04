@@ -9,8 +9,8 @@ const { titulo = 'Tu mesa te está esperando.' } = Astro.props;
     <p class="eyebrow reveal">Reservas</p>
     <h2 id="banda-titulo" class="title reveal" set:html={titulo.replace(/(esperando|mesa)/, '<em>$1</em>')} />
     <div class="btn-row reveal" style="--d:.15s">
-      <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar online</a>
-      <a href={CONTACTO.telefonoHref} class="btn btn--ghost magnetic" data-cursor="Llamar">{CONTACTO.telefono}</a>
+      <a href="/reservas" class="btn magnetic">Reservar online</a>
+      <a href={CONTACTO.telefonoHref} class="btn btn--ghost magnetic">{CONTACTO.telefono}</a>
     </div>
   </div>
 </section>

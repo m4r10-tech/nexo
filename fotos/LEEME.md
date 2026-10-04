@@ -11,13 +11,23 @@ Mientras falte una foto, la web muestra un fondo elegante con el monograma de NE
 |-----------------|-------------------------------------------------------|---------------|
 | `hero`          | Portada a pantalla completa y imagen para redes       | Horizontal    |
 | `plato-1`       | Inicio › Concepto (foto grande) · Instagram           | Vertical      |
-| `detalle`       | Inicio › Concepto (foto pequeña) · Carta: Aceite & sal | Cuadrada     |
-| `migas`         | Carta                                                 | Cuadrada      |
-| `croquetas`     | Carta · Instagram                                     | Cuadrada      |
-| `sepia`         | Carta                                                 | Cuadrada      |
-| `ceviche`       | Carta                                                 | Cuadrada      |
+| `detalle`       | Inicio › Concepto (foto pequeña: aceite, pan, mesa)   | Cuadrada      |
+| `salmorejo`     | Carta                                                 | Cuadrada      |
+| `croquetas`     | Carta · Inicio (destacados) · Instagram               | Cuadrada      |
+| `empanadillas`  | Carta · Inicio (destacados)                           | Cuadrada      |
+| `ensalada`      | Carta                                                 | Cuadrada      |
 | `tomate`        | Carta · Instagram                                     | Cuadrada      |
-| `brochetas`     | Carta                                                 | Cuadrada      |
+| `ceviche`       | Carta · Inicio (destacados)                           | Cuadrada      |
+| `chipirones`    | Carta                                                 | Cuadrada      |
+| `atun`          | Carta                                                 | Cuadrada      |
+| `sepia`         | Carta                                                 | Cuadrada      |
+| `brochetas`     | Carta (brochetas de ciervo) · Inicio (destacados)     | Cuadrada      |
+| `brochetas-vaca`| Carta                                                 | Cuadrada      |
+| `tataki`        | Carta · Inicio (destacados)                           | Cuadrada      |
+| `magret`        | Carta                                                 | Cuadrada      |
+| `migas`         | Carta                                                 | Cuadrada      |
+| `esfera`        | Carta (esfera de chocolate y Oreo) · Inicio           | Cuadrada      |
+| `arroz-con-leche`| Carta                                                | Cuadrada      |
 | `sala`          | Galería                                               | Vertical      |
 | `terraza`       | Galería · Instagram                                   | Horizontal    |
 | `barra`         | Galería                                               | Vertical      |

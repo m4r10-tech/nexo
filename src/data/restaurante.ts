@@ -14,7 +14,7 @@ export const SITIO = {
   firma: 'by Martina',
   lema: 'Cocina mediterránea de temporada en Toledo',
   descripcion:
-    'Restaurante de cocina mediterránea y española de temporada en Toledo. Migas, croquetas, sepia, ceviche y platos para compartir. Terraza, para llevar y a domicilio.',
+    'Restaurante de cocina mediterránea en Toledo: croquetas, brochetas de ciervo, ceviche, tataki y postres caseros. Menú del día, terraza y para llevar.',
   idioma: 'es-ES',
 } as const;
 
@@ -84,7 +84,12 @@ export const CIERRES_ESPECIALES: { fecha: string; motivo?: string }[] = [];
 export const ZONA_HORARIA = 'Europe/Madrid';
 
 /* ───────────────────────────── CARTA ─────────────────────────────
+ * Platos y precios recopilados de reseñas y directorios públicos (TripAdvisor,
+ * Restaurant Guru, Gastroranking, Wanderboat). Algunas reseñas tienen años:
+ * CONFIRMAR CON EL RESTAURANTE antes de publicar.
+ *
  * precio: número en euros, o null para no mostrarlo.
+ * unidad: texto junto al precio, p. ej. 'ud.' o '6 uds.'
  * foto: nombre del archivo en public/img (sin extensión). Ver fotos/LEEME.md
  * alergenos: claves de ALERGENOS (abajo).
  */
@@ -103,6 +108,7 @@ export type Plato = {
   nombre: string;
   descripcion: string;
   precio: number | null;
+  unidad?: string;
   foto?: string;
   etiqueta?: string;
   destacado?: boolean;
@@ -111,31 +117,53 @@ export type Plato = {
 
 export type Seccion = { id: string; titulo: string; intro?: string; platos: Plato[] };
 
+/** Menú del día. precio null = no mostrar el bloque. */
+export const MENU_DIA = {
+  precio: 14.9 as number | null,
+  texto: 'Cocina casera que cambia cada día. Bebida no incluida. Pregúntanos por el menú de hoy.',
+};
+
 export const CARTA: Seccion[] = [
   {
     id: 'para-empezar',
     titulo: 'Para empezar',
     intro: 'Siempre empezamos igual: un buen aceite, pan y sal.',
     platos: [
-      { nombre: 'Aceite & sal', descripcion: 'Aceite de oliva virgen extra, pan y sal en escamas para abrir la mesa.', precio: null, foto: 'detalle', etiqueta: 'La bienvenida' },
-      { nombre: 'Tomate partido', descripcion: 'Tomate de temporada, buen aceite y sal en escamas.', precio: null, foto: 'tomate', etiqueta: 'Huerta', destacado: true },
-      { nombre: 'Croquetas caseras', descripcion: 'Cremosas por dentro, crujientes por fuera.', precio: null, foto: 'croquetas', etiqueta: 'Para compartir', destacado: true },
+      { nombre: 'Salmorejo', descripcion: 'Frío, suave y cremoso.', precio: null, foto: 'salmorejo', etiqueta: 'Clásico' },
+      { nombre: 'Croquetas de jamón de pato', descripcion: 'Caseras. Se sirven por unidades, mínimo media docena.', precio: 9, unidad: '6 uds.', foto: 'croquetas', etiqueta: 'Para compartir', destacado: true },
+      { nombre: 'Empanadillas de rabo de toro', descripcion: 'Empanadillas caseras rellenas de rabo de toro.', precio: null, foto: 'empanadillas', etiqueta: 'De la casa', destacado: true },
+      { nombre: 'Ensalada de solomillo de pollo', descripcion: 'Ensalada fresca con solomillo de pollo.', precio: null, foto: 'ensalada' },
+      { nombre: 'Tomate partido', descripcion: 'Tomate de temporada, buen aceite y sal en escamas.', precio: null, foto: 'tomate', etiqueta: 'Huerta' },
     ],
   },
   {
     id: 'del-mar',
     titulo: 'Del mar',
     platos: [
-      { nombre: 'Sepia a la andaluza', descripcion: 'Fritura ligera y limón.', precio: null, foto: 'sepia', etiqueta: 'Mar', destacado: true },
-      { nombre: 'Ceviche', descripcion: 'Fresco, cítrico y con un punto picante.', precio: null, foto: 'ceviche', etiqueta: 'Fresco', destacado: true },
+      { nombre: 'Ceviche de salmón', descripcion: 'Fresco, cítrico y con un punto picante.', precio: 13.9, foto: 'ceviche', etiqueta: 'Fresco', destacado: true },
+      { nombre: 'Chipirones de Huelva', descripcion: 'Chipirón de la costa onubense.', precio: null, foto: 'chipirones', etiqueta: 'Mar' },
+      { nombre: 'Lomos de atún', descripcion: 'Lomo de atún en su punto.', precio: null, foto: 'atun' },
+      { nombre: 'Sepia a la andaluza', descripcion: 'Fritura ligera y limón.', precio: null, foto: 'sepia' },
     ],
   },
   {
     id: 'de-la-tierra',
     titulo: 'De la tierra',
     platos: [
-      { nombre: 'Migas manchegas', descripcion: 'El clásico de la tierra, con su guarnición tradicional.', precio: null, foto: 'migas', etiqueta: 'Tradición', destacado: true },
-      { nombre: 'Brochetas', descripcion: 'A la brasa, para picar entre todos.', precio: null, foto: 'brochetas', etiqueta: 'Brasa', destacado: true },
+      { nombre: 'Brochetas de ciervo', descripcion: 'Caza de la tierra, a la brasa.', precio: 4, unidad: 'ud.', foto: 'brochetas', etiqueta: 'Brasa', destacado: true },
+      { nombre: 'Brochetas de vaca madurada', descripcion: 'Carne de vaca con maduración, a la brasa.', precio: null, foto: 'brochetas-vaca', etiqueta: 'Brasa' },
+      { nombre: 'Tataki de vaca ibérica', descripcion: 'Marcado por fuera y jugoso por dentro.', precio: 16.9, foto: 'tataki', destacado: true },
+      { nombre: 'Magret de pato', descripcion: 'Pechuga de pato en su punto.', precio: 14.9, foto: 'magret' },
+      { nombre: 'Migas manchegas', descripcion: 'El clásico de la tierra, con su guarnición tradicional.', precio: null, foto: 'migas', etiqueta: 'Tradición' },
+    ],
+  },
+  {
+    id: 'postres',
+    titulo: 'Postres',
+    intro: 'Caseros, hechos en NEXO.',
+    platos: [
+      { nombre: 'Esfera de chocolate blanco y Oreo', descripcion: 'El postre más pedido de la casa.', precio: null, foto: 'esfera', etiqueta: 'Favorito', destacado: true },
+      { nombre: 'Crema de arroz con leche', descripcion: 'La receta de siempre, en versión cremosa.', precio: null, foto: 'arroz-con-leche', etiqueta: 'Casero' },
     ],
   },
 ];

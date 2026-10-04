@@ -9,7 +9,7 @@ No es «una página». Es una web a medida que, hecha por una agencia, se presup
 | Lo que lleva                                                             | Wix/plantilla | Freelance básico | **Esta web** |
 |--------------------------------------------------------------------------|:-------------:|:----------------:|:------------:|
 | Diseño a medida con la identidad del restaurante                         | ✗             | a veces          | ✓            |
-| Animaciones e interacciones (parallax, cursor, galería horizontal…)      | ✗             | ✗                | ✓            |
+| Animaciones e interacciones (parallax, galería horizontal, fotos flotantes…)        | ✗             | ✗                | ✓            |
 | «Abierto ahora» automático con la hora de Toledo                         | ✗             | ✗                | ✓            |
 | Formulario de reservas que solo permite días y horas válidos             | ✗             | ✗                | ✓            |
 | Carta, galería, contacto, preguntas frecuentes                           | ✓             | ✓                | ✓            |

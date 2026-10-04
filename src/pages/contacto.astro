@@ -36,11 +36,11 @@ const faq = {
       <div class="contacto__info">
         <div class="reveal"><Estado grande detalle /></div>
         <dl class="datos reveal">
-          <div><dt>Dirección</dt><dd>{calle}<br />{cp} {ciudad}<br /><a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="link-arrow" data-cursor="Ir">Cómo llegar ↗</a></dd></div>
-          <div><dt>Teléfono</dt><dd><a href={CONTACTO.telefonoHref} class="grande" data-cursor="Llamar">{CONTACTO.telefono}</a></dd></div>
+          <div><dt>Dirección</dt><dd>{calle}<br />{cp} {ciudad}<br /><a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="link-arrow">Cómo llegar ↗</a></dd></div>
+          <div><dt>Teléfono</dt><dd><a href={CONTACTO.telefonoHref} class="grande">{CONTACTO.telefono}</a></dd></div>
           {CONTACTO.whatsapp && <div><dt>WhatsApp</dt><dd><a href={`https://wa.me/${CONTACTO.whatsapp}`} target="_blank" rel="noopener">Escríbenos ↗</a></dd></div>}
           {CONTACTO.email && <div><dt>Email</dt><dd><a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a></dd></div>}
-          <div><dt>Instagram</dt><dd><a href={CONTACTO.instagram} target="_blank" rel="noopener" data-cursor="Seguir">{CONTACTO.instagramUsuario} ↗</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href={CONTACTO.instagram} target="_blank" rel="noopener">{CONTACTO.instagramUsuario} ↗</a></dd></div>
           <div><dt>Servicios</dt><dd>{SERVICIOS.join(' · ')}</dd></div>
         </dl>
       </div>
@@ -61,7 +61,7 @@ const faq = {
         <div class="faq">
           {preguntas.map((q, i) => (
             <details class="reveal" style={`--d:${i * 0.05}s`} name="faq" open={i === 0}>
-              <summary data-cursor="Abrir">{q.p}<span aria-hidden="true"></span></summary>
+              <summary>{q.p}<span aria-hidden="true"></span></summary>
               <p>{q.r}</p>
             </details>
           ))}

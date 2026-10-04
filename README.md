@@ -47,7 +47,7 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 **Experiencia**
 - Pantalla de bienvenida animada (solo la primera vez por visita) y título que aparece letra a letra
 - Portada a pantalla completa con zoom lento, parallax y una luz que sigue al ratón. Admite **vídeo** (`public/video/hero.mp4`)
-- Cursor propio con etiquetas («Reservar», «Ver»…), botones magnéticos e inclinación 3D de las fotos
+- Botones magnéticos e inclinación 3D de las fotos al pasar el ratón
 - Carta destacada: al pasar el ratón por un plato aparece su foto flotando
 - Galería con scroll horizontal (carrusel táctil en móvil) y visor a pantalla completa con teclado y gestos
 - Transiciones suaves entre páginas, menú móvil a pantalla completa y botón flotante de llamada
@@ -73,6 +73,8 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 - **Horario** → `HORARIO`. Cambia ahí y se actualiza la tabla, el pie, el «abierto ahora», las horas de reserva y los datos de Google.
 - **Vacaciones / festivos** → `CIERRES_ESPECIALES`, p. ej. `{ fecha: '2026-12-25', motivo: 'Cerrado por Navidad' }`
 - **Carta** → `CARTA` (secciones, platos, precios, alérgenos, foto). `precio: null` oculta el precio.
+  La carta actual (17 platos y menú del día) está sacada de reseñas y directorios públicos: **confírmala con el restaurante**, sobre todo los precios.
+- **Menú del día** → `MENU_DIA` (`precio: null` lo oculta).
 - **Galería** → `GALERIA`
 - **Teléfono, WhatsApp, email, Instagram** → `CONTACTO`
 - **Dominio** → `SITIO.url`
@@ -122,7 +124,7 @@ src/
   components/           ← cabecera, pie, foto, mapa, horario…
   layouts/              ← plantilla base (SEO) y legal
   pages/                ← una página por archivo
-  scripts/              ← interacciones (cursor, parallax, reveal…)
+  scripts/              ← interacciones (parallax, reveal, botones…)
   styles/global.css     ← colores, tipografía y estilos comunes
 public/                 ← favicons, imagen social, fotos optimizadas (img/), vídeo
 fotos/                  ← fotos originales (no se suben a git)

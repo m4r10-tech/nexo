@@ -14,8 +14,8 @@ const { calle, cp, ciudad } = CONTACTO.direccion;
     <div class="mapa__info">
       <p class="mapa__dir">{calle}<br /><span>{cp} {ciudad}</span></p>
       <div class="btn-row">
-        <button type="button" class="btn btn--small" data-mapa-cargar data-cursor="Mapa">Ver mapa</button>
-        <a class="btn btn--small btn--ghost" href={mapsComoLlegarUrl} target="_blank" rel="noopener" data-cursor="Ir">Cómo llegar ↗</a>
+        <button type="button" class="btn btn--small" data-mapa-cargar>Ver mapa</button>
+        <a class="btn btn--small btn--ghost" href={mapsComoLlegarUrl} target="_blank" rel="noopener">Cómo llegar ↗</a>
       </div>
       <p class="mapa__aviso">Al ver el mapa se cargará contenido de Google Maps.</p>
     </div>

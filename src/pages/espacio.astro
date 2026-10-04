@@ -23,7 +23,7 @@ const visor = fotos.filter(f => f.fuente).map(f => ({ src: f.fuente!.src, titulo
         {fotos.map((f, i) => (
           <figure class:list={['mosaico__item reveal', { 'mosaico__item--ancha': f.ancha }]} style={`--d:${(i % 3) * 0.08}s`}>
             {f.fuente ? (
-              <button type="button" class="mosaico__boton" data-abrir={visor.findIndex(v => v.src === f.fuente!.src)} data-cursor="Ampliar" aria-label={`Ampliar: ${f.titulo}`}>
+              <button type="button" class="mosaico__boton" data-abrir={visor.findIndex(v => v.src === f.fuente!.src)} aria-label={`Ampliar: ${f.titulo}`}>
                 <Foto nombre={f.foto} alt={f.alt} sizes="(max-width: 700px) 100vw, 50vw" />
               </button>
             ) : (

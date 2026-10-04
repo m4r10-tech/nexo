@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Foto from '../components/Foto.astro';
 import BandaReserva from '../components/BandaReserva.astro';
-import { CARTA, ALERGENOS, SITIO, CONTACTO } from '../data/restaurante';
+import { CARTA, ALERGENOS, SITIO, CONTACTO, MENU_DIA } from '../data/restaurante';
 
 const precio = (p: number | null) =>
   p == null ? null : new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: p % 1 ? 2 : 0 }).format(p);
@@ -26,7 +26,7 @@ const schema = {
   })),
 };
 ---
-<Base titulo="Carta" descripcion={`Carta de ${SITIO.nombre} en Toledo: migas manchegas, croquetas caseras, sepia a la andaluza, ceviche, tomate partido y brochetas. Cocina de temporada para compartir.`} schema={schema}>
+<Base titulo="Carta" descripcion={`Carta de ${SITIO.nombre} en Toledo: croquetas de jamón de pato, empanadillas de rabo de toro, ceviche de salmón, brochetas de ciervo, tataki y menú del día.`} schema={schema}>
   <header class="page-hero">
     <div class="container">
       <p class="eyebrow reveal">La carta</p>
@@ -42,6 +42,16 @@ const schema = {
   </nav>
 
   <div class="container carta">
+    {MENU_DIA.precio != null && (
+      <aside class="menu-dia reveal" aria-labelledby="menu-dia-t">
+        <div>
+          <p class="eyebrow">Al mediodía</p>
+          <h2 id="menu-dia-t">Menú del día</h2>
+          <p class="muted">{MENU_DIA.texto}</p>
+        </div>
+        <p class="menu-dia__precio">{precio(MENU_DIA.precio)}</p>
+      </aside>
+    )}
     {CARTA.map((s, si) => (
       <section class="seccion" id={s.id} aria-labelledby={`t-${s.id}`}>
         <div class="seccion__cabecera">
@@ -57,7 +67,7 @@ const schema = {
                 <h3>
                   <span>{p.nombre}</span>
                   <span class="item__linea" aria-hidden="true"></span>
-                  {precio(p.precio) && <span class="item__precio">{precio(p.precio)}</span>}
+                  {precio(p.precio) && <span class="item__precio">{precio(p.precio)}{p.unidad && <small> / {p.unidad}</small>}</span>}
                 </h3>
                 <p>{p.descripcion}</p>
                 <div class="item__meta">
@@ -87,7 +97,7 @@ const schema = {
 
 <style>
   .secciones { position: sticky; top: 0; z-index: 30; background: rgba(20,17,15,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); transition: top .5s var(--ease); }
-  :global(.nav:not(.is-hidden)) ~ main .secciones { top: 67px; }
+  :global(.nav:not(.is-hidden) ~ main) .secciones { top: 67px; }
   .secciones__in { display: flex; gap: 8px; overflow-x: auto; padding-block: 14px; scrollbar-width: none; }
   .secciones__in::-webkit-scrollbar { display: none; }
   .secciones a { flex: none; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: all .3s; }
@@ -110,7 +120,14 @@ const schema = {
   .item:not(:has(.item__foto)) .item__txt { grid-column: 1 / -1; }
   .item h3 { display: flex; align-items: baseline; gap: 14px; font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.15; }
   .item__linea { flex: 1; border-bottom: 1px dotted var(--line); translate: 0 -6px; min-width: 20px; }
-  .item__precio { font-family: var(--sans); font-size: 18px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .item__precio { font-family: var(--sans); font-size: 18px; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .item__precio small { font-size: 12px; color: var(--muted); }
+  .menu-dia { display: flex; justify-content: space-between; align-items: center; gap: 30px; padding: clamp(26px, 4vw, 44px); margin-bottom: clamp(40px, 6vw, 80px); border: 1px solid rgba(200,149,92,.45); border-radius: var(--radius); background: linear-gradient(120deg, rgba(200,149,92,.12), transparent 60%), var(--bg-2); }
+  .menu-dia .eyebrow { margin-bottom: 8px; }
+  .menu-dia h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4vw, 52px); line-height: 1; margin-bottom: 10px; }
+  .menu-dia p.muted { max-width: 560px; }
+  .menu-dia__precio { font-family: var(--sans); font-weight: 300; letter-spacing: -.03em; font-size: clamp(44px, 5vw, 68px); color: var(--accent); line-height: 1; white-space: nowrap; }
+  @media (max-width: 640px) { .menu-dia { flex-direction: column; align-items: flex-start; } }
   .item p { color: var(--muted); margin-top: 4px; }
   .item__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .item__tag, .item__alergeno { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }

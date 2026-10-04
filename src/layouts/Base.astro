@@ -99,8 +99,6 @@ const restaurante = {
       </script>
     )}
 
-    <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-    <div class="cursor-dot" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
 
     {!sinCabecera && <Header />}
@@ -133,19 +131,4 @@ const restaurante = {
   .is-ready .loader { clip-path: inset(0 0 100% 0); pointer-events: none; }
   .sin-intro .loader { display: none; }
 
-  .cursor, .cursor-dot { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 90; border-radius: 50%; opacity: 0; transition: opacity .3s; }
-  .has-cursor .cursor, .has-cursor .cursor-dot { opacity: 1; }
-  .cursor {
-    width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 1px solid rgba(243, 236, 226, .5);
-    display: grid; place-items: center;
-    transition: width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background .3s, border-color .3s, opacity .3s;
-  }
-  .cursor__label { white-space: nowrap; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--bg); opacity: 0; transition: opacity .2s; font-weight: 500; }
-  .cursor.is-active { width: 96px; height: 96px; margin: -48px 0 0 -48px; background: var(--accent); border-color: var(--accent); }
-  .cursor.is-active .cursor__label { opacity: 1; }
-  .cursor.is-down { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
-  .cursor.is-active + .cursor-dot { opacity: 0; }
-  .cursor-dot { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; background: var(--accent); }
-  .has-cursor, .has-cursor a, .has-cursor button, .has-cursor [data-cursor] { cursor: none; }
-  .has-cursor input, .has-cursor select, .has-cursor textarea { cursor: auto; }
 </style>
