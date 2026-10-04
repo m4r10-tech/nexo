@@ -382,17 +382,21 @@ const textosServicio: Record<string, string> = {
     .plato a { grid-template-columns: 34px 1fr; gap: 14px; padding: 24px 0; }
     .plato__tag, .platos__preview { display: none; }
     .servicios { grid-template-columns: 1fr; }
+  }
+
+  /* Galería en carrusel táctil: móviles (vertical y horizontal), tablets y pantallas bajas */
+  @media (max-width: 960px), (max-height: 560px), (hover: none) {
     .galeria { height: auto; padding-block: 90px; }
     .galeria__sticky { position: static; height: auto; }
-    .galeria__pista { width: auto; gap: 16px; padding: 0 var(--gutter) 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; transform: none !important; }
+    .galeria__pista { width: auto; gap: 16px; padding: 0 var(--borde) 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--borde); scrollbar-width: none; transform: none !important; }
     .galeria__pista::-webkit-scrollbar { display: none; }
-    .galeria__intro { position: static; translate: none; transform: none !important; width: auto; padding-inline: var(--gutter); margin-bottom: 34px; }
+    .galeria__intro { position: static; translate: none; transform: none !important; width: auto; padding-inline: var(--borde); margin-bottom: 34px; }
     .galeria__desliza { display: flex; gap: 8px; margin-top: 26px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
     .galeria__desliza span { color: var(--accent); animation: desliza 1.6s ease-in-out infinite; }
     @keyframes desliza { 50% { transform: translateX(6px); } }
-    .galeria__item { width: 78vw; scroll-snap-align: start; }
-    .galeria__item--ancha { width: 86vw; }
-    .galeria__item :global(.foto) { height: 54vh; }
+    .galeria__item { width: min(78vw, 420px); scroll-snap-align: start; }
+    .galeria__item--ancha { width: min(86vw, 640px); }
+    .galeria__item :global(.foto) { height: clamp(240px, 54vh, 520px); }
     .galeria__progreso { display: none; }
   }
 </style>
@@ -445,7 +449,7 @@ const textosServicio: Record<string, string> = {
   const pista = document.querySelector<HTMLElement>('[data-galeria-pista]');
   const intro = document.querySelector<HTMLElement>('[data-galeria-intro]');
   const barra = document.querySelector<HTMLElement>('[data-galeria-barra]');
-  const movil = matchMedia('(max-width: 640px)');
+  const movil = matchMedia('(max-width: 960px), (max-height: 560px), (hover: none)');
   if (galeria && pista) {
     // Solo se recalcula al hacer scroll o cambiar el tamaño de la ventana
     let pendiente = false;
