@@ -3,8 +3,15 @@
 Web del restaurante **NEXO by Martina** (Calle Reino Unido, 2 · 45005 Toledo · 925 29 84 38).
 Está hecha con [Astro](https://astro.build): páginas estáticas, muy rápidas, sin base de datos ni WordPress que mantener.
 
-| Lighthouse (móvil) | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
+| Lighthouse (móvil / ordenador) | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
 |--------------------|:-----------:|:-------------:|:----------------:|:---:|
+| Inicio             | 97 / 100    | 100           | 100              | 100 |
+| Carta              | 98 / 100    | 100           | 100              | 100 |
+| Espacio            | 97 / 100    | 100           | 100              | 100 |
+| Reservas           | 98 / 100    | 100           | 100              | 100 |
+| Contacto           | 98 / 100    | 100           | 100              | 100 |
+
+--------------------|:-----------:|:-------------:|:----------------:|:---:|
 | Inicio             | 95          | 100           | 100              | 100 |
 | Carta              | 97          | 100           | 100              | 100 |
 | Reservas           | 95          | 100           | 100              | 100 |
@@ -31,7 +38,7 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 | `npm run build`      | Revisa los tipos y genera la web final en `dist/` |
 | `npm run build:demo` | Igual, pero la marca como **no indexable** (para enseñarla antes de publicarla) |
 | `npm run preview`    | Sirve `dist/` para verla como quedará publicada |
-| `npm run fotos`      | Optimiza las fotos de `fotos/` y las guarda en `public/img/` |
+| `npm run fotos`      | Optimiza las fotos de `fotos/` y las guarda en `public/img/` (WebP en 480, 720, 1080 y 1600 px) |
 | `npm run recursos`   | Regenera favicons e imagen para redes (`public/og.jpg`). Necesita `build` antes |
 | `npm test`           | Pruebas de extremo a extremo con navegador real (227 comprobaciones). Necesita `build` antes |
 | `npm run propuesta`  | Genera el PDF de la propuesta comercial (`docs/venta/`) |
@@ -45,7 +52,8 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 **Páginas:** Inicio · Carta · Espacio · Reservas · Contacto · Aviso legal · Privacidad · Cookies · 404
 
 **Experiencia**
-- Pantalla de bienvenida animada (solo la primera vez por visita) y título que aparece letra a letra
+- **Esqueleto de carga:** si la conexión es lenta, se ve la forma de la página (menú, título, textos, botones) con un brillo mientras carga; cada foto tiene su propio brillo hasta que aparece. En conexiones rápidas no llega a verse
+- Título que aparece letra a letra
 - Portada a pantalla completa con zoom lento, parallax y una luz que sigue al ratón. Admite **vídeo** (`public/video/hero.mp4`)
 - Botones magnéticos e inclinación 3D de las fotos al pasar el ratón
 - Carta destacada: al pasar el ratón por un plato aparece su foto flotando
@@ -65,6 +73,17 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 - Aviso legal, privacidad y cookies adaptados a LSSI-CE y RGPD (rellenar los datos del titular)
 
 ---
+
+## Colores
+
+Sacados del propio local (`src/styles/global.css`):
+
+| Color | Variable | De dónde sale |
+|---|---|---|
+| Negro cálido `#14110f` | `--bg` | Fondo general, ambiente nocturno |
+| Bronce `#c8955c` | `--accent` | La madera y el aceite: botones principales y títulos en cursiva |
+| **Verde petróleo** `#74ab9f` / fondo `#12201e` | `--verde`, `--verde-fondo` | Las paredes verde azulado y el azulejo verde de la sala: secciones alternas, etiquetas, iconos y botones secundarios |
+| Barro `#b0533c` | `--accent-2` | Avisos («Cerrado») |
 
 ## Cómo se edita
 

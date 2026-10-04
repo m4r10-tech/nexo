@@ -36,5 +36,5 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `hero.jpg` | 4-oct-2026 | Salón completo con la barra, los barriles, el techo de madera y las mesas montadas (1440×1920) | Portada a pantalla completa · Galería › El salón y la barra · Imagen para WhatsApp | Alta resolución ✓ |
 | `sala.jpg` | 4-oct-2026 | Letras N-E-X-O enmarcadas, bancada con cojines y mesas (1440×1920) | Inicio › Concepto (grande) · Galería › La sala | Alta resolución ✓ |
 | `rincon.jpg` | 4-oct-2026 | Mesa junto a la pared de cajones metálicos y navaja decorativa (1440×1920) | Galería › El rincón · Instagram | Alta resolución ✓ |
-| `mesa.jpg` | 4-oct-2026 | Mesa para dos con azulejo verde y lámpara industrial (1440×1920) | Inicio › Concepto (pequeña) · Galería · Instagram | Alta resolución ✓ |
+| ~~`mesa.jpg`~~ | 4-oct-2026 | Mesa para dos con azulejo verde | — | **Eliminada a petición** (5-oct-2026) |
 | `techo.jpg` | 4-oct-2026 | Techo artesonado con espejos y botellero (1440×1920) | Galería › El techo | Alta resolución ✓ |

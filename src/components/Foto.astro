@@ -8,9 +8,11 @@ interface Props {
   class?: string;
   sizes?: string;
   prioridad?: boolean;
+  /** Foto de fondo bajo el texto: se carga enseguida pero sin quitarle prioridad al título */
+  fondo?: boolean;
   [attr: string]: unknown;
 }
-const { nombre, alt, class: clase = '', sizes = '(max-width: 800px) 100vw, 50vw', prioridad = false, ...resto } = Astro.props;
+const { nombre, alt, class: clase = '', sizes = '(max-width: 800px) 100vw, 50vw', prioridad = false, fondo = false, ...resto } = Astro.props;
 const fuente = buscarFoto(nombre);
 ---
 {fuente ? (
@@ -20,8 +22,8 @@ const fuente = buscarFoto(nombre);
       srcset={fuente.srcset}
       sizes={fuente.srcset ? sizes : undefined}
       alt={alt}
-      loading={prioridad ? 'eager' : 'lazy'}
-      fetchpriority={prioridad ? 'high' : 'auto'}
+      loading={prioridad || fondo ? 'eager' : 'lazy'}
+      fetchpriority={prioridad ? 'high' : fondo ? 'low' : 'auto'}
       decoding="async"
     />
   </div>

@@ -1,7 +1,7 @@
 # Fotos del restaurante
 
 Copia aquí las fotos **originales** con estos nombres y ejecuta `npm run fotos`.
-Se optimizan automáticamente en `public/img/` (WebP, 800 y 1600 px, sin datos GPS).
+Se optimizan automáticamente en `public/img/` (WebP en 480, 720, 1080 y 1600 px, sin datos GPS).
 Las originales se guardan también en el repositorio. Registro de lo recibido: [`INVENTARIO.md`](INVENTARIO.md).
 `pendientes/` = fotos sin identificar · `documentos/` = cartas, cartas de vinos, etc. (no se publican).
 

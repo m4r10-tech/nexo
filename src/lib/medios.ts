@@ -8,16 +8,16 @@ export type FuenteFoto = { src: string; srcset?: string } | null;
 
 /**
  * Busca la foto en public/img. Prioridad:
- *  1. Versiones optimizadas por `npm run fotos` → nombre-800.webp / nombre-1600.webp
+ *  1. Versiones optimizadas por `npm run fotos` → nombre-480/720/1080/1600.webp
  *  2. Un archivo suelto → nombre.webp / .jpg / .jpeg / .png
  * Si no existe, devuelve null y se pinta un marcador elegante.
  */
 export function buscarFoto(nombre: string): FuenteFoto {
-  if (existe(`img/${nombre}-1600.webp`)) {
-    const tiene800 = existe(`img/${nombre}-800.webp`);
+  const anchos = [480, 720, 1080, 1600].filter(w => existe(`img/${nombre}-${w}.webp`));
+  if (anchos.length) {
     return {
-      src: `/img/${nombre}-1600.webp`,
-      srcset: tiene800 ? `/img/${nombre}-800.webp 800w, /img/${nombre}-1600.webp 1600w` : undefined,
+      src: `/img/${nombre}-${anchos.at(-1)}.webp`,
+      srcset: anchos.length > 1 ? anchos.map(w => `/img/${nombre}-${w}.webp ${w}w`).join(', ') : undefined,
     };
   }
   for (const ext of ['webp', 'jpg', 'jpeg', 'png', 'avif']) {

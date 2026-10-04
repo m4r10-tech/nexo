@@ -11,19 +11,24 @@ export const punteroFino = matchMedia('(hover: hover) and (pointer: fine)').matc
 export const movimientoReducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-/* ---------- Pantalla de carga ---------- */
-const listo = () => {
-  if (root.classList.contains('is-ready')) return;
-  root.classList.add('is-ready');
-  try { sessionStorage.setItem('nexo-intro', '1'); } catch { /* modo privado */ }
-};
-if (document.querySelector('[data-loader]') && !root.classList.contains('sin-intro')) {
-  const minimo = new Promise(r => setTimeout(r, movimientoReducido ? 0 : 1200));
-  const carga = new Promise(r => (document.readyState === 'complete' ? r(0) : addEventListener('load', r, { once: true })));
-  Promise.race([Promise.all([minimo, carga]), new Promise(r => setTimeout(r, 3200))]).then(listo);
-} else {
-  requestAnimationFrame(listo);
-}
+/* ---------- Esqueleto de carga ----------
+ * La página se da por lista en cuanto están las fuentes (máximo 1,5 s).
+ * Las fotos no se esperan: cada una muestra su propio brillo hasta que llega.
+ */
+const listo = () => root.classList.add('is-ready');
+const esperarImagen = (img: HTMLImageElement) =>
+  img.complete ? Promise.resolve() : new Promise<void>(r => { img.addEventListener('load', () => r(), { once: true }); img.addEventListener('error', () => r(), { once: true }); });
+const fuentes = document.fonts
+  ? Promise.all([document.fonts.load('500 1em "Cormorant Garamond"'), document.fonts.load('1em "Inter Variable"')]).catch(() => {})
+  : Promise.resolve();
+Promise.race([fuentes, new Promise(r => setTimeout(r, 1500))]).then(listo);
+
+/* ---------- Fotos: brillo de carga y aparición suave ---------- */
+$$<HTMLImageElement>('.foto:not(.foto--ph) img').forEach(img => {
+  const caja = img.closest('.foto')!;
+  if (img.complete && img.naturalWidth) caja.classList.add('cargada');
+  else esperarImagen(img).then(() => caja.classList.add('cargada'));
+});
 
 /* ---------- Texto dividido en letras ---------- */
 $$('[data-split]').forEach(el => {
@@ -96,21 +101,23 @@ if (punteroFino) {
   }
 }
 
-/* ---------- Parallax ---------- */
+/* ---------- Parallax (solo se calcula al hacer scroll) ---------- */
 const parallax = $$('[data-parallax]');
 if (parallax.length && !movimientoReducido) {
   const visibles = new Set<HTMLElement>();
   const vio = new IntersectionObserver(es => es.forEach(e => (e.isIntersecting ? visibles.add(e.target as HTMLElement) : visibles.delete(e.target as HTMLElement))), { rootMargin: '20% 0px' });
   parallax.forEach(el => vio.observe(el));
-  const animar = () => {
+  let pendiente = false;
+  const mover = () => {
+    pendiente = false;
     visibles.forEach(el => {
       const r = el.getBoundingClientRect();
       const centro = r.top + r.height / 2 - innerHeight / 2;
       el.style.translate = `0 ${(-centro * parseFloat(el.dataset.parallax ?? '0')).toFixed(1)}px`;
     });
-    requestAnimationFrame(animar);
   };
-  requestAnimationFrame(animar);
+  addEventListener('scroll', () => { if (!pendiente) { pendiente = true; requestAnimationFrame(mover); } }, { passive: true });
+  requestAnimationFrame(mover);
 }
 
 /* ---------- ¿Abierto ahora? ---------- */

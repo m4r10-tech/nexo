@@ -14,6 +14,11 @@
   --line: rgba(243, 236, 226, .14);
   --accent: #c8955c;      /* bronce / aceite */
   --accent-2: #b0533c;    /* barro / pimentón */
+  /* Verde petróleo de las paredes y el azulejo del local */
+  --verde: #74ab9f;
+  --verde-intenso: #3f7068;
+  --verde-fondo: #12201e;
+  --verde-linea: rgba(116, 171, 159, .32);
   --ok: #7fbf7a;
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -61,7 +66,14 @@ em { font-style: italic; color: var(--accent); }
 
 .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: clamp(90px, 13vw, 170px); }
-.section--alt { background: var(--bg-2); }
+.section--alt {
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgba(63, 112, 104, .28), transparent 70%),
+    radial-gradient(50% 50% at 0% 100%, rgba(63, 112, 104, .16), transparent 70%),
+    var(--verde-fondo);
+}
+.section--alt .eyebrow { color: var(--verde); }
+.section--alt .title em { color: var(--accent); }
 
 /* ---------- Tipografía ---------- */
 .eyebrow { display: block; font-size: 12px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
@@ -86,7 +98,9 @@ em { font-style: italic; color: var(--accent); }
 }
 .btn:hover::before, .btn:focus-visible::before { transform: translateY(0); }
 .btn:hover { border-color: var(--ink); }
-.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--verde-linea); }
+.btn--ghost::before { background: var(--verde); }
+.btn--ghost:hover { border-color: var(--verde); }
 .btn--ghost:hover { color: var(--bg); }
 .btn--small { padding: 10px 20px; font-size: 11px; }
 .btn svg { width: 16px; height: 16px; flex: none; }
@@ -101,11 +115,18 @@ em { font-style: italic; color: var(--accent); }
 
 /* ---------- Fotos ---------- */
 .foto { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--bg-3); }
-.foto img, .foto video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.foto img, .foto video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease), opacity .7s var(--ease); }
+/* Mientras carga la foto se ve un brillo (esqueleto) y después aparece suave */
+.js .foto:not(.foto--ph):not(.cargada) {
+  background: linear-gradient(100deg, var(--bg-3) 30%, #2e2824 50%, var(--bg-3) 70%) 0 0 / 300% 100%;
+  animation: brillo-foto 1.4s ease-in-out infinite;
+}
+.js .foto:not(.foto--ph):not(.cargada) img { opacity: 0; }
+@keyframes brillo-foto { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 .foto--ph {
   background:
     radial-gradient(120% 80% at 20% 15%, rgba(200, 149, 92, .42), transparent 60%),
-    radial-gradient(90% 70% at 85% 90%, rgba(176, 83, 60, .45), transparent 60%),
+    radial-gradient(90% 70% at 85% 90%, rgba(63, 112, 104, .55), transparent 60%),
     linear-gradient(160deg, #2a221c, #15110e);
 }
 .foto--ph .foto__ph { position: absolute; inset: 0; display: grid; place-items: center; }
@@ -153,7 +174,7 @@ input[type='date']::-webkit-calendar-picker-indicator { filter: invert(.8); curs
 .page-hero { position: relative; padding: clamp(150px, 22vh, 230px) 0 clamp(60px, 9vw, 110px); overflow: hidden; border-bottom: 1px solid var(--line); }
 .page-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(60% 80% at 85% 0%, rgba(200, 149, 92, .16), transparent 70%), radial-gradient(50% 60% at 0% 100%, rgba(176, 83, 60, .12), transparent 70%);
+  background: radial-gradient(60% 80% at 85% 0%, rgba(63, 112, 104, .32), transparent 70%), radial-gradient(50% 60% at 0% 100%, rgba(200, 149, 92, .1), transparent 70%);
 }
 .page-hero .title { font-size: clamp(54px, 9vw, 130px); margin-bottom: 18px; }
 

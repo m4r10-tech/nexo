@@ -38,7 +38,7 @@ const textosServicio: Record<string, string> = {
           <video autoplay muted loop playsinline poster={poster?.src}><source src={video.src} type={video.type} /></video>
         </div>
       ) : (
-        <Foto nombre="hero" alt="Ambiente del restaurante NEXO by Martina en Toledo" class="hero__foto" prioridad sizes="100vw" />
+        <Foto nombre="hero" alt="Ambiente del restaurante NEXO by Martina en Toledo" class="hero__foto" fondo sizes="100vw" />
       )}
     </div>
     {!video && !poster && (
@@ -50,7 +50,7 @@ const textosServicio: Record<string, string> = {
     )}
     {panel && (
       <div class="hero__panel" data-parallax="-0.08">
-        <Foto nombre="sala" alt="Sala del restaurante NEXO by Martina con las letras NEXO en la pared" class="hero__panel-foto" prioridad sizes="(max-width: 760px) 100vw, 36vw" />
+        <Foto nombre="sala" alt="Sala del restaurante NEXO by Martina con las letras NEXO en la pared" class="hero__panel-foto" fondo sizes="(max-width: 760px) 100vw, 36vw" />
       </div>
     )}
     <div class="hero__velo" aria-hidden="true"></div>
@@ -59,7 +59,7 @@ const textosServicio: Record<string, string> = {
     <div class="container hero__contenido">
       <p class="eyebrow hero__eyebrow">Toledo · Cocina mediterránea de temporada</p>
       <h1 class="hero__titulo">
-        <span class="split" data-split>NEXO</span>
+        <span class="split"><span class="sr-only">NEXO</span>{[...'NEXO'].map((c, i) => <span class="ch" aria-hidden="true" style={`--i:${i}`}>{c}</span>)}</span>
         <span class="hero__by">by Martina</span>
       </h1>
       <p class="hero__lead">
@@ -102,7 +102,7 @@ const textosServicio: Record<string, string> = {
       </div>
       <div class="concepto__fotos">
         <Foto nombre="sala" alt="Rincón de la sala con las letras NEXO enmarcadas y mesas montadas" class="concepto__grande" data-parallax="-0.06" data-tilt />
-        <Foto nombre="mesa" alt="Mesa para dos bajo una lámpara industrial, con pared de azulejo verde" class="concepto__peque" data-parallax="0.1" data-tilt />
+        <Foto nombre="rincon" alt="Mesa junto a la pared de cajones metálicos antiguos" class="concepto__peque" data-parallax="0.1" data-tilt />
         <span class="sello" aria-hidden="true">
           <svg viewBox="0 0 200 200"><defs><path id="circulo" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
             <text textLength="486" lengthAdjust="spacing"><textPath href="#circulo" textLength="486" lengthAdjust="spacing">NEXO BY MARTINA · TOLEDO · COCINA DE TEMPORADA · </textPath></text>
@@ -216,7 +216,7 @@ const textosServicio: Record<string, string> = {
         <p class="lead reveal">Platos del día, novedades de temporada y la vida de la casa.</p>
       </div>
       <div class="insta__grid">
-        {['mesa', 'croquetas', 'rincon', 'tataki'].map((f, i) => (
+        {['techo', 'croquetas', 'hero', 'tataki'].map((f, i) => (
           <a href={CONTACTO.instagram} target="_blank" rel="noopener" class="insta__item reveal" style={`--d:${i * 0.07}s`} aria-label="Ver en Instagram">
             <Foto nombre={f} alt="" sizes="(max-width: 640px) 50vw, 25vw" />
           </a>
@@ -257,17 +257,18 @@ const textosServicio: Record<string, string> = {
   .hero__contenido { position: relative; z-index: 2; padding-bottom: clamp(70px, 11vh, 130px); }
   .hero__titulo { font-family: var(--serif); font-weight: 500; line-height: .8; letter-spacing: -.02em; }
   .hero__titulo .split { display: block; font-size: clamp(96px, 21vw, 300px); overflow: hidden; padding-bottom: .05em; }
-  .hero__titulo :global(.ch) { display: inline-block; transform: translateY(110%) rotate(8deg); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * 80ms + .25s); }
-  :global(.is-ready) .hero__titulo :global(.ch) { transform: none; }
+  .hero__titulo .ch { display: inline-block; }
+  .hero__titulo .ch { animation: letra .9s var(--ease) both; animation-delay: calc(var(--i) * 60ms); }
+  @keyframes letra { from { transform: translateY(110%) rotate(8deg); } }
   .hero__by { display: block; font-size: clamp(30px, 4.2vw, 54px); font-style: italic; font-weight: 400; color: var(--accent); margin: 10px 0 0 .1em; letter-spacing: 0; }
   .hero__lead { max-width: 540px; color: var(--muted); font-size: clamp(16px, 1.35vw, 19px); margin-top: 26px; }
   .hero__ctas { margin-top: 34px; }
   .hero__estado { margin-top: 30px; }
-  .hero__eyebrow, .hero__by, .hero__lead, .hero__ctas, .hero__estado { opacity: 0; transform: translateY(24px); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
-  :global(.is-ready) :is(.hero__eyebrow, .hero__by, .hero__lead, .hero__ctas, .hero__estado) { opacity: 1; transform: none; }
-  :global(.is-ready) .hero__eyebrow { transition-delay: .2s; } :global(.is-ready) .hero__by { transition-delay: .7s; }
-  :global(.is-ready) .hero__lead { transition-delay: .85s; } :global(.is-ready) .hero__ctas { transition-delay: 1s; }
-  :global(.is-ready) .hero__estado { transition-delay: 1.15s; }
+  :is(.hero__eyebrow, .hero__by, .hero__lead, .hero__ctas, .hero__estado) { animation: subir-hero 1s var(--ease) both; }
+  @keyframes subir-hero { from { opacity: 0; transform: translateY(24px); } }
+  .hero__eyebrow { animation-delay: .1s; } .hero__by { animation-delay: .35s; }
+  .hero__lead { animation-delay: .45s; } .hero__ctas { animation-delay: .55s; }
+  .hero__estado { animation-delay: .65s; }
   .hero__scroll { position: absolute; right: var(--gutter); bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
   .hero__scroll span { writing-mode: vertical-rl; }
   .hero__scroll i { width: 1px; height: 64px; background: var(--line); position: relative; overflow: hidden; }
@@ -277,7 +278,7 @@ const textosServicio: Record<string, string> = {
   /* ── Marquesina ── */
   .marquesina { border-block: 1px solid var(--line); padding: 26px 0; overflow: hidden; background: var(--bg-2); }
   .marquesina__pista { display: flex; gap: 40px; width: max-content; animation: marquesina 40s linear infinite; font-family: var(--serif); font-size: clamp(32px, 5vw, 64px); font-style: italic; white-space: nowrap; align-items: center; }
-  .marquesina__pista b { color: var(--accent); font-size: .45em; font-weight: 400; font-style: normal; }
+  .marquesina__pista b { color: var(--verde); font-size: .45em; font-weight: 400; font-style: normal; }
   .marquesina:hover .marquesina__pista { animation-play-state: paused; }
   @keyframes marquesina { to { transform: translateX(-50%); } }
 
@@ -306,7 +307,7 @@ const textosServicio: Record<string, string> = {
   .plato__nombre { font-family: var(--serif); font-size: clamp(30px, 3.8vw, 54px); line-height: 1.08; transition: color .3s; }
   .plato__desc { color: var(--muted); font-size: 14px; }
   .plato__n { font-size: 12px; color: var(--accent); letter-spacing: .15em; }
-  .plato__tag { font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
+  .plato__tag { font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: var(--verde); border: 1px solid var(--verde-linea); border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
   .platos .plato { transition: opacity .4s; }
   @media (hover: hover) {
     .platos:hover .plato { opacity: .35; }
@@ -336,8 +337,8 @@ const textosServicio: Record<string, string> = {
   /* ── Servicios ── */
   .servicios { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .servicio { padding: 34px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(160deg, var(--bg-2), var(--bg)); transition: border-color .4s, transform .6s var(--ease); }
-  .servicio:hover { border-color: rgba(200,149,92,.5); }
-  .servicio svg { width: 40px; height: 40px; color: var(--accent); margin-bottom: 26px; }
+  .servicio:hover { border-color: var(--verde); }
+  .servicio svg { width: 40px; height: 40px; color: var(--verde); margin-bottom: 26px; }
   .servicio h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; margin-bottom: 8px; }
   .servicio p { color: var(--muted); font-size: 15px; }
 
@@ -415,21 +416,22 @@ const textosServicio: Record<string, string> = {
         const src = p.dataset.foto;
         caja.classList.toggle('tiene-foto', !!src);
         if (src) img.src = src; else img.removeAttribute('src');
-        if (!activo) { pos.x = raton.x + 30; pos.y = raton.y - 190; }
+        const arrancar = !activo;
+        if (arrancar) { pos.x = raton.x + 30; pos.y = raton.y - 190; }
         activo = true;
+        if (arrancar) requestAnimationFrame(bucle);
         preview.classList.add('is-visible');
       });
       p.addEventListener('mouseleave', () => { activo = false; preview.classList.remove('is-visible'); });
     });
+    // El bucle de animación solo corre mientras la foto está visible
     const bucle = () => {
-      if (activo) {
-        pos.x = lerp(pos.x, raton.x + 30, 0.12);
-        pos.y = lerp(pos.y, raton.y - 190, 0.12);
-        preview.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${movimientoReducido ? 0 : (raton.x + 30 - pos.x) * 0.05}deg)`;
-      }
+      if (!activo) return;
+      pos.x = lerp(pos.x, raton.x + 30, 0.12);
+      pos.y = lerp(pos.y, raton.y - 190, 0.12);
+      preview.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${movimientoReducido ? 0 : (raton.x + 30 - pos.x) * 0.05}deg)`;
       requestAnimationFrame(bucle);
     };
-    requestAnimationFrame(bucle);
   }
 
   /* Galería: scroll vertical → desplazamiento horizontal */
@@ -438,7 +440,10 @@ const textosServicio: Record<string, string> = {
   const barra = document.querySelector<HTMLElement>('[data-galeria-barra]');
   const movil = matchMedia('(max-width: 640px)');
   if (galeria && pista) {
+    // Solo se recalcula al hacer scroll o cambiar el tamaño de la ventana
+    let pendiente = false;
     const mover = () => {
+      pendiente = false;
       if (!movil.matches) {
         const r = galeria.getBoundingClientRect();
         const total = galeria.offsetHeight - innerHeight;
@@ -447,8 +452,10 @@ const textosServicio: Record<string, string> = {
         pista.style.transform = `translate3d(${-p * max}px, 0, 0)`;
         if (barra) barra.style.transform = `scaleX(${p})`;
       }
-      requestAnimationFrame(mover);
     };
-    requestAnimationFrame(mover);
+    const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(mover); } };
+    addEventListener('scroll', pedir, { passive: true });
+    addEventListener('resize', pedir);
+    pedir();
   }
 </script>

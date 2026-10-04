@@ -1,0 +1,93 @@
+---
+/**
+ * Esqueleto de carga: dibuja la forma de la página (menú, título, textos, botones)
+ * con bloques que brillan mientras se cargan las fuentes y la foto principal.
+ * Solo se hace visible si la carga tarda más de ~200 ms, así que en conexiones
+ * rápidas no llega a verse.
+ */
+interface Props { variante?: 'portada' | 'pagina' }
+const { variante = 'pagina' } = Astro.props;
+---
+<div class:list={['esqueleto', `esqueleto--${variante}`]} data-esqueleto aria-hidden="true">
+  <div class="esqueleto__in">
+    {variante === 'portada' && <div class="esqueleto__foto hueso"></div>}
+    <div class="esqueleto__nav">
+      <span class="hueso" style="width:130px;height:40px"></span>
+      <span class="esqueleto__links">
+        <span class="hueso" style="width:58px"></span><span class="hueso" style="width:66px"></span>
+        <span class="hueso" style="width:72px"></span><span class="hueso" style="width:70px"></span>
+      </span>
+      <span class="hueso hueso--pastilla" style="width:112px;height:40px"></span>
+    </div>
+
+    {variante === 'portada' ? (
+      <div class="esqueleto__hero">
+        <span class="hueso" style="width:min(320px,70vw)"></span>
+        <span class="hueso hueso--titulo"></span>
+        <span class="hueso" style="width:min(230px,55vw);height:34px"></span>
+        <span class="esqueleto__lineas">
+          <span class="hueso" style="width:min(520px,88vw)"></span>
+          <span class="hueso" style="width:min(480px,80vw)"></span>
+          <span class="hueso" style="width:min(260px,50vw)"></span>
+        </span>
+        <span class="esqueleto__botones">
+          <span class="hueso hueso--pastilla" style="width:190px;height:54px"></span>
+          <span class="hueso hueso--pastilla" style="width:170px;height:54px"></span>
+        </span>
+      </div>
+    ) : (
+      <div class="esqueleto__pagina">
+        <span class="hueso" style="width:140px"></span>
+        <span class="hueso hueso--titulo hueso--titulo-pagina"></span>
+        <span class="esqueleto__lineas">
+          <span class="hueso" style="width:min(560px,88vw)"></span>
+          <span class="hueso" style="width:min(420px,70vw)"></span>
+        </span>
+        <span class="esqueleto__tarjetas">
+          <span class="hueso"></span><span class="hueso"></span><span class="hueso"></span>
+        </span>
+      </div>
+    )}
+  </div>
+</div>
+
+<style is:global>
+  .esqueleto { position: fixed; inset: 0; z-index: 100; pointer-events: none; transition: opacity .5s var(--ease), visibility 0s .5s;
+    /* Seguridad: aunque falle JavaScript, el esqueleto se retira solo a los 4 s */
+    animation: esqueleto-fuera .5s ease 4s forwards; }
+  @keyframes esqueleto-fuera { to { opacity: 0; visibility: hidden; } }
+  .esqueleto__in {
+    position: absolute; inset: 0; overflow: hidden; background: var(--bg);
+    opacity: 0; animation: esqueleto-in .3s ease .2s forwards;
+  }
+  .is-ready .esqueleto { opacity: 0; visibility: hidden; }
+  @keyframes esqueleto-in { to { opacity: 1; } }
+
+  .hueso {
+    display: block; height: 12px; border-radius: 6px;
+    background: linear-gradient(100deg, rgba(243,236,226,.06) 30%, rgba(243,236,226,.13) 50%, rgba(243,236,226,.06) 70%) 0 0 / 300% 100%;
+    animation: brillo 1.4s ease-in-out infinite;
+  }
+  .hueso--pastilla { border-radius: 999px; }
+  .hueso--titulo { width: min(760px, 86vw); height: clamp(90px, 17vw, 230px); border-radius: 10px; }
+  .hueso--titulo-pagina { width: min(640px, 80vw); height: clamp(60px, 8vw, 120px); }
+  @keyframes brillo { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+  .esqueleto__foto { position: absolute; inset: 0; height: auto; border-radius: 0; opacity: .5; }
+  .esqueleto__nav { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 18px var(--gutter); }
+  .esqueleto__links { display: flex; gap: 34px; }
+  .esqueleto__links .hueso { height: 10px; }
+  .esqueleto__hero { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(70px, 11vh, 130px); display: grid; gap: 22px; justify-items: start; }
+  .esqueleto__pagina { padding: clamp(150px, 22vh, 230px) var(--gutter) 0; display: grid; gap: 22px; justify-items: start; max-width: var(--max); margin-inline: auto; }
+  .esqueleto__lineas { display: grid; gap: 12px; margin-top: 6px; }
+  .esqueleto__lineas .hueso { height: 14px; }
+  .esqueleto__botones { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+  .esqueleto__tarjetas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; margin-top: 60px; }
+  .esqueleto__tarjetas .hueso { height: 220px; border-radius: var(--radius); }
+  @media (max-width: 960px) {
+    .esqueleto__links { display: none; }
+    .esqueleto__nav .hueso--pastilla { width: 44px !important; height: 44px !important; }
+  }
+  @media (max-width: 640px) { .esqueleto__tarjetas { grid-template-columns: 1fr; } .esqueleto__tarjetas .hueso:nth-child(n+2) { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .hueso { animation: none; } }
+</style>

@@ -178,7 +178,6 @@ export const GALERIA: FotoGaleria[] = [
   { foto: 'sala', titulo: 'La sala', alt: 'Sala con las letras NEXO enmarcadas, bancada con cojines y mesas montadas' },
   { foto: 'hero', titulo: 'El salón y la barra', alt: 'Vista del salón con la barra, los barriles y el techo de madera', ancha: true },
   { foto: 'rincon', titulo: 'El rincón', alt: 'Mesa junto a una pared de cajones metálicos antiguos y madera' },
-  { foto: 'mesa', titulo: 'Mesa para dos', alt: 'Mesa para dos con pared de azulejo verde y lámpara industrial', ancha: true },
   { foto: 'techo', titulo: 'El techo', alt: 'Techo artesonado de madera con espejos y el botellero al fondo' },
 ]
 
