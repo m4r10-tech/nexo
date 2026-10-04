@@ -23,6 +23,8 @@ Mientras falte una foto, la web muestra un fondo elegante con el monograma de NE
 | `atun`          | Carta                                                 | Cuadrada      |
 | `sepia`         | Carta                                                 | Cuadrada      |
 | `brochetas`     | Carta (brochetas de ciervo) · Inicio (destacados)     | Cuadrada      |
+| `carpaccio`     | Carta · Inicio (destacados)                           | Cuadrada      |
+| `brochetas-pollo`| Carta                                                | Cuadrada      |
 | `chuleton`      | Carta · Inicio (destacados)                           | Cuadrada      |
 | `brochetas-vaca`| Carta                                                 | Cuadrada      |
 | `tataki`        | Carta · Inicio (destacados)                           | Cuadrada      |

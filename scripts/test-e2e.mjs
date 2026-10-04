@@ -77,7 +77,7 @@ try {
         await pagina.waitForTimeout(900);
         await pagina.screenshot({ path: `capturas/${disp.nombre}-inicio-galeria.png` });
         // Foto flotante en los platos
-        await pagina.evaluate(() => document.querySelector('[data-platos]').scrollIntoView({ block: 'center' }));
+        await pagina.evaluate(() => document.querySelectorAll('[data-platos] .plato')[1].scrollIntoView({ block: 'center' }));
         await pagina.waitForTimeout(800);
         const plato = await pagina.locator('[data-platos] .plato').nth(1).boundingBox();
         await pagina.mouse.move(plato.x + 300, plato.y + plato.height / 2, { steps: 5 });
