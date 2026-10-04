@@ -25,7 +25,10 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `pendientes/postre-tarro.jpg` | 4-oct-2026 | Postre en tarro de cristal: crema, frutos rojos y crujiente de caramelo | — | **¿Qué postre es?** (¿tarta de queso en tarro?) |
 | `pendientes/sandwich-ensaladilla.jpg` | 4-oct-2026 | Sándwich de pan de molde relleno de ensaladilla | — | **¿Qué plato es?** |
 | `salmorejo.jpg` | 4-oct-2026 | Crema fría anaranjada con picatostes y brotes | Carta › Salmorejo | — |
-| `chipirones.jpg` | 4-oct-2026 | Marisco/cefalópodo con salsa y brotes en plato de cristal | Carta › Chipirones de Huelva | **Confirmar que son los chipirones** (¿o pulpo?) |
+| `pendientes/plato-salsa-brotes.jpg` | 4-oct-2026 | Marisco/cefalópodo con salsa y brotes en plato de cristal | — (antes en Chipirones; sustituida por una foto más clara) | **¿Qué plato es?** (¿pulpo?) |
 | `pendientes/postre-vaso-crumble.jpg` | 4-oct-2026 | Postre en vaso: crema blanca y crujiente dorado | — | **¿Qué postre es?** (¿crema de arroz con leche?) |
 | `pendientes/montadito-pan-verde.jpg` | 4-oct-2026 | Carne picada en pan verde con rúcula y patatas chips | — | **¿Qué plato es?** (¿hamburguesa?) |
 | `pendientes/sala-con-clienta.jpg` | 4-oct-2026 | Mesa con vinos y plato; se ve la barra y botellero | — | **Sale una persona reconocible**: no publicar sin su permiso |
+| `chipirones.jpg` | 4-oct-2026 | Chipirón frito con tierra negra (tinta) y alioli | Carta › Chipirones de Huelva | — |
+| `tataki.jpg` | 4-oct-2026 | Tataki de vaca en láminas con salsa | Carta › Tataki de vaca ibérica · Inicio | — |
+| `brochetas-pollo-2.jpg` | 4-oct-2026 | Brochetas de pollo con salsa y de verduras (otra vista) | — (reserva) | Repetidas en esta tanda: brochetas en pizarra y carpaccio (ya guardadas) |
