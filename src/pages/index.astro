@@ -147,12 +147,13 @@ const textosServicio: Record<string, string> = {
   <!-- ═════════ GALERÍA HORIZONTAL ═════════ -->
   <section class="galeria" data-galeria aria-labelledby="galeria-titulo">
     <div class="galeria__sticky">
+      <div class="galeria__intro" data-galeria-intro>
+        <p class="eyebrow">03 — El espacio</p>
+        <h2 class="title" id="galeria-titulo">Íntimo,<br /><em>cálido</em>,<br />con terraza.</h2>
+        <a href="/espacio" class="link-arrow">Recorrer el espacio <span aria-hidden="true">→</span></a>
+        <p class="galeria__desliza" aria-hidden="true">Desliza para ver más <span>→</span></p>
+      </div>
       <div class="galeria__pista" data-galeria-pista>
-        <div class="galeria__intro">
-          <p class="eyebrow">03 — El espacio</p>
-          <h2 class="title" id="galeria-titulo">Íntimo,<br /><em>cálido</em>,<br />con terraza.</h2>
-          <a href="/espacio" class="link-arrow">Recorrer el espacio <span aria-hidden="true">→</span></a>
-        </div>
         {GALERIA.map(g => (
           <figure class:list={['galeria__item', { 'galeria__item--ancha': g.ancha }]}>
             <a href="/espacio" aria-label={g.titulo}>
@@ -322,16 +323,18 @@ const textosServicio: Record<string, string> = {
   .platos__preview :global(.tiene-foto) img { opacity: 1; }
 
   /* ── Galería horizontal ── */
-  .galeria { position: relative; height: 360vh; }
+  /* Mismo margen izquierdo que el resto de secciones (.container) */
+  .galeria { position: relative; height: 360vh; --borde: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); }
   .galeria__sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-  .galeria__pista { display: flex; align-items: center; gap: 32px; padding-inline: var(--gutter); width: max-content; will-change: transform; }
-  .galeria__intro { width: min(400px, 80vw); flex: none; margin-right: 40px; }
+  .galeria__pista { display: flex; align-items: center; gap: 32px; padding-left: calc(var(--borde) + min(400px, 80vw) + 72px); padding-right: var(--borde); width: max-content; will-change: transform; }
+  .galeria__intro { position: absolute; left: var(--borde); top: 50%; translate: 0 -50%; width: min(400px, 80vw); z-index: 1; will-change: transform; }
+  .galeria__desliza { display: none; }
   .galeria__item { flex: none; width: clamp(260px, 26vw, 400px); }
   .galeria__item--ancha { width: clamp(320px, 42vw, 640px); }
   .galeria__item :global(.foto) { height: clamp(340px, 60vh, 620px); }
   .galeria__item:hover :global(img) { transform: scale(1.06); }
   .galeria__item figcaption { margin-top: 14px; font-family: var(--serif); font-style: italic; font-size: 22px; }
-  .galeria__progreso { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 40px; height: 1px; background: var(--line); }
+  .galeria__progreso { position: absolute; left: var(--borde); right: var(--borde); bottom: 40px; height: 1px; background: var(--line); }
   .galeria__progreso span { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
 
   /* ── Servicios ── */
@@ -381,9 +384,12 @@ const textosServicio: Record<string, string> = {
     .servicios { grid-template-columns: 1fr; }
     .galeria { height: auto; padding-block: 90px; }
     .galeria__sticky { position: static; height: auto; }
-    .galeria__pista { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; transform: none !important; padding-bottom: 10px; }
+    .galeria__pista { width: auto; gap: 16px; padding: 0 var(--gutter) 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; transform: none !important; }
     .galeria__pista::-webkit-scrollbar { display: none; }
-    .galeria__intro { width: 82vw; scroll-snap-align: start; }
+    .galeria__intro { position: static; translate: none; transform: none !important; width: auto; padding-inline: var(--gutter); margin-bottom: 34px; }
+    .galeria__desliza { display: flex; gap: 8px; margin-top: 26px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+    .galeria__desliza span { color: var(--accent); animation: desliza 1.6s ease-in-out infinite; }
+    @keyframes desliza { 50% { transform: translateX(6px); } }
     .galeria__item { width: 78vw; scroll-snap-align: start; }
     .galeria__item--ancha { width: 86vw; }
     .galeria__item :global(.foto) { height: 54vh; }
@@ -437,6 +443,7 @@ const textosServicio: Record<string, string> = {
   /* Galería: scroll vertical → desplazamiento horizontal */
   const galeria = document.querySelector<HTMLElement>('[data-galeria]');
   const pista = document.querySelector<HTMLElement>('[data-galeria-pista]');
+  const intro = document.querySelector<HTMLElement>('[data-galeria-intro]');
   const barra = document.querySelector<HTMLElement>('[data-galeria-barra]');
   const movil = matchMedia('(max-width: 640px)');
   if (galeria && pista) {
@@ -450,6 +457,7 @@ const textosServicio: Record<string, string> = {
         const p = Math.min(1, Math.max(0, -r.top / total));
         const max = pista.scrollWidth - innerWidth;
         pista.style.transform = `translate3d(${-p * max}px, 0, 0)`;
+        if (intro) intro.style.transform = `translate3d(${-p * max}px, 0, 0)`;
         if (barra) barra.style.transform = `scaleX(${p})`;
       }
     };
