@@ -19,3 +19,8 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `documentos/carta-vinos-2.jpg` | 4-oct-2026 | Carta de vinos (igual a otra recibida en la misma tanda) | — | Ilegible: pedir en grande |
 | `documentos/menu-del-dia.jpg` | 4-oct-2026 | Menú del día «Menú A-NEXO»: un primero a elegir, un segundo a elegir, bebida y postre | — | Ilegible: pedir en grande para precio y platos |
 | `documentos/carta-mesa.jpg` | 4-oct-2026 | Carta impresa sobre la mesa | — | Ilegible |
+| `croquetas.jpg` | 4-oct-2026 | Croquetas sobre tabla de madera | Carta › Croquetas de jamón de pato · Inicio · Instagram | — |
+| `documentos/carta-mesa-2.jpg` | 4-oct-2026 | Carta impresa sobre la mesa | — | Ilegible (112×112 px) |
+| `documentos/pizarra-tintos-por-copas.jpg` | 4-oct-2026 | Pizarra «Tintos por copas» en la barra. Se leen con dudas: Corral de Campanas (D.O. Toro) y Mano a Mano (V.T. Castilla) | — | Pedir en grande para la sección de vinos |
+| `pendientes/postre-tarro.jpg` | 4-oct-2026 | Postre en tarro de cristal: crema, frutos rojos y crujiente de caramelo | — | **¿Qué postre es?** (¿tarta de queso en tarro?) |
+| `pendientes/sandwich-ensaladilla.jpg` | 4-oct-2026 | Sándwich de pan de molde relleno de ensaladilla | — | **¿Qué plato es?** |
