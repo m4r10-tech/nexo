@@ -15,3 +15,7 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `atun.jpg` | 4-oct-2026 | Atún marcado con salsa en puntos y flores | Carta › Lomos de atún · Inicio | Confirmar plato |
 | `pendientes/postre-crumble.jpg` | 4-oct-2026 | Postre: cuenco con crumble/chocolate y bizcocho en plato de cerámica | — | **¿Qué postre es?** |
 | `pendientes/guiso-salsa.jpg` | 4-oct-2026 | Guiso en salsa anaranjada en plato hondo gris | — | **¿Qué plato es?** (¿callos?, ¿chipirones en salsa?) |
+| `documentos/carta-platos.jpg` | 4-oct-2026 | Carta: se intuyen las secciones «La huerta fría», «Los imprescindibles», «Pescados» y «Pecados carnales» | — | Ilegible (112×112 px): pedir en grande |
+| `documentos/carta-vinos-2.jpg` | 4-oct-2026 | Carta de vinos (igual a otra recibida en la misma tanda) | — | Ilegible: pedir en grande |
+| `documentos/menu-del-dia.jpg` | 4-oct-2026 | Menú del día «Menú A-NEXO»: un primero a elegir, un segundo a elegir, bebida y postre | — | Ilegible: pedir en grande para precio y platos |
+| `documentos/carta-mesa.jpg` | 4-oct-2026 | Carta impresa sobre la mesa | — | Ilegible |
