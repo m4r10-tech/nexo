@@ -1,0 +1,12 @@
+---
+/** Indicador «Abierto ahora / Cerrado ahora». Se calcula en el navegador con la hora de Toledo. */
+interface Props { grande?: boolean; detalle?: boolean }
+const { grande = false, detalle = false } = Astro.props;
+---
+<div class="estado-wrap">
+  <span class:list={['estado', { 'estado--grande': grande }]} data-estado aria-live="polite"><i></i><b>Horario</b></span>
+  {detalle && <p class="estado-detalle muted" data-estado-detalle></p>}
+</div>
+<style>
+  .estado-detalle { margin-top: 8px; font-size: 15px; }
+</style>

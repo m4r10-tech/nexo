@@ -1,0 +1,21 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITIO, ANALITICA } from '../data/restaurante';
+---
+<Legal titulo="Política de cookies" descripcion={`Política de cookies de ${SITIO.nombre}: esta web no usa cookies de análisis ni publicidad. Información sobre el mapa de Google.`}>
+  <h2>¿Usamos cookies?</h2>
+  <p><strong>Esta web no instala cookies propias de análisis ni de publicidad.</strong> Las tipografías se sirven desde nuestro propio servidor.</p>
+  {ANALITICA.cloudflareToken ? (
+    <p>Para saber cuántas personas nos visitan usamos <strong>Cloudflare Web Analytics</strong>, que <strong>no usa cookies</strong> ni identifica a los visitantes: solo recoge datos agregados y anónimos (páginas vistas, país, tipo de dispositivo).</p>
+  ) : (
+    <p>No usamos herramientas de seguimiento ni de analítica.</p>
+  )}
+  <p>Solo guardamos en tu navegador un dato técnico de sesión (<em>sessionStorage</em>) para no repetirte la animación de bienvenida en la misma visita. No te identifica y se borra al cerrar el navegador.</p>
+
+  <h2>Contenido de terceros</h2>
+  <p>En la página de contacto puedes ver un mapa de <strong>Google Maps</strong>. Este mapa <strong>solo se carga si pulsas «Ver mapa»</strong>; en ese momento Google puede instalar sus propias cookies, según su <a href="https://policies.google.com/technologies/cookies?hl=es" target="_blank" rel="noopener">política de cookies</a>.</p>
+  <p>Los enlaces a Instagram, WhatsApp o Google Maps te llevan a sus servicios, que aplican sus propias políticas.</p>
+
+  <h2>Cómo gestionarlas</h2>
+  <p>Puedes borrar o bloquear las cookies desde la configuración de tu navegador (Chrome, Safari, Firefox, Edge).</p>
+</Legal>

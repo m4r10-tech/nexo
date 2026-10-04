@@ -1,0 +1,87 @@
+---
+import { CONTACTO, SITIO, HORARIO } from '../data/restaurante';
+import { DIAS, ORDEN_SEMANA, textoTurnos } from '../lib/horario';
+import Logo from './Logo.astro';
+const { calle, cp, ciudad } = CONTACTO.direccion;
+const anio = new Date().getFullYear();
+// Agrupa días consecutivos con el mismo horario: «Martes – Sábado»
+const grupos: { dias: string; texto: string }[] = [];
+for (const d of ORDEN_SEMANA) {
+  const texto = textoTurnos(HORARIO[d]);
+  const ultimo = grupos.at(-1);
+  if (ultimo && ultimo.texto === texto) ultimo.dias = `${ultimo.dias.split(' – ')[0]} – ${DIAS[d]}`;
+  else grupos.push({ dias: DIAS[d], texto });
+}
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <Logo alto={58} />
+        <p class="muted footer__lema">{SITIO.lema}.</p>
+      </div>
+      <div>
+        <h2 class="footer__h">Visítanos</h2>
+        <p>{calle}<br />{cp} {ciudad}</p>
+        <p><a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a></p>
+        {CONTACTO.email && <p><a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a></p>}
+      </div>
+      <div>
+        <h2 class="footer__h">Horario</h2>
+        {grupos.map(g => <p><span class="muted">{g.dias}</span><br />{g.texto}</p>)}
+      </div>
+      <div>
+        <h2 class="footer__h">Explora</h2>
+        <ul>
+          <li><a href="/carta">Carta</a></li>
+          <li><a href="/espacio">Espacio</a></li>
+          <li><a href="/reservas">Reservas</a></li>
+          <li><a href="/contacto">Contacto</a></li>
+          <li><a href={CONTACTO.instagram} target="_blank" rel="noopener">Instagram ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer__big" aria-hidden="true">NEXO</div>
+  <div class="container footer__legal">
+    <p>© {anio} {SITIO.nombre} · {ciudad}</p>
+    <nav aria-label="Legal">
+      <a href="/aviso-legal">Aviso legal</a>
+      <a href="/privacidad">Privacidad</a>
+      <a href="/cookies">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<a href={CONTACTO.telefonoHref} class="fab" aria-label={`Llamar al ${CONTACTO.telefono}`}>
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+</a>
+
+<style>
+  .footer { padding-top: clamp(70px, 10vw, 120px); border-top: 1px solid var(--line); overflow: hidden; }
+  .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr .8fr; gap: 40px; font-size: 15px; }
+  .footer__grid p { margin-bottom: 12px; }
+  .footer__grid a { transition: color .3s; }
+  .footer__grid a:hover { color: var(--accent); }
+  .footer__grid ul { list-style: none; display: grid; gap: 8px; }
+  .footer__lema { margin-top: 18px; max-width: 260px; }
+  .footer__h { font-size: 11px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .footer__big {
+    font-family: var(--serif); font-size: 31vw; line-height: .78; text-align: center; margin-top: 50px;
+    color: transparent; -webkit-text-stroke: 1px rgba(243, 236, 226, .16); user-select: none; letter-spacing: -.02em; transition: color 1s;
+  }
+  .footer:hover .footer__big { color: rgba(200, 149, 92, .07); }
+  .footer__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-block: 26px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .footer__legal nav { display: flex; gap: 22px; }
+  .footer__legal a:hover { color: var(--ink); }
+  .fab {
+    position: fixed; right: 16px; bottom: 16px; z-index: 40; width: 58px; height: 58px; border-radius: 50%;
+    background: var(--accent); color: var(--bg); display: none; place-items: center; box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  }
+  @media (max-width: 960px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; }
+    .fab { display: grid; }
+    .footer__legal { padding-bottom: 90px; }
+  }
+  @media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
+</style>

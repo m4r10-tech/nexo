@@ -1,0 +1,35 @@
+---
+import { buscarFoto } from '../lib/medios';
+import Anillos from './Anillos.astro';
+
+interface Props {
+  nombre: string;
+  alt: string;
+  class?: string;
+  sizes?: string;
+  prioridad?: boolean;
+  [attr: string]: unknown;
+}
+const { nombre, alt, class: clase = '', sizes = '(max-width: 800px) 100vw, 50vw', prioridad = false, ...resto } = Astro.props;
+const fuente = buscarFoto(nombre);
+---
+{fuente ? (
+  <div class:list={['foto', clase]} {...resto}>
+    <img
+      src={fuente.src}
+      srcset={fuente.srcset}
+      sizes={fuente.srcset ? sizes : undefined}
+      alt={alt}
+      loading={prioridad ? 'eager' : 'lazy'}
+      fetchpriority={prioridad ? 'high' : 'auto'}
+      decoding="async"
+    />
+  </div>
+) : (
+  <div class:list={['foto', 'foto--ph', clase]} role="img" aria-label={alt} data-falta={nombre} {...resto}>
+    <div class="foto__ph" aria-hidden="true">
+      <Anillos />
+      {import.meta.env.DEV && <span>{nombre}.jpg</span>}
+    </div>
+  </div>
+)}

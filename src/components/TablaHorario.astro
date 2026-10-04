@@ -1,0 +1,32 @@
+---
+import { HORARIO } from '../data/restaurante';
+import { DIAS, ORDEN_SEMANA, textoTurnos } from '../lib/horario';
+---
+<table class="horario" aria-label="Horario semanal">
+  <tbody>
+    {ORDEN_SEMANA.map(d => (
+      <tr data-dia={d}>
+        <th scope="row">{DIAS[d]}</th>
+        <td class:list={{ cerrado: !HORARIO[d].length }}>{textoTurnos(HORARIO[d])}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+<style>
+  .horario { width: 100%; border-collapse: collapse; }
+  tr { border-bottom: 1px solid var(--line); transition: background .3s; }
+  th, td { padding: 20px 12px; text-align: left; font-weight: 300; }
+  th { font-family: var(--serif); font-size: 26px; font-weight: 400; white-space: nowrap; }
+  td { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  td.cerrado { color: var(--accent-2); font-style: italic; }
+  tr:global(.es-hoy) { background: linear-gradient(90deg, rgba(200, 149, 92, .13), transparent); }
+  tr:global(.es-hoy) th::after {
+    content: 'Hoy'; margin-left: 12px; font-family: var(--sans); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--bg); background: var(--accent); padding: 3px 8px; border-radius: 999px; vertical-align: middle;
+  }
+  tr:global(.es-hoy) td { color: var(--ink); }
+  @media (max-width: 640px) {
+    th { font-size: 20px; }
+    th, td { padding: 15px 4px; font-size: 14px; }
+  }
+</style>

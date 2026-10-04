@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import BandaReserva from '../components/BandaReserva.astro';
+import { GALERIA, SITIO } from '../data/restaurante';
+import { buscarFoto } from '../lib/medios';
+
+const fotos = GALERIA.map(g => ({ ...g, fuente: buscarFoto(g.foto) }));
+const visor = fotos.filter(f => f.fuente).map(f => ({ src: f.fuente!.src, titulo: f.titulo, alt: f.alt }));
+---
+<Base titulo="El espacio" descripcion={`Conoce ${SITIO.nombre} por dentro: una sala íntima y cálida, terraza para comer al aire libre y una cocina de temporada en Toledo.`}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow reveal">El espacio</p>
+      <h1 class="title reveal">Íntimo, <em>cálido</em>, con terraza.</h1>
+      <p class="lead reveal">Un lugar pensado para alargar la sobremesa. Pasa y recórrelo.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="mosaico">
+        {fotos.map((f, i) => (
+          <figure class:list={['mosaico__item reveal', { 'mosaico__item--ancha': f.ancha }]} style={`--d:${(i % 3) * 0.08}s`}>
+            {f.fuente ? (
+              <button type="button" class="mosaico__boton" data-abrir={visor.findIndex(v => v.src === f.fuente!.src)} data-cursor="Ampliar" aria-label={`Ampliar: ${f.titulo}`}>
+                <Foto nombre={f.foto} alt={f.alt} sizes="(max-width: 700px) 100vw, 50vw" />
+              </button>
+            ) : (
+              <Foto nombre={f.foto} alt={f.alt} />
+            )}
+            <figcaption><span>{String(i + 1).padStart(2, '0')}</span>{f.titulo}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container cita">
+      <p class="eyebrow reveal">La casa</p>
+      <blockquote class="reveal">
+        «Una mesa compartida es el mejor <em>nexo</em> que conocemos.»
+      </blockquote>
+    </div>
+  </section>
+
+  <dialog class="visor" data-visor aria-label="Galería ampliada">
+    <button type="button" class="visor__cerrar" data-cerrar aria-label="Cerrar">✕</button>
+    <button type="button" class="visor__nav visor__nav--prev" data-prev aria-label="Anterior">←</button>
+    <figure>
+      <img data-visor-img alt="" />
+      <figcaption data-visor-titulo></figcaption>
+    </figure>
+    <button type="button" class="visor__nav visor__nav--next" data-next aria-label="Siguiente">→</button>
+    <p class="visor__contador" data-contador></p>
+  </dialog>
+
+  <BandaReserva />
+</Base>
+
+<script is:inline define:vars={{ visor }}>window.__visor = visor;</script>
+
+<style>
+  .mosaico { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; grid-auto-flow: dense; }
+  .mosaico__item--ancha { grid-column: span 2; }
+  .mosaico__item :global(.foto) { aspect-ratio: 4 / 5; height: auto; }
+  .mosaico__item--ancha :global(.foto) { aspect-ratio: auto; height: 100%; min-height: 100%; }
+  .mosaico__item { display: grid; grid-template-rows: 1fr auto; }
+  .mosaico__boton { all: unset; display: block; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; }
+  .mosaico__boton:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .mosaico__item:hover :global(img) { transform: scale(1.05); }
+  .mosaico figcaption { display: flex; gap: 14px; align-items: baseline; margin-top: 14px; font-family: var(--serif); font-style: italic; font-size: 22px; }
+  .mosaico figcaption span { font-family: var(--sans); font-style: normal; font-size: 11px; letter-spacing: .2em; color: var(--accent); }
+
+  .cita { text-align: center; }
+  .cita blockquote { font-family: var(--serif); font-size: clamp(34px, 5vw, 70px); line-height: 1.1; max-width: 1000px; margin-inline: auto; text-wrap: balance; }
+
+  .visor { margin: auto; width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; background: rgba(12, 10, 9, .96); color: var(--ink); padding: 0; }
+  .visor[open] { display: grid; place-items: center; animation: entrar .4s var(--ease); }
+  .visor::backdrop { background: transparent; }
+  .visor figure { display: grid; justify-items: center; gap: 14px; max-width: 88vw; }
+  .visor img { max-height: 80dvh; width: auto; border-radius: var(--radius); }
+  .visor figcaption { font-family: var(--serif); font-style: italic; font-size: 24px; }
+  .visor button { position: absolute; background: none; border: 1px solid var(--line); color: var(--ink); width: 54px; height: 54px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: background .3s, color .3s; }
+  .visor button:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .visor__cerrar { top: 20px; right: 20px; }
+  .visor__nav--prev { left: 20px; top: 50%; translate: 0 -50%; }
+  .visor__nav--next { right: 20px; top: 50%; translate: 0 -50%; }
+  .visor__contador { position: absolute; bottom: 20px; left: 50%; translate: -50% 0; font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  @keyframes entrar { from { opacity: 0; } }
+
+  @media (max-width: 860px) { .mosaico { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) {
+    .mosaico { grid-template-columns: 1fr; }
+    .mosaico__item--ancha { grid-column: auto; }
+    .mosaico__item--ancha :global(.foto) { aspect-ratio: 4 / 3; height: auto; }
+    .visor__nav { top: auto !important; bottom: 14px; translate: none !important; }
+  }
+</style>
+
+<script>
+  type Item = { src: string; titulo: string; alt: string };
+  const fotos: Item[] = (window as unknown as { __visor: Item[] }).__visor ?? [];
+  const dialogo = document.querySelector<HTMLDialogElement>('[data-visor]')!;
+  const img = dialogo.querySelector<HTMLImageElement>('[data-visor-img]')!;
+  const titulo = dialogo.querySelector<HTMLElement>('[data-visor-titulo]')!;
+  const contador = dialogo.querySelector<HTMLElement>('[data-contador]')!;
+  let actual = 0;
+
+  const mostrar = (i: number) => {
+    if (!fotos.length) return;
+    actual = (i + fotos.length) % fotos.length;
+    const f = fotos[actual];
+    img.src = f.src; img.alt = f.alt;
+    titulo.textContent = f.titulo;
+    contador.textContent = `${actual + 1} / ${fotos.length}`;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-abrir]').forEach(b =>
+    b.addEventListener('click', () => { mostrar(Number(b.dataset.abrir)); dialogo.showModal(); }),
+  );
+  dialogo.querySelector('[data-cerrar]')!.addEventListener('click', () => dialogo.close());
+  dialogo.querySelector('[data-prev]')!.addEventListener('click', () => mostrar(actual - 1));
+  dialogo.querySelector('[data-next]')!.addEventListener('click', () => mostrar(actual + 1));
+  dialogo.addEventListener('click', e => { if (e.target === dialogo) dialogo.close(); });
+  dialogo.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') mostrar(actual - 1);
+    if (e.key === 'ArrowRight') mostrar(actual + 1);
+  });
+  let x0 = 0;
+  dialogo.addEventListener('touchstart', e => (x0 = e.touches[0].clientX), { passive: true });
+  dialogo.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) mostrar(actual + (dx < 0 ? 1 : -1));
+  });
+</script>

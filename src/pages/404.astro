@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Anillos from '../components/Anillos.astro';
+---
+<Base titulo="Página no encontrada" noindex>
+  <section class="nf">
+    <div class="nf__anillos"><Anillos /></div>
+    <p class="eyebrow">Error 404</p>
+    <h1 class="title">Esta mesa <em>no existe</em>.</h1>
+    <p class="lead">La página que buscas se ha movido o nunca estuvo aquí. Pero la cocina sigue abierta.</p>
+    <div class="btn-row">
+      <a href="/" class="btn magnetic" data-cursor="Inicio">Volver al inicio</a>
+      <a href="/carta" class="btn btn--ghost magnetic" data-cursor="Carta">Ver la carta</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { min-height: 100svh; display: grid; place-content: center; justify-items: center; text-align: center; padding: 140px var(--gutter) 80px; }
+  .nf__anillos { width: 160px; margin-bottom: 30px; animation: flotar 4s ease-in-out infinite; }
+  .nf .lead { margin-bottom: 34px; }
+  .nf .btn-row { justify-content: center; }
+  @keyframes flotar { 50% { transform: translateY(-12px) rotate(-4deg); } }
+</style>

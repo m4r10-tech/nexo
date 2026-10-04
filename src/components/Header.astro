@@ -1,0 +1,88 @@
+---
+import { CONTACTO } from '../data/restaurante';
+import Logo from './Logo.astro';
+import Estado from './Estado.astro';
+
+const enlaces = [
+  { href: '/carta', texto: 'Carta' },
+  { href: '/espacio', texto: 'Espacio' },
+  { href: '/reservas', texto: 'Reservas' },
+  { href: '/contacto', texto: 'Contacto' },
+];
+const ruta = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+---
+<header class="nav" data-nav>
+  <a href="/" class="nav__brand" aria-label="NEXO by Martina — Inicio"><Logo alto={44} /></a>
+
+  <nav class="nav__links" aria-label="Principal">
+    {enlaces.map(e => (
+      <a href={e.href} aria-current={ruta === e.href ? 'page' : undefined}>{e.texto}</a>
+    ))}
+  </nav>
+
+  <div class="nav__right">
+    <Estado />
+    <a href="/reservas" class="btn btn--small magnetic nav__cta" data-cursor="Reservar">Reservar</a>
+    <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil" data-menu-toggle>
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-movil" id="menu-movil" data-menu inert>
+  <nav aria-label="Menú móvil">
+    <a href="/">Inicio</a>
+    {enlaces.map(e => <a href={e.href}>{e.texto}</a>)}
+  </nav>
+  <div class="menu-movil__pie">
+    <a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a>
+    <a href={CONTACTO.instagram} target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</div>
+
+<style>
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 18px var(--gutter);
+    transition: background .4s, padding .4s var(--ease), transform .5s var(--ease), border-color .4s;
+    border-bottom: 1px solid transparent;
+  }
+  .nav:global(.is-scrolled) { background: rgba(20, 17, 15, .8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding-block: 11px; border-color: var(--line); }
+  .nav:global(.is-hidden) { transform: translateY(-100%); }
+  .nav__brand { position: relative; z-index: 2; display: block; }
+  .nav__links { display: flex; gap: 36px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .nav__links a { position: relative; padding: 4px 0; color: var(--muted); transition: color .3s; }
+  .nav__links a::after { content: ''; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
+  .nav__links a:hover, .nav__links a[aria-current='page'] { color: var(--ink); }
+  .nav__links a:hover::after, .nav__links a[aria-current='page']::after { transform: scaleX(1); transform-origin: left; }
+  .nav__right { display: flex; align-items: center; gap: 20px; position: relative; z-index: 2; }
+
+  .nav__toggle { display: none; width: 44px; height: 44px; background: none; border: 0; position: relative; cursor: pointer; }
+  .nav__toggle span { position: absolute; left: 10px; right: 10px; height: 1.5px; background: var(--ink); transition: transform .4s var(--ease), top .4s var(--ease); }
+  .nav__toggle span:first-child { top: 18px; }
+  .nav__toggle span:last-child { top: 25px; }
+  :global(body.menu-open) .nav__toggle span:first-child { top: 21px; transform: rotate(45deg); }
+  :global(body.menu-open) .nav__toggle span:last-child { top: 21px; transform: rotate(-45deg); }
+
+  .menu-movil {
+    position: fixed; inset: 0; z-index: 45; background: var(--bg-2);
+    display: flex; flex-direction: column; justify-content: space-between; padding: 120px var(--gutter) 40px;
+    clip-path: circle(0 at calc(100% - 42px) 40px); transition: clip-path .8s var(--ease); visibility: hidden;
+  }
+  :global(body.menu-open) .menu-movil { clip-path: circle(150% at calc(100% - 42px) 40px); visibility: visible; }
+  .menu-movil nav { display: flex; flex-direction: column; }
+  .menu-movil nav a { font-family: var(--serif); font-size: clamp(44px, 12vw, 70px); line-height: 1.15; opacity: 0; transform: translateY(30px); transition: opacity .6s var(--ease), transform .8s var(--ease); }
+  :global(body.menu-open) .menu-movil nav a { opacity: 1; transform: none; }
+  .menu-movil nav a:nth-child(2) { transition-delay: .05s; } .menu-movil nav a:nth-child(3) { transition-delay: .1s; }
+  .menu-movil nav a:nth-child(4) { transition-delay: .15s; } .menu-movil nav a:nth-child(5) { transition-delay: .2s; }
+  .menu-movil__pie { display: flex; justify-content: space-between; gap: 20px; color: var(--accent); letter-spacing: .08em; }
+
+  @media (max-width: 960px) {
+    .nav__links, .nav__cta { display: none; }
+    .nav__toggle { display: block; }
+  }
+  @media (max-width: 520px) {
+    .nav__right :global(.estado-wrap) { display: none; }
+  }
+</style>

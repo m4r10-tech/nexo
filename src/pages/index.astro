@@ -1,0 +1,430 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Estado from '../components/Estado.astro';
+import TablaHorario from '../components/TablaHorario.astro';
+import BandaReserva from '../components/BandaReserva.astro';
+import Anillos from '../components/Anillos.astro';
+import { CARTA, GALERIA, CONTACTO, SERVICIOS, mapsComoLlegarUrl } from '../data/restaurante';
+import { buscarFoto, buscarVideo } from '../lib/medios';
+
+const destacados = CARTA.flatMap(s => s.platos).filter(p => p.destacado);
+const marquesina = CARTA.flatMap(s => s.platos).map(p => p.nombre);
+const video = buscarVideo('hero');
+const poster = buscarFoto('hero');
+const { calle, cp, ciudad } = CONTACTO.direccion;
+
+const iconos: Record<string, string> = {
+  'En sala': '<path d="M4 20V10M20 20V10M2 10h20M7 10V6a5 5 0 0 1 10 0v4"/>',
+  Terraza: '<path d="M12 3v18M4 10a8 8 0 0 1 16 0zM8 21h8"/>',
+  'Para llevar': '<path d="M5 8h14l-1.5 12h-11zM9 8V6a3 3 0 0 1 6 0v2"/>',
+  'A domicilio': '<path d="M3 16V7h11v9M14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-.01M17 19a2 2 0 1 0 0-.01"/>',
+};
+const textosServicio: Record<string, string> = {
+  'En sala': 'Un espacio íntimo y cálido para comer o cenar sin prisa.',
+  Terraza: 'Mesas al aire libre para los días buenos de Toledo.',
+  'Para llevar': 'Llámanos, encarga y recoge tus platos favoritos.',
+  'A domicilio': 'NEXO en casa: la misma cocina, en tu mesa.',
+};
+---
+<Base intro>
+  <!-- ═════════ HERO ═════════ -->
+  <section class="hero" data-hero>
+    <div class="hero__media" data-parallax="-0.25">
+      {video ? (
+        <div class="foto hero__foto">
+          <video autoplay muted loop playsinline poster={poster?.src}><source src={video.src} type={video.type} /></video>
+        </div>
+      ) : (
+        <Foto nombre="hero" alt="Ambiente del restaurante NEXO by Martina en Toledo" class="hero__foto" prioridad sizes="100vw" />
+      )}
+    </div>
+    {!video && !poster && (
+      <div class="hero__deco" aria-hidden="true">
+        <svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width=".25">
+          <circle cx="38" cy="30" r="24" pathLength="1" /><circle cx="62" cy="30" r="24" pathLength="1" />
+        </svg>
+      </div>
+    )}
+    <div class="hero__velo" aria-hidden="true"></div>
+    <div class="hero__luz" aria-hidden="true" data-hero-luz></div>
+
+    <div class="container hero__contenido">
+      <p class="eyebrow hero__eyebrow">Toledo · Cocina mediterránea de temporada</p>
+      <h1 class="hero__titulo">
+        <span class="split" data-split>NEXO</span>
+        <span class="hero__by">by Martina</span>
+      </h1>
+      <p class="hero__lead">
+        El punto de unión entre la tradición manchega y la cocina española de hoy.
+        Producto, temporada y una mesa para compartir.
+      </p>
+      <div class="btn-row hero__ctas">
+        <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar mesa</a>
+        <a href="/carta" class="btn btn--ghost magnetic" data-cursor="Ver">Ver la carta</a>
+      </div>
+      <div class="hero__estado"><Estado detalle /></div>
+    </div>
+
+    <a href="#concepto" class="hero__scroll" aria-label="Bajar al contenido"><span>Descubre</span><i></i></a>
+  </section>
+
+  <!-- ═════════ MARQUESINA ═════════ -->
+  <div class="marquesina" aria-hidden="true">
+    <div class="marquesina__pista">
+      {[0, 1].map(() => marquesina.map(n => <><span>{n}</span><b>✦</b></>))}
+    </div>
+  </div>
+
+  <!-- ═════════ CONCEPTO ═════════ -->
+  <section class="section" id="concepto">
+    <div class="container concepto">
+      <div class="concepto__texto">
+        <p class="eyebrow reveal">01 — Concepto</p>
+        <h2 class="title reveal">Un <em>nexo</em> entre lo de siempre y lo que viene.</h2>
+        <p class="lead reveal">
+          En NEXO cocinamos con la memoria de La Mancha y la mirada puesta en el Mediterráneo.
+          Recetas reconocibles, producto de temporada y técnica actual, en un espacio íntimo y cuidado en Toledo.
+        </p>
+        <p class="lead reveal">Empezamos siempre igual: un buen aceite, pan y sal. Lo demás es una conversación alrededor de la mesa.</p>
+        <dl class="concepto__datos reveal">
+          <div><dt>Temporada</dt><dd>Producto que cambia con el calendario</dd></div>
+          <div><dt>Mar — Dom</dt><dd>Comidas y cenas</dd></div>
+          <div><dt>Terraza</dt><dd>Para comer al aire libre</dd></div>
+        </dl>
+      </div>
+      <div class="concepto__fotos">
+        <Foto nombre="plato-1" alt="Plato de temporada de NEXO by Martina" class="concepto__grande" data-parallax="-0.06" data-tilt />
+        <Foto nombre="detalle" alt="Aceite de oliva, pan y sal para empezar" class="concepto__peque" data-parallax="0.1" data-tilt />
+        <span class="sello" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><defs><path id="circulo" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+            <text textLength="486" lengthAdjust="spacing"><textPath href="#circulo" textLength="486" lengthAdjust="spacing">NEXO BY MARTINA · TOLEDO · COCINA DE TEMPORADA · </textPath></text>
+          </svg>
+          <i>✦</i>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ DESTACADOS ═════════ -->
+  <section class="section section--alt" id="carta">
+    <div class="container">
+      <div class="section-head destacados__cabecera">
+        <div>
+          <p class="eyebrow reveal">02 — La carta</p>
+          <h2 class="title reveal">Platos para <em>compartir</em>.</h2>
+        </div>
+        <a href="/carta" class="link-arrow reveal" data-cursor="Carta">Ver carta completa <span aria-hidden="true">→</span></a>
+      </div>
+
+      <ul class="platos" data-platos>
+        {destacados.map((p, i) => {
+          const f = p.foto ? buscarFoto(p.foto) : null;
+          return (
+            <li class="plato reveal" style={`--d:${i * 0.06}s`} data-foto={f?.src ?? ''} data-cursor={p.nombre.split(' ')[0]}>
+              <a href={`/carta#${CARTA.find(s => s.platos.includes(p))?.id}`}>
+                <span class="plato__n">{String(i + 1).padStart(2, '0')}</span>
+                <span class="plato__txt"><span class="plato__nombre">{p.nombre}</span><span class="plato__desc">{p.descripcion}</span></span>
+                {p.etiqueta && <span class="plato__tag">{p.etiqueta}</span>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+    <div class="platos__preview" data-preview aria-hidden="true">
+      <div class="foto foto--ph"><img alt="" /><div class="foto__ph"><Anillos /></div></div>
+    </div>
+  </section>
+
+  <!-- ═════════ GALERÍA HORIZONTAL ═════════ -->
+  <section class="galeria" data-galeria aria-labelledby="galeria-titulo">
+    <div class="galeria__sticky">
+      <div class="galeria__pista" data-galeria-pista>
+        <div class="galeria__intro">
+          <p class="eyebrow">03 — El espacio</p>
+          <h2 class="title" id="galeria-titulo">Íntimo,<br /><em>cálido</em>,<br />con terraza.</h2>
+          <a href="/espacio" class="link-arrow" data-cursor="Ver">Recorrer el espacio <span aria-hidden="true">→</span></a>
+        </div>
+        {GALERIA.map(g => (
+          <figure class:list={['galeria__item', { 'galeria__item--ancha': g.ancha }]} data-cursor="Ver">
+            <a href="/espacio" aria-label={g.titulo}>
+              <Foto nombre={g.foto} alt={g.alt} data-tilt sizes="(max-width: 640px) 80vw, 40vw" />
+            </a>
+            <figcaption>{g.titulo}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="galeria__progreso" aria-hidden="true"><span data-galeria-barra></span></div>
+    </div>
+  </section>
+
+  <!-- ═════════ SERVICIOS ═════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">04 — Cómo disfrutarnos</p>
+        <h2 class="title reveal">En la mesa, en la terraza <em>o en casa</em>.</h2>
+      </div>
+      <ul class="servicios">
+        {SERVICIOS.map((s, i) => (
+          <li class="servicio reveal" style={`--d:${i * 0.08}s`} data-tilt>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={iconos[s]} />
+            <h3>{s}</h3>
+            <p>{textosServicio[s]}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═════════ HORARIO ═════════ -->
+  <section class="section section--alt" id="horario">
+    <div class="container horario-home">
+      <div>
+        <p class="eyebrow reveal">05 — Horario</p>
+        <h2 class="title reveal">Te esperamos <em>a la mesa</em>.</h2>
+        <div class="horario-home__estado reveal"><Estado grande detalle /></div>
+        <p class="horario-home__dir reveal">
+          {calle}, {cp} {ciudad}<br />
+          <a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a>
+        </p>
+        <div class="btn-row reveal">
+          <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar</a>
+          <a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="btn btn--ghost magnetic" data-cursor="Ir">Cómo llegar ↗</a>
+        </div>
+      </div>
+      <div class="reveal"><TablaHorario /></div>
+    </div>
+  </section>
+
+  <!-- ═════════ INSTAGRAM ═════════ -->
+  <section class="section insta">
+    <div class="container">
+      <div class="section-head insta__cabecera">
+        <div>
+          <p class="eyebrow reveal">Síguenos</p>
+          <h2 class="title title--sm reveal"><a href={CONTACTO.instagram} target="_blank" rel="noopener" data-cursor="Seguir">{CONTACTO.instagramUsuario}</a></h2>
+        </div>
+        <p class="lead reveal">Platos del día, novedades de temporada y la vida de la casa.</p>
+      </div>
+      <div class="insta__grid">
+        {['plato-1', 'tomate', 'terraza', 'croquetas'].map((f, i) => (
+          <a href={CONTACTO.instagram} target="_blank" rel="noopener" class="insta__item reveal" style={`--d:${i * 0.07}s`} data-cursor="Instagram" aria-label="Ver en Instagram">
+            <Foto nombre={f} alt="" sizes="(max-width: 640px) 50vw, 25vw" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <BandaReserva />
+</Base>
+
+<style>
+  /* ── Hero ── */
+  .hero { position: relative; height: 100svh; min-height: 640px; display: grid; align-items: end; overflow: hidden; }
+  .hero__media { position: absolute; inset: -12% 0 -6%; }
+  .hero__media :global(.hero__foto) { height: 100%; border-radius: 0; }
+  .hero__media :global(.foto__ph) { display: none; }
+  .hero__deco { position: absolute; right: -6vw; top: 50%; width: min(78vw, 1100px); translate: 0 -50%; color: var(--accent); opacity: .5; pointer-events: none; }
+  .hero__deco svg { width: 100%; animation: flotar-deco 14s ease-in-out infinite; }
+  .hero__deco circle { stroke-dasharray: 1; stroke-dashoffset: 1; animation: trazo-deco 3.2s var(--ease) .6s forwards; }
+  .hero__deco circle + circle { animation-delay: 1s; }
+  @keyframes trazo-deco { to { stroke-dashoffset: 0; } }
+  @keyframes flotar-deco { 50% { transform: rotate(-6deg) scale(1.03); } }
+  .hero__media :global(.hero__foto img), .hero__media video { transform: scale(1.14); animation: zoom 16s var(--ease) forwards; }
+  @keyframes zoom { to { transform: scale(1); } }
+  .hero__velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.1) 38%, rgba(20,17,15,.94) 100%); }
+  .hero__luz {
+    position: absolute; width: 56vmax; height: 56vmax; left: 70%; top: 30%; border-radius: 50%; translate: -50% -50%;
+    background: radial-gradient(circle, rgba(200,149,92,.22), transparent 60%); pointer-events: none; mix-blend-mode: screen;
+    transition: left 1.2s var(--ease), top 1.2s var(--ease);
+  }
+  .hero__contenido { position: relative; padding-bottom: clamp(70px, 11vh, 130px); }
+  .hero__titulo { font-family: var(--serif); font-weight: 500; line-height: .8; letter-spacing: -.02em; }
+  .hero__titulo .split { display: block; font-size: clamp(96px, 21vw, 300px); overflow: hidden; padding-bottom: .05em; }
+  .hero__titulo :global(.ch) { display: inline-block; transform: translateY(110%) rotate(8deg); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * 80ms + .25s); }
+  :global(.is-ready) .hero__titulo :global(.ch) { transform: none; }
+  .hero__by { display: block; font-size: clamp(30px, 4.2vw, 54px); font-style: italic; font-weight: 400; color: var(--accent); margin: 10px 0 0 .1em; letter-spacing: 0; }
+  .hero__lead { max-width: 540px; color: var(--muted); font-size: clamp(16px, 1.35vw, 19px); margin-top: 26px; }
+  .hero__ctas { margin-top: 34px; }
+  .hero__estado { margin-top: 30px; }
+  .hero__eyebrow, .hero__by, .hero__lead, .hero__ctas, .hero__estado { opacity: 0; transform: translateY(24px); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
+  :global(.is-ready) :is(.hero__eyebrow, .hero__by, .hero__lead, .hero__ctas, .hero__estado) { opacity: 1; transform: none; }
+  :global(.is-ready) .hero__eyebrow { transition-delay: .2s; } :global(.is-ready) .hero__by { transition-delay: .7s; }
+  :global(.is-ready) .hero__lead { transition-delay: .85s; } :global(.is-ready) .hero__ctas { transition-delay: 1s; }
+  :global(.is-ready) .hero__estado { transition-delay: 1.15s; }
+  .hero__scroll { position: absolute; right: var(--gutter); bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+  .hero__scroll span { writing-mode: vertical-rl; }
+  .hero__scroll i { width: 1px; height: 64px; background: var(--line); position: relative; overflow: hidden; }
+  .hero__scroll i::after { content: ''; position: absolute; inset: 0; background: var(--accent); animation: gota 2.2s var(--ease) infinite; }
+  @keyframes gota { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+
+  /* ── Marquesina ── */
+  .marquesina { border-block: 1px solid var(--line); padding: 26px 0; overflow: hidden; background: var(--bg-2); }
+  .marquesina__pista { display: flex; gap: 40px; width: max-content; animation: marquesina 40s linear infinite; font-family: var(--serif); font-size: clamp(32px, 5vw, 64px); font-style: italic; white-space: nowrap; align-items: center; }
+  .marquesina__pista b { color: var(--accent); font-size: .45em; font-weight: 400; font-style: normal; }
+  .marquesina:hover .marquesina__pista { animation-play-state: paused; }
+  @keyframes marquesina { to { transform: translateX(-50%); } }
+
+  /* ── Concepto ── */
+  .concepto { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; }
+  .concepto .lead { margin-bottom: 18px; }
+  .concepto__datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 44px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .concepto__datos dt { font-family: var(--serif); font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; }
+  .concepto__datos dd { font-size: 13px; color: var(--muted); line-height: 1.45; margin-top: 6px; }
+  .concepto__fotos { position: relative; height: clamp(480px, 58vw, 720px); }
+  .concepto__fotos :global(.concepto__grande) { position: absolute; right: 0; top: 0; width: 78%; height: 82%; }
+  .concepto__fotos :global(.concepto__peque) { position: absolute; left: 0; bottom: 0; width: 46%; height: 42%; outline: 8px solid var(--bg); }
+  .sello { position: absolute; left: 8%; top: 5%; width: 140px; height: 140px; display: grid; place-items: center; z-index: 2; }
+  .sello svg { position: absolute; inset: 0; animation: girar 20s linear infinite; }
+  .sello text { fill: var(--ink); font-size: 12px; font-family: var(--sans); }
+  .sello i { color: var(--accent); font-style: normal; font-size: 26px; }
+  @keyframes girar { to { transform: rotate(360deg); } }
+
+  /* ── Destacados ── */
+  .destacados__cabecera { display: flex; justify-content: space-between; align-items: end; gap: 30px; max-width: none; flex-wrap: wrap; }
+  .destacados__cabecera .title { margin-bottom: 0; }
+  .platos { list-style: none; border-top: 1px solid var(--line); }
+  .plato { border-bottom: 1px solid var(--line); }
+  .plato a { display: grid; grid-template-columns: 70px 1fr auto; gap: 24px; align-items: center; padding: 30px 0; transition: padding .5s var(--ease); }
+  .plato__txt { display: grid; gap: 4px; }
+  .plato__nombre { font-family: var(--serif); font-size: clamp(30px, 3.8vw, 54px); line-height: 1.08; transition: color .3s; }
+  .plato__desc { color: var(--muted); font-size: 14px; }
+  .plato__n { font-size: 12px; color: var(--accent); letter-spacing: .15em; }
+  .plato__tag { font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
+  .platos .plato { transition: opacity .4s; }
+  @media (hover: hover) {
+    .platos:hover .plato { opacity: .35; }
+    .platos .plato:hover { opacity: 1; }
+    .plato:hover a { padding-left: 20px; }
+    .plato:hover .plato__nombre { color: var(--accent); font-style: italic; }
+  }
+  .platos__preview { position: fixed; top: 0; left: 0; z-index: 40; pointer-events: none; width: 300px; height: 380px; opacity: 0; scale: .7; transition: opacity .4s, scale .5s var(--ease); }
+  .platos__preview:global(.is-visible) { opacity: 1; scale: 1; }
+  .platos__preview .foto { width: 100%; height: 100%; box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+  .platos__preview img { position: absolute; inset: 0; opacity: 0; transition: opacity .3s; }
+  .platos__preview :global(.tiene-foto) img { opacity: 1; }
+
+  /* ── Galería horizontal ── */
+  .galeria { position: relative; height: 360vh; }
+  .galeria__sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+  .galeria__pista { display: flex; align-items: center; gap: 32px; padding-inline: var(--gutter); width: max-content; will-change: transform; }
+  .galeria__intro { width: min(400px, 80vw); flex: none; margin-right: 40px; }
+  .galeria__item { flex: none; width: clamp(260px, 26vw, 400px); }
+  .galeria__item--ancha { width: clamp(320px, 42vw, 640px); }
+  .galeria__item :global(.foto) { height: clamp(340px, 60vh, 620px); }
+  .galeria__item:hover :global(img) { transform: scale(1.06); }
+  .galeria__item figcaption { margin-top: 14px; font-family: var(--serif); font-style: italic; font-size: 22px; }
+  .galeria__progreso { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 40px; height: 1px; background: var(--line); }
+  .galeria__progreso span { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+
+  /* ── Servicios ── */
+  .servicios { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .servicio { padding: 34px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(160deg, var(--bg-2), var(--bg)); transition: border-color .4s, transform .6s var(--ease); }
+  .servicio:hover { border-color: rgba(200,149,92,.5); }
+  .servicio svg { width: 40px; height: 40px; color: var(--accent); margin-bottom: 26px; }
+  .servicio h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; margin-bottom: 8px; }
+  .servicio p { color: var(--muted); font-size: 15px; }
+
+  /* ── Horario ── */
+  .horario-home { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(40px, 8vw, 120px); align-items: start; }
+  .horario-home__estado { margin: 6px 0 28px; padding: 24px 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+  .horario-home__dir { color: var(--muted); margin-bottom: 30px; }
+  .horario-home__dir a { color: var(--ink); }
+
+  /* ── Instagram ── */
+  .insta__cabecera { display: flex; justify-content: space-between; align-items: end; gap: 30px; max-width: none; flex-wrap: wrap; }
+  .insta__cabecera .title a { transition: color .3s; }
+  .insta__cabecera .title a:hover { color: var(--accent); }
+  .insta__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .insta__item :global(.foto) { aspect-ratio: 1; }
+  .insta__item:hover :global(img) { transform: scale(1.07); }
+
+  @media (max-width: 960px) {
+    .concepto, .horario-home { grid-template-columns: 1fr; }
+    .servicios { grid-template-columns: 1fr 1fr; }
+    .insta__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .hero__scroll { display: none; }
+    .hero__deco { width: 150vw; right: -60vw; top: 32%; opacity: .35; }
+    .concepto__datos { grid-template-columns: 1fr; }
+    .plato a { grid-template-columns: 34px 1fr; gap: 14px; padding: 24px 0; }
+    .plato__tag, .platos__preview { display: none; }
+    .servicios { grid-template-columns: 1fr; }
+    .galeria { height: auto; padding-block: 90px; }
+    .galeria__sticky { position: static; height: auto; }
+    .galeria__pista { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; transform: none !important; padding-bottom: 10px; }
+    .galeria__pista::-webkit-scrollbar { display: none; }
+    .galeria__intro { width: 82vw; scroll-snap-align: start; }
+    .galeria__item { width: 78vw; scroll-snap-align: start; }
+    .galeria__item--ancha { width: 86vw; }
+    .galeria__item :global(.foto) { height: 54vh; }
+    .galeria__progreso { display: none; }
+  }
+</style>
+
+<script>
+  import { punteroFino, movimientoReducido, raton, lerp } from '../scripts/interacciones';
+
+  /* Luz del hero que sigue al ratón */
+  const luz = document.querySelector<HTMLElement>('[data-hero-luz]');
+  if (punteroFino && luz) {
+    document.querySelector('[data-hero]')?.addEventListener('mousemove', e => {
+      const ev = e as MouseEvent;
+      luz.style.left = `${ev.clientX}px`;
+      luz.style.top = `${ev.clientY}px`;
+    });
+  }
+
+  /* Foto flotante al pasar por los platos */
+  const preview = document.querySelector<HTMLElement>('[data-preview]');
+  if (punteroFino && preview) {
+    const caja = preview.querySelector<HTMLElement>('.foto')!;
+    const img = preview.querySelector('img')!;
+    const pos = { x: raton.x, y: raton.y };
+    let activo = false;
+    document.querySelectorAll<HTMLElement>('[data-platos] .plato').forEach(p => {
+      p.addEventListener('mouseenter', () => {
+        const src = p.dataset.foto;
+        caja.classList.toggle('tiene-foto', !!src);
+        if (src) img.src = src; else img.removeAttribute('src');
+        if (!activo) { pos.x = raton.x + 30; pos.y = raton.y - 190; }
+        activo = true;
+        preview.classList.add('is-visible');
+      });
+      p.addEventListener('mouseleave', () => { activo = false; preview.classList.remove('is-visible'); });
+    });
+    const bucle = () => {
+      if (activo) {
+        pos.x = lerp(pos.x, raton.x + 30, 0.12);
+        pos.y = lerp(pos.y, raton.y - 190, 0.12);
+        preview.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${movimientoReducido ? 0 : (raton.x + 30 - pos.x) * 0.05}deg)`;
+      }
+      requestAnimationFrame(bucle);
+    };
+    requestAnimationFrame(bucle);
+  }
+
+  /* Galería: scroll vertical → desplazamiento horizontal */
+  const galeria = document.querySelector<HTMLElement>('[data-galeria]');
+  const pista = document.querySelector<HTMLElement>('[data-galeria-pista]');
+  const barra = document.querySelector<HTMLElement>('[data-galeria-barra]');
+  const movil = matchMedia('(max-width: 640px)');
+  if (galeria && pista) {
+    const mover = () => {
+      if (!movil.matches) {
+        const r = galeria.getBoundingClientRect();
+        const total = galeria.offsetHeight - innerHeight;
+        const p = Math.min(1, Math.max(0, -r.top / total));
+        const max = pista.scrollWidth - innerWidth;
+        pista.style.transform = `translate3d(${-p * max}px, 0, 0)`;
+        if (barra) barra.style.transform = `scaleX(${p})`;
+      }
+      requestAnimationFrame(mover);
+    };
+    requestAnimationFrame(mover);
+  }
+</script>

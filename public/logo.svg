@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 70" role="img" aria-label="NEXO by Martina">
+  <!-- Logotipo provisional. Para usar el oficial, guárdalo como public/logo-oficial.svg (o .png) -->
+  <g fill="none" stroke="#c8955c" stroke-width="1.3"><circle cx="24" cy="31" r="19"/><circle cx="42" cy="31" r="19"/></g>
+  <text x="74" y="40" fill="#f3ece2" font-family="Cormorant Garamond, Georgia, serif" font-size="36" font-weight="500" letter-spacing="5">NEXO</text>
+  <text x="76" y="62" fill="#c8955c" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-style="italic">by Martina</text>
+</svg>

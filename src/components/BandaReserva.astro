@@ -1,0 +1,28 @@
+---
+import { CONTACTO } from '../data/restaurante';
+interface Props { titulo?: string }
+const { titulo = 'Tu mesa te está esperando.' } = Astro.props;
+---
+<section class="banda" aria-labelledby="banda-titulo">
+  <div class="banda__luz" aria-hidden="true"></div>
+  <div class="container banda__in">
+    <p class="eyebrow reveal">Reservas</p>
+    <h2 id="banda-titulo" class="title reveal" set:html={titulo.replace(/(esperando|mesa)/, '<em>$1</em>')} />
+    <div class="btn-row reveal" style="--d:.15s">
+      <a href="/reservas" class="btn magnetic" data-cursor="Reservar">Reservar online</a>
+      <a href={CONTACTO.telefonoHref} class="btn btn--ghost magnetic" data-cursor="Llamar">{CONTACTO.telefono}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .banda { position: relative; overflow: hidden; padding-block: clamp(100px, 14vw, 180px); text-align: center; background: var(--bg-2); border-top: 1px solid var(--line); }
+  .banda__in { position: relative; display: grid; justify-items: center; }
+  .banda .title { max-width: 900px; }
+  .banda .btn-row { justify-content: center; }
+  .banda__luz {
+    position: absolute; left: 50%; top: 50%; width: 80vmax; height: 80vmax; translate: -50% -50%; border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(200,149,92,.16), transparent 30%, rgba(176,83,60,.14) 55%, transparent 80%, rgba(200,149,92,.16));
+    filter: blur(60px); animation: girar 24s linear infinite;
+  }
+  @keyframes girar { to { rotate: 360deg; } }
+</style>

@@ -1,0 +1,33 @@
+---
+/** Plantilla de la imagen para compartir en redes (1200×630). Se captura con `npm run og`. */
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Anillos from '../components/Anillos.astro';
+import { SITIO, CONTACTO } from '../data/restaurante';
+---
+<Base titulo="Imagen social" noindex sinCabecera>
+  <div class="og" id="og">
+    <Foto nombre="hero" alt="" class="og__foto" prioridad />
+    <div class="og__velo"></div>
+    <div class="og__txt">
+      <div class="og__anillos"><Anillos /></div>
+      <p class="og__nombre">NEXO</p>
+      <p class="og__by">by Martina</p>
+      <p class="og__lema">{SITIO.lema}</p>
+      <p class="og__dir">{CONTACTO.direccion.calle} · {CONTACTO.direccion.ciudad} · {CONTACTO.telefono}</p>
+    </div>
+  </div>
+</Base>
+<style>
+  :global(.grain), :global(.cursor), :global(.cursor-dot), :global(.skip-link) { display: none !important; }
+  .og { position: fixed; left: 0; top: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  .og :global(.og__foto) { position: absolute; inset: 0; border-radius: 0; }
+  .og :global(.foto__ph) { display: none; }
+  .og__velo { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,17,15,.92) 30%, rgba(20,17,15,.35)); }
+  .og__txt { position: absolute; left: 90px; top: 50%; translate: 0 -50%; }
+  .og__anillos { width: 90px; margin-bottom: 24px; }
+  .og__nombre { font-family: var(--serif); font-size: 190px; line-height: .8; font-weight: 500; letter-spacing: -2px; }
+  .og__by { font-family: var(--serif); font-style: italic; font-size: 54px; color: var(--accent); margin-top: 6px; }
+  .og__lema { font-size: 24px; color: var(--ink); margin-top: 30px; }
+  .og__dir { font-size: 18px; color: var(--muted); margin-top: 10px; letter-spacing: .04em; }
+</style>

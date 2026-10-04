@@ -1,0 +1,7 @@
+{
+  "nombre": "[Tu nombre]",
+  "telefono": "[Tu teléfono]",
+  "email": "[tu@email.com]",
+  "demo": "[enlace de la demo, p. ej. https://nexo-demo.netlify.app]",
+  "validez_dias": 15
+}

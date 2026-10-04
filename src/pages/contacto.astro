@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import Mapa from '../components/Mapa.astro';
+import Estado from '../components/Estado.astro';
+import TablaHorario from '../components/TablaHorario.astro';
+import BandaReserva from '../components/BandaReserva.astro';
+import { CONTACTO, SITIO, SERVICIOS, mapsComoLlegarUrl } from '../data/restaurante';
+
+const { calle, cp, ciudad, region } = CONTACTO.direccion;
+
+const preguntas = [
+  { p: '¿Es necesario reservar?', r: `Te lo recomendamos, sobre todo en fines de semana. Puedes reservar online en la sección de reservas o llamando al ${CONTACTO.telefono}.` },
+  { p: '¿Tenéis terraza?', r: 'Sí. Tenemos terraza para comer y cenar al aire libre. Si la prefieres, indícalo en los comentarios de tu reserva.' },
+  { p: '¿Se puede pedir para llevar o a domicilio?', r: `Sí, preparamos nuestros platos para llevar y a domicilio. Llámanos al ${CONTACTO.telefono} para hacer tu pedido.` },
+  { p: '¿Tenéis opciones para alergias e intolerancias?', r: 'Disponemos de información de alérgenos de todos nuestros platos. Avísanos al reservar o al llegar y te aconsejaremos.' },
+  { p: '¿Qué días abrís?', r: 'Abrimos de martes a domingo a mediodía y de martes a sábado por la noche. Los lunes descansamos.' },
+];
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: preguntas.map(q => ({ '@type': 'Question', name: q.p, acceptedAnswer: { '@type': 'Answer', text: q.r } })),
+};
+---
+<Base titulo="Contacto y ubicación" descripcion={`Cómo llegar a ${SITIO.nombre}: ${calle}, ${cp} ${ciudad}. Teléfono ${CONTACTO.telefono}. Horario, terraza, comida para llevar y a domicilio.`} schema={faq}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow reveal">Contacto</p>
+      <h1 class="title reveal">Ven a <em>vernos</em>.</h1>
+      <p class="lead reveal">{calle} · {cp} {ciudad}, {region}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container contacto">
+      <div class="contacto__info">
+        <div class="reveal"><Estado grande detalle /></div>
+        <dl class="datos reveal">
+          <div><dt>Dirección</dt><dd>{calle}<br />{cp} {ciudad}<br /><a href={mapsComoLlegarUrl} target="_blank" rel="noopener" class="link-arrow" data-cursor="Ir">Cómo llegar ↗</a></dd></div>
+          <div><dt>Teléfono</dt><dd><a href={CONTACTO.telefonoHref} class="grande" data-cursor="Llamar">{CONTACTO.telefono}</a></dd></div>
+          {CONTACTO.whatsapp && <div><dt>WhatsApp</dt><dd><a href={`https://wa.me/${CONTACTO.whatsapp}`} target="_blank" rel="noopener">Escríbenos ↗</a></dd></div>}
+          {CONTACTO.email && <div><dt>Email</dt><dd><a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a></dd></div>}
+          <div><dt>Instagram</dt><dd><a href={CONTACTO.instagram} target="_blank" rel="noopener" data-cursor="Seguir">{CONTACTO.instagramUsuario} ↗</a></dd></div>
+          <div><dt>Servicios</dt><dd>{SERVICIOS.join(' · ')}</dd></div>
+        </dl>
+      </div>
+      <div class="reveal"><Mapa /></div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container dos">
+      <div>
+        <p class="eyebrow reveal">Horario</p>
+        <h2 class="title title--sm reveal">Cuándo <em>encontrarnos</em>.</h2>
+        <div class="reveal"><TablaHorario /></div>
+      </div>
+      <div>
+        <p class="eyebrow reveal">Preguntas frecuentes</p>
+        <h2 class="title title--sm reveal">Lo que nos <em>preguntáis</em>.</h2>
+        <div class="faq">
+          {preguntas.map((q, i) => (
+            <details class="reveal" style={`--d:${i * 0.05}s`} name="faq" open={i === 0}>
+              <summary data-cursor="Abrir">{q.p}<span aria-hidden="true"></span></summary>
+              <p>{q.r}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <BandaReserva />
+</Base>
+
+<style>
+  .contacto { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(40px, 6vw, 90px); align-items: center; }
+  .datos { margin-top: 30px; }
+  .datos > div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .datos dt { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding-top: 5px; }
+  .datos dd a:not(.link-arrow) { transition: color .3s; }
+  .datos dd a:hover { color: var(--accent); }
+  .datos .link-arrow { margin-top: 12px; }
+  .datos .grande { font-family: var(--serif); font-size: 30px; color: var(--accent); }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px); align-items: start; }
+  .faq { border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 22px 0; font-family: var(--serif); font-size: clamp(22px, 2vw, 27px); cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary span { position: relative; width: 16px; height: 16px; flex: none; }
+  .faq summary span::before, .faq summary span::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--accent); transition: transform .4s var(--ease); }
+  .faq summary span::after { transform: rotate(90deg); }
+  .faq details[open] summary span::after { transform: rotate(0); }
+  .faq details p { color: var(--muted); padding-bottom: 22px; max-width: 560px; }
+  .faq details[open] p { animation: abrir .5s var(--ease); }
+  @keyframes abrir { from { opacity: 0; transform: translateY(-8px); } }
+  @media (max-width: 960px) { .contacto, .dos { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .datos > div { grid-template-columns: 1fr; gap: 4px; } }
+</style>

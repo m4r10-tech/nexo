@@ -1,0 +1,151 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import BandaReserva from '../components/BandaReserva.astro';
+import { CARTA, ALERGENOS, SITIO, CONTACTO } from '../data/restaurante';
+
+const precio = (p: number | null) =>
+  p == null ? null : new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: p % 1 ? 2 : 0 }).format(p);
+
+const hayAlergenos = CARTA.some(s => s.platos.some(p => p.alergenos?.length));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Menu',
+  name: `Carta de ${SITIO.nombre}`,
+  inLanguage: 'es',
+  hasMenuSection: CARTA.map(s => ({
+    '@type': 'MenuSection',
+    name: s.titulo,
+    hasMenuItem: s.platos.map(p => ({
+      '@type': 'MenuItem',
+      name: p.nombre,
+      description: p.descripcion,
+      ...(p.precio != null && { offers: { '@type': 'Offer', price: p.precio, priceCurrency: 'EUR' } }),
+    })),
+  })),
+};
+---
+<Base titulo="Carta" descripcion={`Carta de ${SITIO.nombre} en Toledo: migas manchegas, croquetas caseras, sepia a la andaluza, ceviche, tomate partido y brochetas. Cocina de temporada para compartir.`} schema={schema}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow reveal">La carta</p>
+      <h1 class="title reveal">Cocina de <em>temporada</em>.</h1>
+      <p class="lead reveal">Platos para compartir que cambian con el calendario. Pregúntanos siempre por las sugerencias del día.</p>
+    </div>
+  </header>
+
+  <nav class="secciones" aria-label="Secciones de la carta" data-secciones>
+    <div class="container secciones__in">
+      {CARTA.map(s => <a href={`#${s.id}`} data-seccion-link={s.id}>{s.titulo}</a>)}
+    </div>
+  </nav>
+
+  <div class="container carta">
+    {CARTA.map((s, si) => (
+      <section class="seccion" id={s.id} aria-labelledby={`t-${s.id}`}>
+        <div class="seccion__cabecera">
+          <span class="seccion__n reveal">{String(si + 1).padStart(2, '0')}</span>
+          <h2 class="title title--sm reveal" id={`t-${s.id}`}>{s.titulo}</h2>
+          {s.intro && <p class="muted reveal">{s.intro}</p>}
+        </div>
+        <ul class="lista">
+          {s.platos.map((p, i) => (
+            <li class="item reveal" style={`--d:${i * 0.06}s`}>
+              {p.foto && <Foto nombre={p.foto} alt={p.nombre} class="item__foto" sizes="120px" />}
+              <div class="item__txt">
+                <h3>
+                  <span>{p.nombre}</span>
+                  <span class="item__linea" aria-hidden="true"></span>
+                  {precio(p.precio) && <span class="item__precio">{precio(p.precio)}</span>}
+                </h3>
+                <p>{p.descripcion}</p>
+                <div class="item__meta">
+                  {p.etiqueta && <span class="item__tag">{p.etiqueta}</span>}
+                  {p.alergenos?.map(a => <span class="item__alergeno" title={ALERGENOS[a]}>{ALERGENOS[a]}</span>)}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <aside class="aviso reveal">
+      <h2>Alergias e intolerancias</h2>
+      <p>
+        {hayAlergenos ? 'Indicamos los alérgenos de cada plato. ' : ''}
+        Si tienes alguna alergia o intolerancia, avísanos al reservar o al llegar: te informaremos de los
+        alérgenos de cada plato (Reglamento UE 1169/2011) y adaptaremos lo que sea posible.
+      </p>
+      <p>¿Prefieres en casa? Llámanos al <a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a> para pedir <strong>para llevar</strong> o <strong>a domicilio</strong>.</p>
+    </aside>
+  </div>
+
+  <BandaReserva titulo="¿Te guardamos una mesa?" />
+</Base>
+
+<style>
+  .secciones { position: sticky; top: 0; z-index: 30; background: rgba(20,17,15,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); transition: top .5s var(--ease); }
+  :global(.nav:not(.is-hidden)) ~ main .secciones { top: 67px; }
+  .secciones__in { display: flex; gap: 8px; overflow-x: auto; padding-block: 14px; scrollbar-width: none; }
+  .secciones__in::-webkit-scrollbar { display: none; }
+  .secciones a { flex: none; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: all .3s; }
+  .secciones a:hover { color: var(--ink); border-color: var(--muted); }
+  .secciones a:global(.activa) { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+  .carta { padding-block: clamp(60px, 9vw, 120px); }
+  .seccion { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(30px, 6vw, 90px); padding-block: clamp(50px, 7vw, 90px); border-bottom: 1px solid var(--line); scroll-margin-top: 140px; }
+  .seccion:first-child { padding-top: 0; }
+  .seccion__cabecera { position: sticky; top: 160px; align-self: start; }
+  .seccion__n { display: block; color: var(--accent); font-size: 12px; letter-spacing: .2em; margin-bottom: 12px; }
+  .seccion__cabecera .title { margin-bottom: 12px; }
+
+  .lista { list-style: none; display: grid; gap: 8px; }
+  .item { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; padding: 22px; border-radius: var(--radius); transition: background .4s; }
+  .item:hover { background: var(--bg-2); }
+  .item :global(.item__foto) { width: 110px; height: 110px; border-radius: 50%; }
+  .item:hover :global(.item__foto img) { transform: scale(1.1) rotate(4deg); }
+  .item__txt { grid-column: 2; }
+  .item:not(:has(.item__foto)) .item__txt { grid-column: 1 / -1; }
+  .item h3 { display: flex; align-items: baseline; gap: 14px; font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.15; }
+  .item__linea { flex: 1; border-bottom: 1px dotted var(--line); translate: 0 -6px; min-width: 20px; }
+  .item__precio { font-family: var(--sans); font-size: 18px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .item p { color: var(--muted); margin-top: 4px; }
+  .item__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .item__tag, .item__alergeno { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .item__alergeno { border-style: dashed; }
+
+  .aviso { margin-top: clamp(50px, 7vw, 90px); padding: clamp(28px, 4vw, 44px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); max-width: 860px; }
+  .aviso h2 { font-family: var(--serif); font-weight: 400; font-size: 32px; margin-bottom: 12px; }
+  .aviso p { color: var(--muted); margin-bottom: 10px; }
+  .aviso a { color: var(--accent); }
+  .aviso strong { color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 860px) {
+    .seccion { grid-template-columns: 1fr; gap: 24px; }
+    .seccion__cabecera { position: static; }
+    .item { padding: 16px 0; gap: 16px; }
+    .item :global(.item__foto) { width: 76px; height: 76px; }
+    .item:hover { background: none; }
+  }
+</style>
+
+<script>
+  /* Resalta la sección visible en la barra de secciones */
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-seccion-link]')];
+  const io = new IntersectionObserver(entradas => {
+    entradas.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => {
+        const activa = l.dataset.seccionLink === e.target.id;
+        l.classList.toggle('activa', activa);
+        if (activa) {
+          const barra = l.parentElement!;
+          barra.scrollTo({ left: l.offsetLeft - (barra.clientWidth - l.offsetWidth) / 2, behavior: 'smooth' });
+        }
+      });
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('.seccion').forEach(s => io.observe(s));
+</script>

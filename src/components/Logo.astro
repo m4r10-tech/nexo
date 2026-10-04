@@ -1,0 +1,24 @@
+---
+/**
+ * Logo. Si existe public/logo-oficial.svg (o .png/.webp), se usa ese.
+ * Si no, se pinta el logotipo tipográfico provisional.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { SITIO } from '../data/restaurante';
+
+interface Props { class?: string; alto?: number }
+const { class: clase, alto = 44 } = Astro.props;
+const oficial = ['svg', 'png', 'webp'].map(e => `logo-oficial.${e}`).find(f => fs.existsSync(path.join(process.cwd(), 'public', f)));
+---
+{oficial ? (
+  <img class={clase} src={`/${oficial}`} alt={SITIO.nombre} style={`height:${alto}px;width:auto`} />
+) : (
+  <svg class:list={['logo', clase]} viewBox="0 0 230 70" style={`height:${alto}px;width:auto`} role="img" aria-label={SITIO.nombre}>
+    <g fill="none" stroke="#c8955c" stroke-width="1.3">
+      <circle cx="24" cy="31" r="19" /><circle cx="42" cy="31" r="19" />
+    </g>
+    <text x="74" y="40" fill="#f3ece2" font-family="'Cormorant Garamond', Georgia, serif" font-size="36" font-weight="500" letter-spacing="5">NEXO</text>
+    <text x="76" y="62" fill="#c8955c" font-family="'Cormorant Garamond', Georgia, serif" font-size="17" font-style="italic">by Martina</text>
+  </svg>
+)}

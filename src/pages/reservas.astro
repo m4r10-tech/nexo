@@ -1,0 +1,313 @@
+---
+import Base from '../layouts/Base.astro';
+import Estado from '../components/Estado.astro';
+import TablaHorario from '../components/TablaHorario.astro';
+import { CONTACTO, RESERVAS, SITIO } from '../data/restaurante';
+
+const config = {
+  endpoint: RESERVAS.endpoint,
+  whatsapp: CONTACTO.whatsapp,
+  email: CONTACTO.email,
+  telefono: CONTACTO.telefono,
+  telefonoHref: CONTACTO.telefonoHref,
+  maxPersonas: RESERVAS.maxPersonas,
+  nombre: SITIO.nombre,
+};
+---
+<Base titulo="Reservas" descripcion={`Reserva tu mesa en ${SITIO.nombre}, Toledo. Comidas de martes a domingo y cenas de martes a sábado. Llama al ${CONTACTO.telefono} o reserva online.`}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow reveal">Reservas</p>
+      <h1 class="title reveal">Guárdate <em>una mesa</em>.</h1>
+      <p class="lead reveal">Elige día, hora y cuántos seréis. Te confirmamos la reserva lo antes posible.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container reservas">
+      <form class="form reveal" data-form novalidate>
+        <div class="form__paso" aria-hidden="true"><span>1</span> Cuándo</div>
+        <div class="form__fila">
+          <div class="campo">
+            <label for="fecha">Día</label>
+            <input type="date" id="fecha" name="fecha" required />
+            <p class="error" data-error="fecha" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="hora">Hora</label>
+            <select id="hora" name="hora" required disabled>
+              <option value="">Elige primero el día</option>
+            </select>
+            <p class="error" data-error="hora" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <fieldset class="campo">
+          <legend>Personas</legend>
+          <div class="personas" role="radiogroup">
+            {Array.from({ length: 8 }, (_, i) => i + 1).map(n => (
+              <label class="persona"><input type="radio" name="personas" value={n} checked={n === 2} /><span>{n}</span></label>
+            ))}
+            <label class="persona persona--mas"><input type="radio" name="personas" value="mas" /><span>9+</span></label>
+          </div>
+          <p class="ayuda" data-grupo hidden>
+            Para grupos de más de 8 personas, llámanos al <a href={CONTACTO.telefonoHref}>{CONTACTO.telefono}</a> y organizamos tu mesa.
+          </p>
+        </fieldset>
+
+        <div class="form__paso" aria-hidden="true"><span>2</span> Tus datos</div>
+        <div class="form__fila">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" required />
+            <p class="error" data-error="nombre" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="tel" required />
+            <p class="error" data-error="telefono" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="notas">Comentarios <span class="opcional">(opcional)</span></label>
+          <textarea id="notas" name="notas" placeholder="Alergias, terraza, trona, celebración…"></textarea>
+        </div>
+
+        <label class="consentimiento">
+          <input type="checkbox" name="privacidad" required />
+          <span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>. Usaremos tus datos solo para gestionar la reserva.</span>
+        </label>
+        <p class="error" data-error="privacidad" aria-live="polite"></p>
+
+        <button type="submit" class="btn form__enviar" data-cursor="Enviar">
+          <span data-enviar-texto>Solicitar reserva</span>
+        </button>
+      </form>
+
+      <aside class="lateral">
+        <div class="lateral__caja reveal">
+          <Estado grande detalle />
+        </div>
+        <div class="lateral__caja reveal">
+          <h2>¿Prefieres llamar?</h2>
+          <a class="lateral__tel" href={CONTACTO.telefonoHref} data-cursor="Llamar">{CONTACTO.telefono}</a>
+          <p class="muted">Para grupos, celebraciones o reservas para hoy, la forma más rápida.</p>
+        </div>
+        <div class="reveal"><TablaHorario /></div>
+      </aside>
+    </div>
+  </section>
+
+  <dialog class="confirmacion" data-confirmacion aria-labelledby="conf-titulo">
+    <div class="confirmacion__icono" aria-hidden="true">✦</div>
+    <h2 id="conf-titulo" data-conf-titulo>¡Casi listo!</h2>
+    <div class="confirmacion__resumen" data-conf-resumen></div>
+    <p class="muted" data-conf-texto></p>
+    <div class="btn-row">
+      <a class="btn" href={CONTACTO.telefonoHref} data-conf-llamar>Llamar para confirmar</a>
+      <button type="button" class="btn btn--ghost" data-conf-cerrar>Cerrar</button>
+    </div>
+  </dialog>
+</Base>
+
+<script is:inline define:vars={{ config }}>window.__reservas = config;</script>
+
+<style>
+  .reservas { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(40px, 7vw, 100px); align-items: start; }
+  .form { display: grid; gap: 22px; padding: clamp(24px, 4vw, 48px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+  .form__paso { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 28px; }
+  .form__paso span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); font-family: var(--sans); font-size: 13px; }
+  .form__paso:not(:first-child) { margin-top: 12px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .form__fila { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  fieldset.campo { border: 0; }
+  .opcional { text-transform: none; letter-spacing: 0; }
+  .personas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .persona { position: relative; }
+  .persona input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; opacity: 0; pointer-events: none; }
+  .persona span {
+    display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line);
+    font-size: 16px; cursor: pointer; transition: all .3s var(--ease);
+  }
+  .persona--mas span { width: 64px; border-radius: 999px; }
+  .persona:hover span { border-color: var(--muted); }
+  .persona input:checked + span { background: var(--accent); color: var(--bg); border-color: var(--accent); transform: scale(1.06); }
+  .persona input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .ayuda a { color: var(--accent); }
+  .consentimiento { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--muted); cursor: pointer; }
+  .consentimiento input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); flex: none; }
+  .consentimiento a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .form__enviar { justify-self: start; min-width: 240px; }
+  .form__enviar[disabled] { opacity: .6; pointer-events: none; }
+
+  .lateral { display: grid; gap: 22px; position: sticky; top: 110px; }
+  .lateral__caja { padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .lateral__caja h2 { font-family: var(--serif); font-weight: 400; font-size: 28px; margin-bottom: 6px; }
+  .lateral__tel { display: block; font-family: var(--serif); font-size: clamp(32px, 3.4vw, 44px); color: var(--accent); margin-bottom: 8px; }
+
+  .confirmacion { margin: auto; max-width: 520px; width: calc(100% - 32px); border: 1px solid var(--line); border-radius: 10px; background: var(--bg-2); color: var(--ink); padding: clamp(28px, 5vw, 46px); text-align: center; }
+  .confirmacion[open] { animation: subir .5s var(--ease); }
+  .confirmacion::backdrop { background: rgba(10, 8, 7, .75); backdrop-filter: blur(6px); }
+  .confirmacion__icono { font-size: 34px; color: var(--accent); margin-bottom: 10px; }
+  .confirmacion h2 { font-family: var(--serif); font-weight: 400; font-size: 40px; margin-bottom: 18px; }
+  .confirmacion__resumen { display: grid; gap: 6px; padding: 18px; margin-bottom: 18px; border-radius: var(--radius); background: var(--bg); font-size: 15px; }
+  .confirmacion__resumen strong { color: var(--accent); font-weight: 500; }
+  .confirmacion .btn-row { justify-content: center; margin-top: 24px; }
+  @keyframes subir { from { opacity: 0; transform: translateY(30px) scale(.97); } }
+
+  @media (max-width: 960px) {
+    .reservas { grid-template-columns: 1fr; }
+    .lateral { position: static; }
+  }
+  @media (max-width: 560px) {
+    .form__fila { grid-template-columns: 1fr; }
+    .form__enviar { justify-self: stretch; }
+    .persona span { width: 46px; height: 46px; }
+  }
+</style>
+
+<script>
+  import { ahoraEnToledo, horasDeReserva, turnosDeFecha, sumarDias, DIAS, cierreEspecial } from '../lib/horario';
+
+  type Config = { endpoint: string; whatsapp: string; email: string; telefono: string; telefonoHref: string; maxPersonas: number; nombre: string };
+  const cfg = (window as unknown as { __reservas: Config }).__reservas;
+
+  const form = document.querySelector<HTMLFormElement>('[data-form]')!;
+  const fecha = form.querySelector<HTMLInputElement>('#fecha')!;
+  const hora = form.querySelector<HTMLSelectElement>('#hora')!;
+  const grupo = form.querySelector<HTMLElement>('[data-grupo]')!;
+  const boton = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+  const textoBoton = form.querySelector<HTMLElement>('[data-enviar-texto]')!;
+
+  const hoy = ahoraEnToledo().iso;
+  fecha.min = hoy;
+  fecha.max = sumarDias(hoy, 90);
+
+  // Propone el primer día con horas libres
+  for (let i = 0; i < 14; i++) {
+    const f = sumarDias(hoy, i);
+    if (horasDeReserva(f).length) { fecha.value = f; break; }
+  }
+
+  const fechaLarga = (iso: string) =>
+    new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+
+  const error = (campo: string, msg = '') => {
+    const el = form.querySelector<HTMLElement>(`[data-error="${campo}"]`);
+    if (el) el.textContent = msg;
+    form.querySelector(`[name="${campo}"]`)?.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  };
+
+  const rellenarHoras = () => {
+    const f = fecha.value;
+    const previa = hora.value;
+    hora.innerHTML = '';
+    if (!f) { hora.disabled = true; hora.add(new Option('Elige primero el día', '')); return; }
+    if (f < hoy) { error('fecha', 'Elige una fecha a partir de hoy.'); hora.disabled = true; return; }
+    if (!turnosDeFecha(f).length) {
+      const motivo = cierreEspecial(f)?.motivo;
+      error('fecha', `${motivo ?? `Los ${DIAS[new Date(`${f}T12:00:00Z`).getUTCDay()].toLowerCase()} cerramos`}. Elige otro día.`);
+      hora.disabled = true; hora.add(new Option('Cerrado ese día', ''));
+      return;
+    }
+    const grupos = horasDeReserva(f);
+    if (!grupos.length) {
+      error('fecha', 'Ya no quedan horas para reservar ese día. Prueba otro día o llámanos.');
+      hora.disabled = true; hora.add(new Option('Sin horas disponibles', ''));
+      return;
+    }
+    error('fecha');
+    hora.disabled = false;
+    hora.add(new Option('Elige la hora', ''));
+    grupos.forEach(g => {
+      const og = document.createElement('optgroup');
+      og.label = g.turno;
+      g.horas.forEach(h => og.append(new Option(h, h)));
+      hora.append(og);
+    });
+    if ([...hora.options].some(o => o.value === previa)) hora.value = previa;
+  };
+  fecha.addEventListener('change', rellenarHoras);
+  rellenarHoras();
+  hora.addEventListener('change', () => error('hora'));
+
+  form.addEventListener('change', e => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === 'personas') {
+      const mucho = t.value === 'mas';
+      grupo.hidden = !mucho;
+      boton.disabled = mucho;
+    }
+  });
+
+  const validar = () => {
+    const d = new FormData(form);
+    let ok = true;
+    if (!fecha.value) ok = error('fecha', 'Elige un día.') && ok;
+    if (!hora.value) ok = error('hora', 'Elige una hora.') && ok;
+    ok = error('nombre', String(d.get('nombre') ?? '').trim().length < 2 ? 'Dinos tu nombre.' : '') && ok;
+    const tel = String(d.get('telefono') ?? '').replace(/[\s.-]/g, '');
+    ok = error('telefono', /^\+?\d{9,15}$/.test(tel) ? '' : 'Escribe un teléfono válido (9 cifras).') && ok;
+    ok = error('privacidad', d.get('privacidad') ? '' : 'Necesitamos tu consentimiento para gestionar la reserva.') && ok;
+    return ok;
+  };
+
+  /* Confirmación */
+  const dialogo = document.querySelector<HTMLDialogElement>('[data-confirmacion]')!;
+  const q = (s: string) => dialogo.querySelector<HTMLElement>(s)!;
+  q('[data-conf-cerrar]').addEventListener('click', () => dialogo.close());
+
+  const escapar = (s: string) => s.replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validar()) {
+      form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      return;
+    }
+    const d = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const resumen = {
+      Día: fechaLarga(d.fecha),
+      Hora: d.hora,
+      Personas: d.personas,
+      Nombre: d.nombre.trim(),
+      Teléfono: d.telefono.trim(),
+      ...(d.notas?.trim() && { Comentarios: d.notas.trim() }),
+    };
+    const texto = `Hola, quiero reservar en ${cfg.nombre}:\n` + Object.entries(resumen).map(([k, v]) => `• ${k}: ${v}`).join('\n');
+
+    q('[data-conf-resumen]').innerHTML = Object.entries(resumen)
+      .map(([k, v]) => `<div>${k}: <strong>${escapar(String(v))}</strong></div>`).join('');
+    const llamar = q('[data-conf-llamar]') as HTMLAnchorElement;
+    llamar.hidden = false;
+
+    if (cfg.endpoint) {
+      boton.disabled = true; textoBoton.textContent = 'Enviando…';
+      try {
+        const r = await fetch(cfg.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ ...resumen, _subject: `Reserva ${resumen.Día} ${resumen.Hora} (${resumen.Personas} pers.)` }) });
+        if (!r.ok) throw new Error(String(r.status));
+        q('[data-conf-titulo]').textContent = '¡Solicitud enviada!';
+        q('[data-conf-texto]').textContent = `Te confirmaremos la reserva por teléfono. Si es para hoy, mejor llámanos al ${cfg.telefono}.`;
+        llamar.hidden = true;
+        form.reset(); rellenarHoras();
+      } catch {
+        q('[data-conf-titulo]').textContent = 'No se ha podido enviar';
+        q('[data-conf-texto]').textContent = `Por favor, llámanos al ${cfg.telefono} y te reservamos al momento.`;
+      } finally {
+        boton.disabled = false; textoBoton.textContent = 'Solicitar reserva';
+      }
+    } else if (cfg.whatsapp) {
+      q('[data-conf-titulo]').textContent = 'Te llevamos a WhatsApp';
+      q('[data-conf-texto]').textContent = 'Envía el mensaje que hemos preparado y te confirmaremos la reserva.';
+      window.open(`https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+    } else if (cfg.email) {
+      q('[data-conf-titulo]').textContent = 'Revisa tu correo';
+      q('[data-conf-texto]').textContent = 'Hemos preparado el email con tu reserva: solo tienes que enviarlo.';
+      location.href = `mailto:${cfg.email}?subject=${encodeURIComponent(`Reserva ${resumen.Día} · ${resumen.Hora}`)}&body=${encodeURIComponent(texto)}`;
+    } else {
+      q('[data-conf-titulo]').textContent = '¡Casi listo!';
+      q('[data-conf-texto]').textContent = `Llámanos al ${cfg.telefono} con estos datos y te confirmamos la mesa al momento.`;
+    }
+    dialogo.showModal();
+  });
+</script>
