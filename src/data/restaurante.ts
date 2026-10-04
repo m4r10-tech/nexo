@@ -175,13 +175,12 @@ export const CARTA: Seccion[] = [
 export type FotoGaleria = { foto: string; titulo: string; alt: string; ancha?: boolean };
 
 export const GALERIA: FotoGaleria[] = [
-  { foto: 'sala', titulo: 'La sala', alt: 'Sala principal del restaurante NEXO by Martina' },
-  { foto: 'terraza', titulo: 'La terraza', alt: 'Terraza del restaurante para comer al aire libre', ancha: true },
-  { foto: 'barra', titulo: 'La barra', alt: 'Barra del restaurante' },
-  { foto: 'plato-2', titulo: 'En la cocina', alt: 'Emplatado en la cocina de NEXO', ancha: true },
-  { foto: 'equipo', titulo: 'El equipo', alt: 'Equipo de NEXO by Martina' },
-  { foto: 'mesa', titulo: 'La mesa', alt: 'Mesa preparada para compartir', ancha: true },
-];
+  { foto: 'sala', titulo: 'La sala', alt: 'Sala con las letras NEXO enmarcadas, bancada con cojines y mesas montadas' },
+  { foto: 'hero', titulo: 'El salón y la barra', alt: 'Vista del salón con la barra, los barriles y el techo de madera', ancha: true },
+  { foto: 'rincon', titulo: 'El rincón', alt: 'Mesa junto a una pared de cajones metálicos antiguos y madera' },
+  { foto: 'mesa', titulo: 'Mesa para dos', alt: 'Mesa para dos con pared de azulejo verde y lámpara industrial', ancha: true },
+  { foto: 'techo', titulo: 'El techo', alt: 'Techo artesonado de madera con espejos y el botellero al fondo' },
+]
 
 /**
  * Analítica de visitas SIN cookies (Cloudflare Web Analytics, gratuita).

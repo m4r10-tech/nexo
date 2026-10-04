@@ -101,8 +101,8 @@ const textosServicio: Record<string, string> = {
         </dl>
       </div>
       <div class="concepto__fotos">
-        <Foto nombre="plato-1" alt="Plato de temporada de NEXO by Martina" class="concepto__grande" data-parallax="-0.06" data-tilt />
-        <Foto nombre="detalle" alt="Aceite de oliva, pan y sal para empezar" class="concepto__peque" data-parallax="0.1" data-tilt />
+        <Foto nombre="sala" alt="Rincón de la sala con las letras NEXO enmarcadas y mesas montadas" class="concepto__grande" data-parallax="-0.06" data-tilt />
+        <Foto nombre="mesa" alt="Mesa para dos bajo una lámpara industrial, con pared de azulejo verde" class="concepto__peque" data-parallax="0.1" data-tilt />
         <span class="sello" aria-hidden="true">
           <svg viewBox="0 0 200 200"><defs><path id="circulo" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
             <text textLength="486" lengthAdjust="spacing"><textPath href="#circulo" textLength="486" lengthAdjust="spacing">NEXO BY MARTINA · TOLEDO · COCINA DE TEMPORADA · </textPath></text>
@@ -216,7 +216,7 @@ const textosServicio: Record<string, string> = {
         <p class="lead reveal">Platos del día, novedades de temporada y la vida de la casa.</p>
       </div>
       <div class="insta__grid">
-        {['plato-1', 'tomate', 'terraza', 'croquetas'].map((f, i) => (
+        {['mesa', 'croquetas', 'rincon', 'tataki'].map((f, i) => (
           <a href={CONTACTO.instagram} target="_blank" rel="noopener" class="insta__item reveal" style={`--d:${i * 0.07}s`} aria-label="Ver en Instagram">
             <Foto nombre={f} alt="" sizes="(max-width: 640px) 50vw, 25vw" />
           </a>
@@ -248,7 +248,7 @@ const textosServicio: Record<string, string> = {
   .hero__panel :global(.hero__panel-foto) { height: 100%; border-radius: 4px; box-shadow: 0 40px 100px rgba(0,0,0,.55); outline: 1px solid rgba(243,236,226,.14); outline-offset: 10px; }
   .hero__panel :global(.hero__panel-foto img) { transform: scale(1.12); animation: zoom 16s var(--ease) forwards; }
   .hero__panel + .hero__velo { background: linear-gradient(90deg, rgba(20,17,15,.5) 0%, transparent 60%), linear-gradient(180deg, transparent 60%, rgba(20,17,15,.85) 100%); }
-  .hero__velo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.1) 38%, rgba(20,17,15,.94) 100%); }
+  .hero__velo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(20,17,15,.9) 0%, rgba(20,17,15,.7) 40%, rgba(20,17,15,.3) 75%, rgba(20,17,15,.2) 100%), linear-gradient(180deg, rgba(20,17,15,.55) 0%, transparent 25%, transparent 70%, rgba(20,17,15,.92) 100%); }
   .hero__luz {
     position: absolute; width: 56vmax; height: 56vmax; left: 70%; top: 30%; border-radius: 50%; translate: -50% -50%;
     background: radial-gradient(circle, rgba(200,149,92,.22), transparent 60%); pointer-events: none; mix-blend-mode: screen;
@@ -366,6 +366,10 @@ const textosServicio: Record<string, string> = {
     .hero__panel + .hero__velo { background: linear-gradient(180deg, rgba(20,17,15,.55) 0%, rgba(20,17,15,.62) 30%, rgba(20,17,15,.86) 60%, rgba(20,17,15,.97) 100%); }
     .hero--panel .hero__titulo .split { font-size: clamp(96px, 26vw, 200px); }
     .hero--panel .hero__lead { max-width: none; color: var(--ink); }
+  }
+  @media (max-width: 760px) {
+    .hero__velo { background: linear-gradient(180deg, rgba(20,17,15,.6) 0%, rgba(20,17,15,.66) 30%, rgba(20,17,15,.86) 60%, rgba(20,17,15,.97) 100%); }
+    .hero__lead { color: var(--ink); }
   }
   @media (max-width: 640px) {
     .hero__scroll { display: none; }

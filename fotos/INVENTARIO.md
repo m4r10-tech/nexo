@@ -32,4 +32,9 @@ Las fotos de esta carpeta (nivel superior) se optimizan con `npm run fotos` → 
 | `chipirones.jpg` | 4-oct-2026 | Chipirón frito con tierra negra (tinta) y alioli | Carta › Chipirones de Huelva | — |
 | `tataki.jpg` | 4-oct-2026 | Tataki de vaca en láminas con salsa | Carta › Tataki de vaca ibérica · Inicio | — |
 | `brochetas-pollo-2.jpg` | 4-oct-2026 | Brochetas de pollo con salsa y de verduras (otra vista) | — (reserva) | Repetidas en esta tanda: brochetas en pizarra y carpaccio (ya guardadas) |
-| `sala.png` | 4-oct-2026 | Sala sin gente: bancada, mesas montadas y letras N-E-X-O en la pared (395×657 px) | Portada (panel en escritorio, fondo en móvil) · Galería › La sala · Espacio · Imagen para WhatsApp | La mejor foto hasta ahora. Pedir en más resolución y alguna horizontal |
+| `pendientes/sala-baja-resolucion.png` | 4-oct-2026 | Sala con letras NEXO (395×657 px) | — (sustituida por la versión en alta) | — |
+| `hero.jpg` | 4-oct-2026 | Salón completo con la barra, los barriles, el techo de madera y las mesas montadas (1440×1920) | Portada a pantalla completa · Galería › El salón y la barra · Imagen para WhatsApp | Alta resolución ✓ |
+| `sala.jpg` | 4-oct-2026 | Letras N-E-X-O enmarcadas, bancada con cojines y mesas (1440×1920) | Inicio › Concepto (grande) · Galería › La sala | Alta resolución ✓ |
+| `rincon.jpg` | 4-oct-2026 | Mesa junto a la pared de cajones metálicos y navaja decorativa (1440×1920) | Galería › El rincón · Instagram | Alta resolución ✓ |
+| `mesa.jpg` | 4-oct-2026 | Mesa para dos con azulejo verde y lámpara industrial (1440×1920) | Inicio › Concepto (pequeña) · Galería · Instagram | Alta resolución ✓ |
+| `techo.jpg` | 4-oct-2026 | Techo artesonado con espejos y botellero (1440×1920) | Galería › El techo | Alta resolución ✓ |
