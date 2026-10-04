@@ -1,10 +1,10 @@
 ---
 import Legal from '../layouts/Legal.astro';
-import { LEGAL, SITIO } from '../data/restaurante';
+import { LEGAL, SITIO, CONTACTO, datoLegal } from '../data/restaurante';
 ---
 <Legal titulo="Política de privacidad" descripcion={`Política de privacidad de ${SITIO.nombre}: qué datos tratamos al gestionar tu reserva, para qué y cómo ejercer tus derechos.`}>
   <h2>Responsable del tratamiento</h2>
-  <p><strong>{LEGAL.titular}</strong> · NIF {LEGAL.nif} · {LEGAL.domicilio} · {LEGAL.email}</p>
+  <p><strong>{datoLegal(LEGAL.titular)}</strong> · NIF: {datoLegal(LEGAL.nif)} · {LEGAL.domicilio} · Tel. {CONTACTO.telefono}{LEGAL.email && ` · ${LEGAL.email}`}</p>
 
   <h2>Qué datos tratamos y para qué</h2>
   <table>
@@ -20,7 +20,7 @@ import { LEGAL, SITIO } from '../data/restaurante';
   <p>No cedemos tus datos a terceros salvo obligación legal. Pueden acceder a ellos proveedores que nos prestan servicios técnicos (alojamiento web, envío de formularios, mensajería), con los que tenemos firmados los contratos de encargo de tratamiento exigidos.</p>
 
   <h2>Tus derechos</h2>
-  <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad, y retirar tu consentimiento en cualquier momento, escribiendo a {LEGAL.email} o a la dirección indicada. Si consideras que no hemos atendido correctamente tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+  <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad, y retirar tu consentimiento en cualquier momento, {LEGAL.email ? `escribiendo a ${LEGAL.email}` : `llamando al ${CONTACTO.telefono}`} o por escrito a la dirección indicada. Si consideras que no hemos atendido correctamente tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
 
   <h2>Seguridad</h2>
   <p>El sitio funciona sobre conexión cifrada (HTTPS) y aplicamos medidas razonables para proteger tus datos.</p>

@@ -131,7 +131,7 @@ export const CARTA: Seccion[] = [
     platos: [
       { nombre: 'Salmorejo', descripcion: 'Frío, suave y cremoso.', precio: null, foto: 'salmorejo', etiqueta: 'Clásico' },
       { nombre: 'Croquetas de jamón de pato', descripcion: 'Caseras. Se sirven por unidades, mínimo media docena.', precio: 9, unidad: '6 uds.', foto: 'croquetas', etiqueta: 'Para compartir', destacado: true },
-      { nombre: 'Empanadillas de rabo de toro', descripcion: 'Empanadillas caseras rellenas de rabo de toro.', precio: null, foto: 'empanadillas', etiqueta: 'De la casa', destacado: true },
+      { nombre: 'Empanadillas de rabo de toro', descripcion: 'Empanadillas caseras rellenas de rabo de toro.', precio: null, foto: 'empanadillas', etiqueta: 'De la casa' },
       { nombre: 'Ensalada de solomillo de pollo', descripcion: 'Ensalada fresca con solomillo de pollo.', precio: null, foto: 'ensalada' },
       { nombre: 'Carpaccio de vaca', descripcion: 'Láminas finas de vaca con aceite y lascas, servido en tabla.', precio: null, foto: 'carpaccio', etiqueta: 'Para compartir', destacado: true },
       { nombre: 'Tomate partido', descripcion: 'Tomate de temporada, buen aceite y sal en escamas.', precio: null, foto: 'tomate', etiqueta: 'Huerta' },
@@ -141,7 +141,7 @@ export const CARTA: Seccion[] = [
     id: 'del-mar',
     titulo: 'Del mar',
     platos: [
-      { nombre: 'Ceviche de salmón', descripcion: 'Fresco, cítrico y con un punto picante.', precio: 13.9, foto: 'ceviche', etiqueta: 'Fresco', destacado: true },
+      { nombre: 'Ceviche de salmón', descripcion: 'Fresco, cítrico y con un punto picante.', precio: 13.9, foto: 'ceviche', etiqueta: 'Fresco' },
       { nombre: 'Chipirones de Huelva', descripcion: 'Chipirón de la costa onubense.', precio: null, foto: 'chipirones', etiqueta: 'Mar' },
       { nombre: 'Lomos de atún', descripcion: 'Atún marcado en su punto, con salsa y flores comestibles.', precio: null, foto: 'atun', etiqueta: 'Autor', destacado: true },
       { nombre: 'Sepia a la andaluza', descripcion: 'Fritura ligera y limón.', precio: null, foto: 'sepia' },
@@ -151,7 +151,7 @@ export const CARTA: Seccion[] = [
     id: 'de-la-tierra',
     titulo: 'De la tierra',
     platos: [
-      { nombre: 'Brochetas de ciervo', descripcion: 'Caza de la tierra, a la brasa.', precio: 4, unidad: 'ud.', foto: 'brochetas', etiqueta: 'Brasa', destacado: true },
+      { nombre: 'Brochetas de ciervo', descripcion: 'Caza de la tierra, a la brasa.', precio: 4, unidad: 'ud.', foto: 'brochetas', etiqueta: 'Brasa' },
       { nombre: 'Chuletón de vaca madurada', descripcion: 'Se trincha en la mesa, sobre tabla de madera. Para compartir.', precio: null, foto: 'chuleton', etiqueta: 'Para compartir', destacado: true },
       { nombre: 'Brochetas de vaca madurada', descripcion: 'Carne de vaca con maduración, a la brasa.', precio: null, foto: 'brochetas-vaca', etiqueta: 'Brasa' },
       { nombre: 'Brochetas de pollo y verduras', descripcion: 'A la plancha, con calabacín y tomate.', precio: null, foto: 'brochetas-pollo' },
@@ -194,10 +194,14 @@ export const SERVICIOS = ['En sala', 'Terraza', 'Para llevar', 'A domicilio'] as
  * Obligatorios por la LSSI-CE. Rellenar con los datos del titular del negocio.
  */
 export const LEGAL = {
-  titular: '[Nombre o razón social del titular]',
-  nif: '[NIF / CIF]',
+  /** Vacío = se muestra «pendiente de completar». */
+  titular: '' as string,
+  nif: '' as string,
   domicilio: `${CONTACTO.direccion.calle}, ${CONTACTO.direccion.cp} ${CONTACTO.direccion.ciudad}`,
-  email: '[email de contacto]',
-  registro: '[Datos registrales, si es sociedad]',
+  email: '' as string,
+  registro: '' as string,
   actualizado: '2026-10-04',
 } as const;
+
+/** Muestra un dato legal o el aviso de que falta. */
+export const datoLegal = (v: string) => v || 'Pendiente de completar por el titular';

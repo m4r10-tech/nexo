@@ -7,17 +7,13 @@
 | [`02-mantenimiento.md`](02-mantenimiento.md) | Planes mensuales y cuánto trabajo te suponen | La tabla sí |
 | [`propuesta-nexo.pdf`](propuesta-nexo.pdf) | Propuesta de 5 páginas para imprimir o enviar por WhatsApp | **Sí** |
 | [`vendedor.json`](vendedor.json) | Tus datos para la propuesta | — |
+| [`demo-nexo.zip`](demo-nexo.zip) | **La demo lista para subir** a Netlify Drop (versión no indexable) | Se enseña el enlace |
 
-## Antes de la visita, en 4 comandos
+## Antes de la visita (lo único que falta)
 
-```bash
-# 1. Pon tus datos (nombre, teléfono, email y enlace de la demo) en docs/venta/vendedor.json
-# 2. Copia fotos en /fotos (ver fotos/LEEME.md) y optimízalas
-npm run fotos
-# 3. Genera la demo (no indexable) y súbela arrastrando dist/ a app.netlify.com/drop
-npm run build:demo
-# 4. Regenera la propuesta con tus datos, el enlace y las fotos nuevas
-npm run propuesta
-```
+1. Descomprime `demo-nexo.zip` y arrastra la carpeta a [app.netlify.com/drop](https://app.netlify.com/drop) → tendrás el enlace de la demo.
+2. Rellena `vendedor.json` (nombre, teléfono, email y ese enlace) y ejecuta `npm run build && npm run propuesta`.
+3. Imprime 2 copias de `propuesta-nexo.pdf`.
+4. Lee `03-guion-visita.md`. **Ojo: los lunes cierran.**
 
 > Para la web definitiva (después del «sí») usa `npm run build`, no `build:demo`.

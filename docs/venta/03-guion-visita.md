@@ -7,19 +7,21 @@
 
 ## ANTES DE IR (el día anterior)
 
-### 1. Ponle fotos reales a la demo ← lo más importante
-Con los marcadores de color la web está bien. **Con sus fotos, se enamoran.** Para la demo privada:
-1. Guarda en tu ordenador 8–10 fotos de su [Instagram](https://www.instagram.com/nexobymartina/) y de su ficha de Google Maps: platos, sala, terraza.
-2. Renómbralas como indica [`fotos/LEEME.md`](../../fotos/LEEME.md) (`hero.jpg`, `croquetas.jpg`, `terraza.jpg`…) y cópialas en `fotos/`.
-3. `npm run fotos` y después `npm run dev` para comprobar cómo queda.
+### 1. Las fotos ya están puestas ✓
+La demo ya lleva **sus fotos reales**: el salón con la barra, las letras NEXO, el rincón de los cajones, el techo y 10 platos de la carta.
+Los 9 platos sin foto se muestran sin círculo, así que no se nota que falte nada.
 
-> ⚠️ Esas fotos son suyas: úsalas **solo para enseñarles la demo a ellos**. No publiques la web con sus fotos ni su marca antes de que acepten. Por eso existe el modo demo (siguiente paso), que **no aparece en Google**.
+> ⚠️ Son fotos suyas: úsalas **solo para enseñarles la demo**. No publiques la web definitiva antes de que acepten. Por eso la demo está en modo **no indexable** (no aparece en Google).
 
-### 2. Ten un enlace para abrirla en SU móvil
-1. `npm run build:demo`
-2. Entra en [app.netlify.com/drop](https://app.netlify.com/drop) y arrastra la carpeta `dist/`.
-3. Te da un enlace del tipo `https://nombre-raro-123.netlify.app`. En «Site settings» puedes cambiarle el nombre a `nexo-demo.netlify.app`.
-4. **Pruébalo en tu móvil con datos (sin wifi)** y mándatelo por WhatsApp a ti mismo: tiene que salir la vista previa con la imagen de NEXO.
+### 2. Súbela para tener un enlace en el móvil (5 minutos)
+La demo ya está empaquetada en **`docs/venta/demo-nexo.zip`**.
+1. Descomprime `demo-nexo.zip` en una carpeta (por ejemplo `demo-nexo`).
+2. Entra en [app.netlify.com/drop](https://app.netlify.com/drop) y **arrastra esa carpeta** a la página. No hace falta cuenta para probar; créala (gratis) para que el enlace no caduque.
+3. Te da un enlace del tipo `https://nombre-raro-123.netlify.app`. En «Site configuration › Change site name» ponle `nexo-demo`.
+4. **Pruébalo en tu móvil con datos (sin wifi)** y mándatelo por WhatsApp: tiene que salir la vista previa con la foto del salón.
+5. Pon el enlace en `docs/venta/vendedor.json` junto a tu nombre, teléfono y email, y ejecuta `npm run build && npm run propuesta` para que la propuesta en PDF los lleve.
+
+> Si cambias algo de la web, vuelve a generar el zip con `npm run build:demo` y arrastra de nuevo la carpeta `dist/`.
 
 ### 3. Lleva preparado
 - [ ] Móvil cargado, con el enlace abierto en una pestaña y el portátil o la tablet como respaldo
@@ -36,6 +38,9 @@ Busca «Nexo by Martina Toledo» en Google y en el móvil:
 ---
 
 ## CUÁNDO IR
+
+> 🚨 **Los lunes NEXO cierra** (así aparece en todas las fuentes que se consultaron). Si pensabas ir el lunes, lo más probable es que te encuentres la puerta cerrada.
+> Mejor: **llama el lunes por la mañana** al 925 29 84 38, pregunta por Martina y pide 10 minutos para el martes a las 17:30. Así ya vas con cita.
 
 - **Entre servicios: de martes a jueves, entre las 17:15 y las 19:00.** Cierran a las 17:00 y vuelven a abrir a las 20:00.
 - **Nunca** en hora de comidas o cenas, ni viernes o sábado por la noche.

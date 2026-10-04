@@ -1,17 +1,17 @@
 ---
 import Legal from '../layouts/Legal.astro';
-import { LEGAL, SITIO, CONTACTO } from '../data/restaurante';
+import { LEGAL, SITIO, CONTACTO, datoLegal } from '../data/restaurante';
 ---
 <Legal titulo="Aviso legal" descripcion={`Aviso legal del sitio web de ${SITIO.nombre}: datos del titular, condiciones de uso, propiedad intelectual y responsabilidad.`}>
   <h2>Datos identificativos</h2>
   <p>En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:</p>
   <ul>
-    <li><strong>Titular:</strong> {LEGAL.titular}</li>
-    <li><strong>NIF/CIF:</strong> {LEGAL.nif}</li>
+    <li><strong>Titular:</strong> {datoLegal(LEGAL.titular)}</li>
+    <li><strong>NIF/CIF:</strong> {datoLegal(LEGAL.nif)}</li>
     <li><strong>Domicilio:</strong> {LEGAL.domicilio}</li>
     <li><strong>Teléfono:</strong> {CONTACTO.telefono}</li>
-    <li><strong>Email:</strong> {LEGAL.email}</li>
-    <li><strong>Datos registrales:</strong> {LEGAL.registro}</li>
+    <li><strong>Email:</strong> {datoLegal(LEGAL.email)}</li>
+    <li><strong>Datos registrales:</strong> {datoLegal(LEGAL.registro)}</li>
   </ul>
 
   <h2>Objeto</h2>

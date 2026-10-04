@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Foto from '../components/Foto.astro';
 import BandaReserva from '../components/BandaReserva.astro';
 import { CARTA, ALERGENOS, SITIO, CONTACTO, MENU_DIA } from '../data/restaurante';
+import { buscarFoto } from '../lib/medios';
 
 const precio = (p: number | null) =>
   p == null ? null : new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: p % 1 ? 2 : 0 }).format(p);
@@ -62,7 +63,7 @@ const schema = {
         <ul class="lista">
           {s.platos.map((p, i) => (
             <li class="item reveal" style={`--d:${i * 0.06}s`}>
-              {p.foto && <Foto nombre={p.foto} alt={p.nombre} class="item__foto" sizes="120px" />}
+              {p.foto && buscarFoto(p.foto) && <Foto nombre={p.foto} alt={p.nombre} class="item__foto" sizes="120px" />}
               <div class="item__txt">
                 <h3>
                   <span>{p.nombre}</span>
