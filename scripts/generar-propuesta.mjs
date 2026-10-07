@@ -161,7 +161,7 @@ thead th { font-family: Cormorant, serif; font-size: 14pt; font-weight: 500; }
         <li><strong>Reservas online</strong> que solo permiten días y horas en que abrís</li>
         <li>Optimizada para <strong>Google</strong>: horario, carta y ubicación legibles por el buscador</li>
         <li>Vista previa con vuestra imagen al compartirla por <strong>WhatsApp</strong></li>
-        <li>Sin cookies de terceros ni banner molesto</li>
+        <li><strong>Mapa de Google</strong>: un toque y abre vuestra ficha para llegar</li>
         <li>La web y el dominio son <strong>vuestros</strong></li>
       </ul>
     </div>

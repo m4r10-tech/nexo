@@ -1,59 +1,31 @@
 ---
 /**
- * Mapa con carga bajo demanda: Google Maps solo se carga cuando el usuario lo pide.
- * Así la web no instala cookies de terceros sin consentimiento y carga más rápido.
+ * Mapa de Google con la ubicación del local. Se ve directamente y, al pincharlo,
+ * abre la ficha del restaurante en Google Maps (nueva pestaña).
+ * El iframe no recibe clics: todo el mapa es un enlace.
  */
-import { CONTACTO, mapsEmbedUrl, mapsComoLlegarUrl } from '../data/restaurante';
-import Anillos from './Anillos.astro';
+import { CONTACTO, SITIO, mapsEmbedUrl, mapsLugarUrl } from '../data/restaurante';
 const { calle, cp, ciudad } = CONTACTO.direccion;
 ---
-<div class="mapa" data-mapa data-src={mapsEmbedUrl}>
-  <div class="mapa__fachada">
-    <div class="mapa__grid" aria-hidden="true"></div>
-    <div class="mapa__pin" aria-hidden="true"><Anillos /></div>
-    <div class="mapa__info">
-      <p class="mapa__dir">{calle}<br /><span>{cp} {ciudad}</span></p>
-      <div class="btn-row">
-        <button type="button" class="btn btn--small" data-mapa-cargar>Ver mapa</button>
-        <a class="btn btn--small btn--ghost" href={mapsComoLlegarUrl} target="_blank" rel="noopener">Cómo llegar ↗</a>
-      </div>
-      <p class="mapa__aviso">Al ver el mapa se cargará contenido de Google Maps.</p>
-    </div>
-  </div>
-</div>
+<a class="mapa" href={mapsLugarUrl} target="_blank" rel="noopener" data-mapa
+   aria-label={`Abrir ${SITIO.nombre} (${calle}, ${cp} ${ciudad}) en Google Maps`}>
+  <iframe src={mapsEmbedUrl} title={`Mapa: ${SITIO.nombre}, ${calle}, ${ciudad}`} loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" tabindex="-1" aria-hidden="true"></iframe>
+  <span class="mapa__etiqueta">
+    <span class="mapa__dir">{calle} · {cp} {ciudad}</span>
+    <span class="mapa__abrir">Abrir en Google Maps ↗</span>
+  </span>
+</a>
 
 <style>
-  .mapa { position: relative; height: clamp(360px, 48vw, 540px); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--bg-3); }
-  .mapa__fachada { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; }
-  .mapa__grid {
-    position: absolute; inset: 0; opacity: .5;
-    background:
-      radial-gradient(circle at 50% 42%, rgba(200,149,92,.25), transparent 45%),
-      repeating-linear-gradient(0deg, transparent 0 46px, rgba(243,236,226,.05) 46px 47px),
-      repeating-linear-gradient(90deg, transparent 0 46px, rgba(243,236,226,.05) 46px 47px),
-      linear-gradient(115deg, transparent 48%, rgba(243,236,226,.08) 48% 50%, transparent 50%),
-      linear-gradient(25deg, transparent 60%, rgba(243,236,226,.06) 60% 61.5%, transparent 61.5%);
+  .mapa { position: relative; display: block; height: clamp(360px, 48vw, 540px); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--bg-3); }
+  .mapa iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; filter: saturate(.85); transition: filter .5s var(--ease); }
+  .mapa:hover iframe, .mapa:focus-visible iframe { filter: none; }
+  .mapa__etiqueta {
+    position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px;
+    padding: 14px 18px; border-radius: var(--radius); background: rgba(20,17,15,.88); backdrop-filter: blur(6px); color: var(--ink); font-size: 14px;
   }
-  .mapa__pin { position: relative; width: 70px; margin: 0 auto 18px; animation: flotar 3s ease-in-out infinite; }
-  .mapa__info { position: relative; }
-  .mapa__dir { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); line-height: 1.15; margin-bottom: 22px; }
-  .mapa__dir span { font-size: .6em; color: var(--muted); font-style: italic; }
-  .mapa__info .btn-row { justify-content: center; }
-  .mapa__aviso { margin-top: 16px; font-size: 12px; color: var(--muted); }
-  .mapa :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  @keyframes flotar { 50% { transform: translateY(-8px); } }
+  .mapa__dir { font-family: var(--serif); font-size: 19px; }
+  .mapa__abrir { color: var(--accent); transition: transform .4s var(--ease); }
+  .mapa:hover .mapa__abrir, .mapa:focus-visible .mapa__abrir { transform: translateX(3px); }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-mapa]').forEach(mapa => {
-    mapa.querySelector('[data-mapa-cargar]')?.addEventListener('click', () => {
-      const iframe = document.createElement('iframe');
-      iframe.src = mapa.dataset.src!;
-      iframe.title = 'Mapa de ubicación del restaurante';
-      iframe.loading = 'lazy';
-      iframe.referrerPolicy = 'no-referrer-when-downgrade';
-      mapa.querySelector('.mapa__fachada')?.remove();
-      mapa.append(iframe);
-    });
-  });
-</script>

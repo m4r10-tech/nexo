@@ -152,11 +152,14 @@ try {
     await pagina.click('.persona--mas');
     comprobar(await pagina.locator('[data-grupo]').isVisible() && await pagina.locator('button[type=submit]').isDisabled(), 'reservas: grupos grandes no redirigen a llamar');
 
-    // Mapa bajo demanda
-    await pagina.goto(url + '/contacto', { waitUntil: 'networkidle' });
-    comprobar(await pagina.locator('iframe').count() === 0, 'contacto: el mapa se carga sin permiso');
-    await pagina.click('[data-mapa-cargar]');
-    comprobar(await pagina.locator('[data-mapa] iframe').count() === 1, 'contacto: el mapa no se carga al pulsar');
+    // Mapa visible que enlaza a la ficha de Google Maps
+    for (const ruta of ['/', '/contacto']) {
+      await pagina.goto(url + ruta, { waitUntil: 'domcontentloaded' });
+      const mapa = pagina.locator('a[data-mapa]');
+      comprobar(await mapa.locator('iframe[src*="google.com/maps"]').count() === 1, `${ruta}: no se ve el mapa de Google`);
+      const destino = await mapa.getAttribute('href');
+      comprobar(destino?.startsWith('https://www.google.com/maps/search/') && destino.includes('Reino%20Unido') && await mapa.getAttribute('target') === '_blank', `${ruta}: el mapa no lleva a Google Maps`);
+    }
 
     await ctx.close();
   }

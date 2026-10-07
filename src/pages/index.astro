@@ -5,6 +5,7 @@ import Estado from '../components/Estado.astro';
 import TablaHorario from '../components/TablaHorario.astro';
 import BandaReserva from '../components/BandaReserva.astro';
 import Anillos from '../components/Anillos.astro';
+import Mapa from '../components/Mapa.astro';
 import { CARTA, GALERIA, CONTACTO, SERVICIOS, mapsComoLlegarUrl } from '../data/restaurante';
 import { buscarFoto, buscarVideo } from '../lib/medios';
 
@@ -203,6 +204,7 @@ const textosServicio: Record<string, string> = {
         </div>
       </div>
       <div class="reveal"><TablaHorario /></div>
+      <div class="horario-home__mapa reveal"><Mapa /></div>
     </div>
   </section>
 
@@ -350,6 +352,7 @@ const textosServicio: Record<string, string> = {
   .horario-home__estado { margin: 6px 0 28px; padding: 24px 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
   .horario-home__dir { color: var(--muted); margin-bottom: 30px; }
   .horario-home__dir a { color: var(--ink); }
+  .horario-home__mapa { grid-column: 1 / -1; }
 
   /* ── Instagram ── */
   .insta__cabecera { display: flex; justify-content: space-between; align-items: end; gap: 30px; max-width: none; flex-wrap: wrap; }

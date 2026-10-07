@@ -84,7 +84,7 @@ Mándale el enlace por WhatsApp o enséñale un QR. **Que la toque ella.** Ve gu
 ### 4. Valor antes que precio (1 minuto)
 
 - *«Es vuestra: la web y el dominio están a vuestro nombre. No alquiláis nada.»*
-- *«Cumple la ley: aviso legal, privacidad y cookies. Ni siquiera necesita el banner de cookies.»*
+- *«Cumple la ley: aviso legal, privacidad y cookies. Y en el mapa, un toque y os abre Google Maps para llegar.»*
 - *«Rapidísima en el móvil, que es desde donde os busca casi todo el mundo.»*
 - *«Y yo me encargo de todo: cambios de carta, festivos, vacaciones de agosto… un WhatsApp y listo.»*
 

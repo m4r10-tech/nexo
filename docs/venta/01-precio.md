@@ -15,9 +15,9 @@ No es «una página». Es una web a medida que, hecha por una agencia, se presup
 | Carta, galería, contacto, preguntas frecuentes                           | ✓             | ✓                | ✓            |
 | SEO local (datos estructurados de Google, sitemap, imagen para WhatsApp) | parcial       | parcial          | ✓            |
 | Google Lighthouse 95–100 (rapidez, accesibilidad, SEO)                   | 50–70         | 60–85            | **95–100**   |
-| Aviso legal, privacidad y cookies (LSSI/RGPD), sin banner de cookies     | ✗             | a veces          | ✓            |
+| Aviso legal, privacidad y cookies (LSSI/RGPD), sin cookies propias       | ✗             | a veces          | ✓            |
 | El cliente es dueño de su web y su dominio                               | ✗ (alquiler)  | depende          | ✓            |
-| Pruebas automáticas (227 comprobaciones)                                 | ✗             | ✗                | ✓            |
+| Pruebas automáticas (231 comprobaciones)                                 | ✗             | ✗                | ✓            |
 
 ## 2. Precios recomendados (Toledo, 2026, IVA no incluido)
 

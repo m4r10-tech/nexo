@@ -35,11 +35,13 @@ export const CONTACTO = {
     pais: 'ES',
   },
   /** Coordenadas exactas del pin de Google Maps (opcional, mejora el SEO local). Ej: { lat: 39.86, lng: -4.03 } */
-  geo: null as { lat: number; lng: number } | null,
+  geo: { lat: 39.88189, lng: -4.03332 } as { lat: number; lng: number } | null,
   mapsBusqueda: 'NEXO By Martina, Calle Reino Unido 2, 45005 Toledo',
 } as const;
 
 export const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(CONTACTO.mapsBusqueda)}&z=16&output=embed`;
+/** Abre la ficha del local en Google Maps (al pinchar en el mapa). */
+export const mapsLugarUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACTO.mapsBusqueda)}`;
 export const mapsComoLlegarUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CONTACTO.mapsBusqueda)}`;
 
 /**

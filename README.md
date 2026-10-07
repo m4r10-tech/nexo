@@ -40,7 +40,7 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 | `npm run preview`    | Sirve `dist/` para verla como quedará publicada |
 | `npm run fotos`      | Optimiza las fotos de `fotos/` y las guarda en `public/img/` (WebP en 480, 720, 1080 y 1600 px) |
 | `npm run recursos`   | Regenera favicons e imagen para redes (`public/og.jpg`). Necesita `build` antes |
-| `npm test`           | Pruebas de extremo a extremo con navegador real (227 comprobaciones). Necesita `build` antes |
+| `npm test`           | Pruebas de extremo a extremo con navegador real (231 comprobaciones). Necesita `build` antes |
 | `npm run propuesta`  | Genera el PDF de la propuesta comercial (`docs/venta/`) |
 
 > `npm test`, `recursos` y `propuesta` usan Chromium. Si es la primera vez: `npx playwright install chromium`.
@@ -64,8 +64,9 @@ En modo `dev`, cada foto que falte muestra el nombre del archivo que espera.
 **Negocio**
 - Indicador **«Abierto ahora / Cierra pronto / Cerrado»** con la hora de Toledo y el día de hoy resaltado
 - **Formulario de reservas inteligente:** no deja elegir lunes ni horas pasadas, propone solo horas válidas de cada turno, envía grupos grandes al teléfono y valida los datos
-- Mapa de Google **que solo se carga si el usuario lo pide** (sin cookies de terceros → no hace falta banner de cookies)
-- Fuentes alojadas en la propia web (sin Google Fonts) → más rápida y cumple el RGPD
+- **Mapa de Google** con la ubicación real del local en Inicio y Contacto: al pincharlo abre la ficha del restaurante en Google Maps
+- Fuentes alojadas en la propia web (sin Google Fonts) → más rápida y sin ceder datos a terceros
+- Ojo: el mapa lo sirve Google y puede instalar sus cookies (explicado en la política de cookies). Antes de publicar, valorar con el titular si se añade un aviso de cookies
 
 **SEO y legal**
 - Datos estructurados de Google (`Restaurant`, horario, `Menu`, `FAQPage`), sitemap, robots, canonical, Open Graph
